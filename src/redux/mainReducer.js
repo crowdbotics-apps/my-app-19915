@@ -1,23 +1,15 @@
-import { combineReducers } from "redux";
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
 
-/**
- * You can import more reducers here
- */
+// reducers
+import login from '../screens/Login/redux/reducer';
 
+const appPersistConfig = {
+  key: 'login',
+  storage: AsyncStorage,
+  timeout: null,
+};
 
-//@BlueprintReduxImportInsertion
-import SignIn11120009Reducer from '../features/SignIn11120009/redux/reducers'
-import SignUp12120008Reducer from '../features/SignUp12120008/redux/reducers'
-
-export const combinedReducers = combineReducers({
-  blank: (state, action) => {
-    if (state == null) state = [];
-    return state;
-  },
-
-
-  //@BlueprintReduxCombineInsertion
-SignIn11120009: SignIn11120009Reducer,
-SignUp12120008: SignUp12120008Reducer,
-
-});
+export default {
+  login: persistReducer(appPersistConfig, login),
+};

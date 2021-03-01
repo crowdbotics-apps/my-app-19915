@@ -1,19 +1,10 @@
-import { all, takeEvery, take } from "redux-saga/effects";
+import { all } from 'redux-saga/effects';
 
-
-//@BlueprintReduxSagaImportInsertion
-
-function* helloSaga() {
-  console.log("Hello from saga!");
-}
+// sagas
+import login from '../screens/Login/redux/sagas';
 
 export function* mainSaga() {
   yield all([
-    takeEvery("TEST/ALO", helloSaga),
-    // other sagas go here
-
-
-    //@BlueprintReduxSagaMainInsertion
-    
+    login
   ]);
 }
