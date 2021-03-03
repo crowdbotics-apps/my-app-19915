@@ -15,5 +15,5 @@ export function setupHttpConfig(callBack) {
   request.defaults.timeout = appConfig.defaultTimeout;
   axios.defaults.headers["Content-Type"] = "application/json";
 
-  callBack();
+  callBack(false);
 }

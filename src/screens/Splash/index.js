@@ -1,46 +1,14 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ImageBackground,
-} from 'react-native';
-import { Container } from 'native-base';
-
+import { ImageBackground, Image } from 'react-native';
 // components
-import { Global, Layout, Images, Gutters } from 'src/theme';
+import { Layout, Images } from 'src/theme';
 
 const SplashScreen = () => {
-  const { border, borderB, borderColor } = Global;
-  const {
-    fill,
-    center,
-  } = Layout;
-  const {
-    smallVPadding,
-    regularHMargin,
-    regularVPadding,
-  } = Gutters;
+  const { fill, center } = Layout;
   return (
-    <Container>
-      <View style={[center, border, borderColor]}>
-        <View
-          style={[
-            borderB,
-            borderColor,
-            regularHMargin,
-            regularVPadding,
-          ]}
-        >
-          {/* <Image source={Images.logos} /> */}
-        </View>
-        <Text style={[smallVPadding, { color: '#000' }]}>
-          WEDDING'S BEST
-        </Text>
-      </View>
-
-    </Container>
-  );
-};
-
+    <ImageBackground source={Images.loginbg} style={[fill, center]}>
+      <Image source={Images.logos} />
+    </ImageBackground>
+  )
+}
 export default SplashScreen;

@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 import { Colors } from 'src/theme';
 
 export default StyleSheet.create({
-  text14: {
-    fontSize: 20
+  icon: {
+    color: Colors.secondary
   },
   heading: {
     fontSize: 60,
@@ -22,15 +22,13 @@ export default StyleSheet.create({
   },
   buttonWrapper: {
     height: 60,
-    borderRadius: 80,
+    marginTop: 30,
+    borderRadius: 80
   },
-  checkBoxWrapper: {
+  backArrowWrapper: {
+    width: 44,
+    height: 44,
     borderRadius: 4,
-    marginRight: 22,
-    backgroundColor: Colors.white
-  },
-  bgColor: {
-    backgroundColor: Colors.nileblue
+    borderWidth: 2,
   }
-
 });

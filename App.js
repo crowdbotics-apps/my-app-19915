@@ -6,6 +6,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { Root } from 'native-base';
+import { StatusBar } from 'react-native'
 
 import FlashMessage from 'react-native-flash-message';
 
@@ -13,6 +14,7 @@ import SplashScreen from './src/screens/Splash';
 import { store } from './src/redux/store';
 import NavigatorProvider from './src/navigator';
 import { setupHttpConfig } from './src/utils/http';
+import { Colors } from 'src/theme'
 
 const persistor = persistStore(store);
 
@@ -21,6 +23,7 @@ const App = () => {
 
   useEffect(() => {
     loadAssets();
+    StatusBar.setBackgroundColor(Colors.primary)
   });
 
   const loadAssets = () => {

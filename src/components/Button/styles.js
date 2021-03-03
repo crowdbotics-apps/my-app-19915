@@ -17,16 +17,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
   },
   tertiary: {
-    color: Colors.bonJour,
+    color: Colors.cinnamon
   },
   tertiaryBg: {
-    backgroundColor: Colors.white,
-  },
-  quaternary: {
-    color: Colors.white,
-  },
-  quaternaryBg: {
-    backgroundColor: 'rgba(255,255,255,.3)',
+    backgroundColor: Colors.goldenrod
   },
   button: {
     height: 50,

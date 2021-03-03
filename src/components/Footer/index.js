@@ -11,65 +11,34 @@ import styles from './styles';
 
 const routes = [
   {
-    route: 'back',
     icon: 'caret-left',
     text: 'BACK',
     iconType: 'FontAwesome'
   },
   {
-    route: 'Dashboard',
     icon: 'format-list-bulleted',
     text: 'DASHBOARD',
     iconType: 'MaterialIcons'
   },
   {
-    route: 'MainMenu',
     icon: 'home',
     iconType: 'MaterialIcons'
   },
   {
-    route: 'CustomizePref',
     icon: 'tune',
     text: 'PREF',
     iconType: 'MaterialIcons'
   },
   {
-    route: 'forward',
     icon: 'caret-right',
     text: 'FORWARD',
     iconType: 'FontAwesome'
   },
 ];
 
-const Footer = ({ props, activeRoute }) => {
-  const { navigation: { replace } } = props
-
+const Footer = () => {
   const { footer, touch, icon } = styles;
   const { galleryBg, borderT, borderDustyGray } = Global
-
-  const onPressIcon = (route) => {
-    if (route === 'back') {
-      if (activeRoute === 'MainMenu'){
-        if (activeRoute !== 'Dashboard'){
-          replace('Dashboard');
-        }
-      }
-      if (activeRoute === 'CustomizePref'){
-        replace('MainMenu');
-      }
-    } else if (route === 'forward') {
-      if (activeRoute === 'Dashboard'){
-        replace('MainMenu');
-      }
-      if (activeRoute === 'MainMenu'){
-        replace('CustomizePref', { type: false });
-      }
-    } else if (route !== 'back' && route !== 'forward') {
-      replace(route, route === 'CustomizePref' && { type: false });
-    } else {
-      console.log('else');
-    }
-  }
 
   return (
     <NBFooter>
@@ -78,7 +47,6 @@ const Footer = ({ props, activeRoute }) => {
           <TouchableOpacity
             key={i}
             style={touch}
-            onPress={() => onPressIcon(screen.route)}
           >
             <Icon
               type={screen.iconType}
@@ -88,7 +56,7 @@ const Footer = ({ props, activeRoute }) => {
             <Text
               text={screen.text}
               color="tertiary"
-              style={{ fontSize: 10 }}
+              small
             />
           </TouchableOpacity>
         ))}

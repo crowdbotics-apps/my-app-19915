@@ -10,17 +10,13 @@ import { appConfig } from '../../../config/app';
 import XHR from '../../../utils/XHR';
 
 // types
-import { LOGIN, CHANGE_PASSWORD } from './types';
+import { LOGIN } from './types';
 
 // actions
 import {
   reset,
-  setAccessToken as setAccessTokeAction,
-  resetChangePassword,
+  setUserData
 } from './actions';
-
-// navigation
-import { navigate } from '../../../navigator/NavigationService';
 
 function loginAPI(data) {
   const URL = `${appConfig.backendServerURL}/api/v1/token/login/`;
@@ -37,13 +33,13 @@ function loginAPI(data) {
 
 function* login({ data }) {
   try {
-    const res = yield call(loginAPI, data);
-    yield put(reset());
-    AsyncStorage.setItem('accessToken', res.data.access);
+    const response = yield call(loginAPI, data);
+    const { user } = response;
 
-    yield put(setAccessTokeAction(res.data.access));
+    AsyncStorage.setItem('authToken', user);
+
+    yield put(setUserData(user));
   } catch (e) {
-    console.log('error', e.response);
     yield put(reset());
 
     showMessage({
@@ -53,41 +49,4 @@ function* login({ data }) {
   }
 }
 
-async function changePasswordAPI(data) {
-  const URL = `${appConfig.backendServerURL}/api/change-password`;
-  const accessToken = await AsyncStorage.getItem('accessToken');
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    method: 'POST',
-    data,
-  };
-
-  return XHR(URL, options);
-}
-
-function* changePassword({ data }) {
-  try {
-    const response = yield call(changePasswordAPI, data);
-    yield put(resetChangePassword());
-    showMessage({
-      message: response.data.message,
-      type: 'success',
-    });
-  } catch (e) {
-    const { response } = e;
-    yield put(resetChangePassword());
-    showMessage({
-      message: response ? response.data.message : appConfig.networkStatus,
-      type: 'danger',
-    });
-  }
-  goBack();
-}
-
-export default all([
-  takeLatest(LOGIN, login),
-  takeLatest(CHANGE_PASSWORD, changePassword),
-]);
+export default all([takeLatest(LOGIN, login)]);

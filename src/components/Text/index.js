@@ -18,8 +18,21 @@ const Text = ({
   numberOfLines,
   onPress,
   children,
+  small, regular, medium, large, smallTitle, regularTitle, largeTitle
 }) => {
-  const { textCenter, textLeft, textRight, textRegular, textUnderline } = Fonts
+  const {
+    textCenter,
+    textLeft,
+    textRight,
+    textRegular,
+    textSmall,
+    textMedium,
+    textLarge,
+    titleLarge,
+    titleSmall,
+    titleRegular,
+    textUnderline,
+  } = Fonts
 
   return (
     <UIKText
@@ -33,6 +46,13 @@ const Text = ({
         end && textRight,
         bold && styles.boldFont,
         color && styles[color],
+        small && textSmall,
+        regular && textRegular,
+        medium && textMedium,
+        large && textLarge,
+        smallTitle && titleSmall,
+        regularTitle && titleRegular,
+        largeTitle && titleLarge,
         style,
       ]}
       numberOfLines={numberOfLines && numberOfLines}

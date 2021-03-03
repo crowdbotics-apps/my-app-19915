@@ -6,37 +6,28 @@ import { FontSize } from './Variables';
 
 export default StyleSheet.create({
   textSmall: {
-    fontSize: FontSize.small, // 12
-  },
-  textCustomSmall: {
-    fontSize: FontSize.small + 4, // 16
+    fontSize: FontSize.small, // 10
   },
   textRegular: {
-    fontSize: FontSize.regular, // 14
+    fontSize: FontSize.regular, // 12
   },
-  textCustomRegular: {
-    fontSize: FontSize.regular + 7, // 21
-  },
-  textCustomLarge: {
-    fontSize: FontSize.large - 1, // 17
+  textMedium: {
+    fontSize: FontSize.medium, // 16
   },
   textLarge: {
     fontSize: FontSize.large, // 18
   },
   titleSmall: {
-    fontSize: FontSize.small * 2, // 24
+    fontSize: FontSize.small * 2, // 20
   },
   titleRegular: {
-    fontSize: FontSize.regular * 2, // 28
-  },
-  titleCustomRegular: {
-    fontSize: FontSize.medium * 2, // 32
+    fontSize: FontSize.regular * 2, // 24
   },
   titleLarge: {
     fontSize: FontSize.large * 2, // 36
   },
   titleXLarge: {
-    fontSize: FontSize.small * 4, // 48
+    fontSize: FontSize.small * 4, // 40
   },
   textCenter: {
     textAlign: 'center',

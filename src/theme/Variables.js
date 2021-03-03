@@ -12,23 +12,13 @@ export const Colors = {
   transparent: 'rgba(0,0,0,0)',
   white: '#ffffff',
   black: '#000000',
-  primary: '#023866',
-  darkGray: '#737272',
-  wildsand: '#F4F4F4',
-  dustygray: '#969696',
-  alto: '#D8D8D8',
-  grayCol: '#848484',
-  gallery: '#EFEFEF',
+  primary: '#07808F',
+  secondary: '#ffffff',
   deepsapphire: '#093766',
-  bluedianne: '#274860',
-  stiletto: '#A03535',
-  buddhagold: '#ADB600',
-  dell: '#377519',
-  clementine: '#EA6D00',
-  dovegray: '#6F6F6F',
+  cinnamon: '#795401',
+  nileblue: '#184653',
+  goldenrod: '#FFD46F',
 
-  blue: '#3a6ce5',
-  success: '#28a745',
   error: '#dc3545',
 }
 
@@ -36,8 +26,8 @@ export const Colors = {
  * FontSize
  */
 export const FontSize = {
-  small: 12,
-  regular: 14,
+  small: 10,
+  regular: 12,
   medium: 16,
   large: 18,
 }
@@ -50,12 +40,16 @@ const small = tiny * 2 // 10
 const small2x = small * 2 // 20
 const regular = tiny * 3 // 15
 const medium = regular * 2 // 30
+const mediumX = small2x * 2 // 40
 const large = regular * 3 // 45
+const largeX = mediumX + regular // 55
 export const MetricsSizes = {
   tiny,
   small,
   small2x,
   regular,
   medium,
+  mediumX,
   large,
+  largeX
 }
