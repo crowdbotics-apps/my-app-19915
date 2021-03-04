@@ -16,6 +16,12 @@ export default StyleSheet.create({
   secondaryBg: {
     backgroundColor: Colors.white
   },
+  tertiary: {
+    color: Colors.cinnamon
+  },
+  tertiaryBg: {
+    backgroundColor: Colors.goldenrod
+  },
   border: {
     borderWidth: 1,
   },

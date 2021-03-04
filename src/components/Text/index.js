@@ -15,6 +15,7 @@ const Text = ({
   bold,
   underlined,
   category,
+  lineHeight,
   numberOfLines,
   onPress,
   children,
@@ -32,6 +33,7 @@ const Text = ({
     titleSmall,
     titleRegular,
     textUnderline,
+    lineHeightWrpper
   } = Fonts
 
   return (
@@ -53,7 +55,8 @@ const Text = ({
         smallTitle && titleSmall,
         regularTitle && titleRegular,
         largeTitle && titleLarge,
-        style,
+        lineHeight && lineHeightWrpper,
+        style
       ]}
       numberOfLines={numberOfLines && numberOfLines}
     >

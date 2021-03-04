@@ -18,6 +18,7 @@ export const Colors = {
   cinnamon: '#795401',
   nileblue: '#184653',
   goldenrod: '#FFD46F',
+  viking: '#6ECFDC',
 
   error: '#dc3545',
 }

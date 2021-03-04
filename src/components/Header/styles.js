@@ -8,24 +8,13 @@ export default StyleSheet.create({
 
     transparent: { backgroundColor: 'transparent' },
 
-    primaryText: { color: Colors.white },
-
-    secondaryText: { color: Colors.black },
-
-    largeHeader: {
-        height: 70
-    },
-
-    roundedBg: {
-        backgroundColor: Colors.primary
-    },
     titleText: {
         fontSize: 20,
         lineHeight: 32
     },
 
     leftStyle: {
-        width: 30
+        width: 48
     },
 
     bodyStyle: {
@@ -34,6 +23,6 @@ export default StyleSheet.create({
     },
 
     rightStyle: {
-        width: 30
+        width: 48
     }
 });

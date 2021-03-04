@@ -271,7 +271,7 @@ const Register = props => {
           <View style={[center, regularVPadding]}>
             <Text color='secondary' smallTitle>
               Don’t have an account?  {''}
-              <Text text="Sign up now" color="primary" smallTitle />
+              <Text text="Sign In now" color="primary" smallTitle onPress={() => navigate('Login')} />
             </Text>
             <Text
               smallTitle

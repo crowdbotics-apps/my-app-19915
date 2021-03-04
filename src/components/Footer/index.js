@@ -1,62 +1,62 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Footer as NBFooter, FooterTab, Icon } from 'native-base';
+import React, { useState } from 'react';
+import { TouchableOpacity, Image } from 'react-native';
+import { Footer as NBFooter, FooterTab } from 'native-base';
 
 // components
 import { Text } from 'src/components';
-import { Global } from 'src/theme';
+import { Global, Gutters, Images } from 'src/theme';
 
 // styles
 import styles from './styles';
 
-const routes = [
-  {
-    icon: 'caret-left',
-    text: 'BACK',
-    iconType: 'FontAwesome'
-  },
-  {
-    icon: 'format-list-bulleted',
-    text: 'DASHBOARD',
-    iconType: 'MaterialIcons'
-  },
-  {
-    icon: 'home',
-    iconType: 'MaterialIcons'
-  },
-  {
-    icon: 'tune',
-    text: 'PREF',
-    iconType: 'MaterialIcons'
-  },
-  {
-    icon: 'caret-right',
-    text: 'FORWARD',
-    iconType: 'FontAwesome'
-  },
-];
-
 const Footer = () => {
-  const { footer, touch, icon } = styles;
-  const { galleryBg, borderT, borderDustyGray } = Global
+  const [active, setActive] = useState(0)
+  const { touch, footer } = styles;
+  const { transparentBg } = Global
+  const { smallVPadding } = Gutters
+
+  const routes = [
+    {
+      image: 'home',
+      text: 'Home'
+    },
+    {
+      image: 'goals',
+      text: 'Goals'
+    },
+    {
+      image: 'stats',
+      text: 'Stats'
+    },
+    {
+      image: 'games',
+      text: 'Games'
+    },
+    {
+      image: 'more',
+      text: 'More'
+    }
+  ];
 
   return (
-    <NBFooter>
-      <FooterTab style={[footer, galleryBg, borderT, borderDustyGray]}>
+    <NBFooter style={[transparentBg, footer]}>
+      <FooterTab style={transparentBg}>
         {routes.map((screen, i) => (
           <TouchableOpacity
             key={i}
             style={touch}
+            onPress={() => setActive(i)}
           >
-            <Icon
-              type={screen.iconType}
-              name={screen.icon}
-              style={icon}
+            <Image
+              source={Images[
+                `${screen.image}${active === i ? 'light' : 'dark'}`
+              ]}
             />
             <Text
               text={screen.text}
-              color="tertiary"
-              small
+              color={active === i ? "secondary" : "primary"}
+              medium
+              style={smallVPadding}
             />
           </TouchableOpacity>
         ))}
