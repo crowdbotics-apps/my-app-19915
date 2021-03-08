@@ -12,7 +12,7 @@ import {
   MenuIcon,
   CustomButton
 } from 'src/components';
-import { Layout, Images, Gutters } from 'src/theme';
+import { Layout, Images, Gutters, Colors } from 'src/theme';
 
 // styles
 import styles from './styles';
@@ -40,7 +40,10 @@ const Dashboard = () => {
                 <ProgressCircle
                   size={100}
                   progress={0.4}
+                  showsText={true}
+                  color={Colors.secondary}
                   formatText={() => '180s'}
+                  unfilledColor={Colors.viking}
                 />
               </View>
             </View>
@@ -50,7 +53,10 @@ const Dashboard = () => {
                 <ProgressCircle
                   size={100}
                   progress={0.4}
+                  showsText={true}
                   formatText={() => '24'}
+                  color={Colors.secondary}
+                  unfilledColor={Colors.viking}
                 />
               </View>
             </View>

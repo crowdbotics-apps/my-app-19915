@@ -18,6 +18,7 @@ const Text = ({
   lineHeight,
   numberOfLines,
   onPress,
+  smallTextX,
   children,
   small, regular, medium, large, smallTitle, regularTitle, largeTitle
 }) => {
@@ -33,6 +34,7 @@ const Text = ({
     titleSmall,
     titleRegular,
     textUnderline,
+    textSmallX,
     lineHeightWrpper
   } = Fonts
 
@@ -56,6 +58,7 @@ const Text = ({
         regularTitle && titleRegular,
         largeTitle && titleLarge,
         lineHeight && lineHeightWrpper,
+        smallTextX && textSmallX,
         style
       ]}
       numberOfLines={numberOfLines && numberOfLines}

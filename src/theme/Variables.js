@@ -19,6 +19,11 @@ export const Colors = {
   nileblue: '#184653',
   goldenrod: '#FFD46F',
   viking: '#6ECFDC',
+  towergray: '#A4BDC0',
+  carrotorange: '#EF9919',
+  offyellow: '#FEE0BA',
+  blacksqueeze: '#E8F2F7',
+  zumthor: '#EEF6FF',
 
   error: '#dc3545',
 }
@@ -38,6 +43,7 @@ export const FontSize = {
  */
 const tiny = 5 // 5
 const small = tiny * 2 // 10
+const smallX = small + 4 // 14
 const small2x = small * 2 // 20
 const regular = tiny * 3 // 15
 const medium = regular * 2 // 30
@@ -52,5 +58,6 @@ export const MetricsSizes = {
   medium,
   mediumX,
   large,
-  largeX
+  largeX,
+  smallX
 }

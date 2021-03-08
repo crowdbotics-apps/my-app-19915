@@ -2,19 +2,25 @@ import React from 'react'
 import * as Progress from 'react-native-progress';
 import { Colors } from 'src/theme'
 
-const ProgressCircle = ({ progress, size, formatText }) => {
+const ProgressCircle = ({
+  progress,
+  showsText,
+  size,
+  formatText,
+  color,
+  unfilledColor
+}) => {
 
   return (
     <Progress.Circle
-      showsText
       size={size}
       thickness={5}
-      progress={progress}
+      color={color}
       borderWidth={0}
-      indeterminate={false}
+      progress={progress}
+      showsText={showsText}
       formatText={formatText}
-      color={Colors.secondary}
-      unfilledColor={Colors.viking}
+      unfilledColor={unfilledColor}
     />
   )
 }

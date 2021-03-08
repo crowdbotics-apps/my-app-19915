@@ -7,15 +7,25 @@ import Footer from './Footer';
 import Avatar from './Avatar';
 import MenuIcon from "./Icons/MenuIcon";
 import CustomButton from "./CustomButton";
+import CardHeader from "./CardHeader";
+import SmileCountablity from "./SmileCountablity";
+import Chart from "./Chart";
+import Progress from "./Progress";
+import ChartBar from "./ChartBar";
 
 export {
   Text,
   Avatar,
   Footer,
-  ProgressCircle,
+  ChartBar,
+  Progress,
   Header,
   ErrorBox,
   Button,
   MenuIcon,
-  CustomButton
+  ProgressCircle,
+  Chart,
+  SmileCountablity,
+  CardHeader,
+  CustomButton,
 };

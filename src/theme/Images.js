@@ -16,6 +16,8 @@ export default {
   user: require('src/assets/images/user.png'),
   dashboard: require('src/assets/images/dashboard.png'),
   splash: require('src/assets/images/splash.png'),
+  progresicon: require('src/assets/images/progresicon.png'),
+  camera: require('src/assets/images/camera.png'),
 
   homelight: require('src/assets/images/home-light.png'),
   homedark: require('src/assets/images/home-dark.png'),

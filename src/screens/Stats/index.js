@@ -19,10 +19,10 @@ import { Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
 // styles
 import styles from './styles';
 
-const Goals = () => {
+const Stats = () => {
   const [active, setActive] = useState(6)
   const { row, fill, center, wrap, positionA, alignItemsCenter } = Layout;
-  const { mediumTMargin, mediumVMargin, mediumHMargin, mediumBPadding } = Gutters;
+  const { mediumTMargin, mediumVMargin, regularVMargin, mediumHMargin, mediumBPadding } = Gutters;
   const { dayWrapper, activeDayWrapper, dayStyle, textWrapper, text2Wrapper } = styles;
 
   const weeks = [
@@ -52,6 +52,17 @@ const Goals = () => {
             left={<MenuIcon />}
             right={<Avatar size='small' />}
           />
+          <View style={[
+            row,
+            wrap,
+            mediumHMargin,
+            regularVMargin,
+            alignItemsCenter,
+          ]}
+          >
+            <Text text='Statistics for ' color='secondary' regularTitle />
+            <Text text="week ..." color="octonary" regularTitle bold />
+          </View>
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
               {weeks.map((week, i) => (
@@ -83,72 +94,31 @@ const Goals = () => {
               ))}
             </View>
           </View>
-          <View style={[center, row, wrap, mediumHMargin, mediumVMargin]}>
-            <Text text='You have smiled  a total of' color='secondary' regularTitle />
-            <Text text="180 seconds " color="octonary" regularTitle bold />
-            <Text text="today " color="secondary" regularTitle />
-          </View>
-
-          <View style={[fill, center]}>
-            <View style={[center, mediumTMargin]}>
-              <ProgressCircle
-                size={264}
-                progress={0.6}
-                showsText={false}
-                color={Colors.secondary}
-                unfilledColor={Colors.viking}
-              />
-              <View style={[center, positionA]}>
-                <Text
-                  bold
-                  text='62%'
-                  color='secondary'
-                  style={textWrapper}
-                />
-                <Text
-                  bold
-                  color="secondary"
-                  text="of goals completed today"
-                  style={text2Wrapper}
-                />
-                <Image source={Images.progresicon} />
-              </View>
-            </View>
-          </View>
-          <CardHeader text='Smilestones' />
 
           <SmileCountablity
-            loadingWeek
             marginTop
-            cameraText
-            subText="180"
-            text='Smile seconds'
-            description="Total smile seconds by day"
-            iconDescription="Start smiling"
+            dateText
+            date="Saturday, 29.01"
+            text='Best smile day'
+            description="Day with highest number of smiles"
           />
           <SmileCountablity
-            loadingWeek
-            cameraText
-            subText="24"
-            text='Smile count'
-            description="Number of smiles by day"
-            iconDescription="Start smiling"
+            barChart
+            subText="5 days"
+            text='Recent smile streak'
+            description="Days in a row with at least one smile"
           />
           <SmileCountablity
-            lineChart
-            cameraText
-            subText="24s"
-            text='Length of smile'
-            description="Average duration of smiles"
-            iconDescription="Start smiling"
+            dateText
+            date="Saturday, 29.01"
+            text='Best smile streak'
+            description="Days with at least one smile"
           />
           <SmileCountablity
-            lineChart
-            cameraText
-            subText="32s"
-            text='Longest smile'
-            description="Single longest smile in seconds"
-            iconDescription="Start smiling"
+            barChart
+            subText="5 days"
+            text='Recent smile streak'
+            description="Days in a row with at least one smile"
           />
 
         </Content>
@@ -158,4 +128,4 @@ const Goals = () => {
   );
 };
 
-export default Goals
+export default Stats

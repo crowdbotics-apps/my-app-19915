@@ -4,8 +4,10 @@ import Register from './Register';
 import ResetPassword from './ResetPassword';
 import Dashboard from './Dashboard';
 import Goals from './Goals';
+import Stats from './Stats';
 
 export {
+  Stats,
   Goals,
   Dashboard,
   ResetPassword,

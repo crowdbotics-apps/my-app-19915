@@ -7,7 +7,8 @@ import {
   Register,
   ResetPassword,
   Dashboard,
-  Goals
+  Goals,
+  Stats
 } from 'src/screens';
 
 const authStack = createStackNavigator();
@@ -22,6 +23,7 @@ const AuthStackScreen = () => (
     <authStack.Screen name="ResetPassword" component={ResetPassword} />
     <authStack.Screen name="Dashboard" component={Dashboard} />
     <authStack.Screen name="Goals" component={Goals} />
+    <authStack.Screen name="Stats" component={Stats} />
   </authStack.Navigator>
 );
 
