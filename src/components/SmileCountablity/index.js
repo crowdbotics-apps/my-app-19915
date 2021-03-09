@@ -19,7 +19,15 @@ const SmileCountablity = ({
   lineChart,
   barChart,
   dateText,
-  date
+  date,
+  barChartData,
+  moneyIcon,
+  cameraIcon,
+  coloredText,
+  coloredDesc,
+  iconText,
+  iconTextSecond,
+  iconDescriptionSecond
 }) => {
   const { border, transparentBg, tertiaryBg, secondaryBg } = Global;
   const {
@@ -30,10 +38,10 @@ const SmileCountablity = ({
     tinyVPadding,
     smallVPadding,
     smallHPadding,
-    largeVPadding,
+    smallTPadding,
     mediumXTMargin,
   } = Gutters;
-  const { firstText, secondText, mainWrapper } = styles;
+  const { firstText, secondText, mainWrapper, iconTextWrapper } = styles;
   const { row, center, alignItemsCenter, justifyContentBetween } = Layout;
 
   const weeksData = [
@@ -94,8 +102,9 @@ const SmileCountablity = ({
         <Text text={text} color='primary' style={firstText} bold />
         <Text text={subText} color='primary' style={secondText} bold />
       </View>
-      <View style={[row, alignItemsCenter, tinyVPadding, justifyContentBetween]}>
-        <Text text={description} color='senary' medium bold />
+      <View style={[row, alignItemsCenter, tinyVPadding]}>
+        <Text text={description} color='senary' medium />
+        {coloredText && <Text text={coloredDesc} color='octonary' medium bold />}
       </View>
       {loadingWeek &&
         <View style={[alignItemsCenter, row, tinyVPadding, justifyContentBetween]}>
@@ -115,11 +124,14 @@ const SmileCountablity = ({
       }
       {lineChart && <Chart />}
       {barChart && <ChartBar />}
+      {barChartData && <ChartBar bar />}
       {dateText && <Text text={date} color='primary' style={[secondText, small2xVPadding]} bold />}
       {cameraText && (
-        <View style={[row, alignItemsCenter]}>
-          <Image source={Images.camera} />
-          <Text text={iconDescription} color='septenary' style={smallHPadding} medium bold />
+        <View style={[row, alignItemsCenter, smallTPadding]}>
+          {cameraIcon && <Image source={Images.camera} />}
+          {moneyIcon && <Image source={Images.money} />}
+          {iconDescription && <Text text={iconText} color='septenary' style={smallHPadding} medium bold />}
+          {iconDescriptionSecond && <Text text={iconTextSecond} color='septenary' style={smallHPadding} medium bold />}
         </View>
       )}
     </View>

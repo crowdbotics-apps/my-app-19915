@@ -7,14 +7,14 @@ import { Images, Layout } from 'src/theme';
 // styles
 import styles from './styles';
 
-const Avatar = ({ imageUrl, size, style }) => {
-  const { image } = styles;
+const Avatar = ({ imageUrl, size, style, round }) => {
+  const { image, rounded } = styles;
   const { alignItemsCenter } = Layout;
 
   return (
-    <View style={[alignItemsCenter, style && style]}>
+    <View style={[alignItemsCenter, round && rounded, style && style]}>
       <Image
-        style={[image, styles[size]]}
+        style={[image, round && rounded, styles[size]]}
         source={imageUrl ? { uri: imageUrl } : Images.user}
       />
     </View>

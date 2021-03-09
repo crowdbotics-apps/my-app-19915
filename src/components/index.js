@@ -12,11 +12,15 @@ import SmileCountablity from "./SmileCountablity";
 import Chart from "./Chart";
 import Progress from "./Progress";
 import ChartBar from "./ChartBar";
+import Card from "./Card";
+import GameCard from "./GameCard";
 
 export {
   Text,
   Avatar,
   Footer,
+  GameCard,
+  Card,
   ChartBar,
   Progress,
   Header,

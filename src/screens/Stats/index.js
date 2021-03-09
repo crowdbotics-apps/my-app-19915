@@ -50,7 +50,7 @@ const Stats = () => {
         <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={<MenuIcon />}
-            right={<Avatar size='small' />}
+            right={<Avatar size='regular' />}
           />
           <View style={[
             row,
@@ -109,6 +109,12 @@ const Stats = () => {
             description="Days in a row with at least one smile"
           />
           <SmileCountablity
+            barChartData
+            subText="24 days"
+            text='Recent smile streak'
+            description="Days in a row with at least one smile"
+          />
+          <SmileCountablity
             dateText
             date="Saturday, 29.01"
             text='Best smile streak'
@@ -117,6 +123,12 @@ const Stats = () => {
           <SmileCountablity
             barChart
             subText="5 days"
+            text='Recent smile streak'
+            description="Days in a row with at least one smile"
+          />
+          <SmileCountablity
+            barChartData
+            subText="24 days"
             text='Recent smile streak'
             description="Days in a row with at least one smile"
           />

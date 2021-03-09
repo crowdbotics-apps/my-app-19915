@@ -28,7 +28,7 @@ const Dashboard = () => {
         <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={<MenuIcon />}
-            right={<Avatar size='small' />}
+            right={<Avatar size='regular' />}
           />
           <View style={[fill, center]}>
             <Image source={Images.dashboard} style={dashboardImg} />

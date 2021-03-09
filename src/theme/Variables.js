@@ -24,6 +24,11 @@ export const Colors = {
   offyellow: '#FEE0BA',
   blacksqueeze: '#E8F2F7',
   zumthor: '#EEF6FF',
+  cornflower: '#92D7E7',
+  russet: '#805617',
+  chenin: '#E0D57C',
+  orangetext: "#FC6425",
+  tuscany: "#C57030",
 
   error: '#dc3545',
 }

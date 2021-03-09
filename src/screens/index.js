@@ -5,8 +5,10 @@ import ResetPassword from './ResetPassword';
 import Dashboard from './Dashboard';
 import Goals from './Goals';
 import Stats from './Stats';
+import Games from './Games';
 
 export {
+  Games,
   Stats,
   Goals,
   Dashboard,

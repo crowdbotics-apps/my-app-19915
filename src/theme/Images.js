@@ -18,6 +18,11 @@ export default {
   splash: require('src/assets/images/splash.png'),
   progresicon: require('src/assets/images/progresicon.png'),
   camera: require('src/assets/images/camera.png'),
+  money: require('src/assets/images/money.png'),
+  slider1: require('src/assets/images/slider1.png'),
+  slider2: require('src/assets/images/slider2.png'),
+  game1: require('src/assets/images/game1.png'),
+  game2: require('src/assets/images/game2.png'),
 
   homelight: require('src/assets/images/home-light.png'),
   homedark: require('src/assets/images/home-dark.png'),

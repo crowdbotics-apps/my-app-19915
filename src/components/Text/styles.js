@@ -12,4 +12,7 @@ export default StyleSheet.create({
   senary: { color: Colors.towergray },
   septenary: { color: Colors.carrotorange },
   octonary: { color: Colors.goldenrod },
+  nonary: { color: Colors.cornflower },
+  denary: { color: Colors.russet },
+  rarely: { color: Colors.tuscany },
 });

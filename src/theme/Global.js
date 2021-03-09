@@ -22,6 +22,27 @@ export default StyleSheet.create({
   tertiaryBg: {
     backgroundColor: Colors.goldenrod
   },
+  nonary: {
+    color: Colors.cornflower
+  },
+  nonaryBg: {
+    backgroundColor: Colors.cornflower
+  },
+  denary: {
+    color: Colors.chenin
+  },
+  denaryBg: {
+    backgroundColor: Colors.chenin
+  },
+  rarely: {
+    color: Colors.orangetext
+  },
+  rarelyBg: {
+    backgroundColor: Colors.orangetext
+  },
+  tuscanyBg: {
+    backgroundColor: Colors.tuscany
+  },
   border: {
     borderWidth: 1,
   },

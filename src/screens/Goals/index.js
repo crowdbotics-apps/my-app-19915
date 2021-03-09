@@ -50,7 +50,7 @@ const Goals = () => {
         <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={<MenuIcon />}
-            right={<Avatar size='small' />}
+            right={<Avatar size='regular' />}
           />
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
@@ -120,35 +120,39 @@ const Goals = () => {
           <SmileCountablity
             loadingWeek
             marginTop
+            cameraIcon
             cameraText
             subText="180"
             text='Smile seconds'
             description="Total smile seconds by day"
-            iconDescription="Start smiling"
+            iconText="Start smiling"
           />
           <SmileCountablity
             loadingWeek
+            cameraIcon
             cameraText
             subText="24"
             text='Smile count'
             description="Number of smiles by day"
-            iconDescription="Start smiling"
+            iconText="Start smiling"
           />
           <SmileCountablity
             lineChart
+            cameraIcon
             cameraText
             subText="24s"
             text='Length of smile'
             description="Average duration of smiles"
-            iconDescription="Start smiling"
+            iconText="Start smiling"
           />
           <SmileCountablity
             lineChart
+            cameraIcon
             cameraText
             subText="32s"
             text='Longest smile'
             description="Single longest smile in seconds"
-            iconDescription="Start smiling"
+            iconText="Start smiling"
           />
 
         </Content>
