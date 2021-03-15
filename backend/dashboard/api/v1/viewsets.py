@@ -11,8 +11,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer
-from dashboard.models import Quote, Smile
+from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer, SmileExerciseSerializer, \
+    SmileCommunitySerializer, SmileScienceSerializer
+from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience
 
 
 class QuoteViewSet(ModelViewSet):
@@ -131,3 +132,16 @@ class SmileViewSet(ModelViewSet):
         return Response(output, status=status.HTTP_200_OK)
 
 
+class SmileExerciseViewSet(ModelViewSet):
+    serializer_class = SmileExerciseSerializer
+    queryset = SmileExercise.objects.filter(is_active=True)
+
+
+class SmileCommunityViewSet(ModelViewSet):
+    serializer_class = SmileCommunitySerializer
+    queryset = SmileCommunity.objects.all()
+
+
+class SmileScienceViewSet(ModelViewSet):
+    serializer_class = SmileScienceSerializer
+    queryset = SmileScience.objects.all()

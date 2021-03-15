@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dashboard.models import Quote, Smile
+from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience
 
 
 class QuoteSerializer(serializers.ModelSerializer):
@@ -14,3 +14,18 @@ class SmileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SmileExerciseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SmileExercise
+        fields = '__all__'
+
+
+class SmileCommunitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SmileCommunity
+        fields = '__all__'
+
+class SmileScienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SmileScience
+        fields = '__all__'
