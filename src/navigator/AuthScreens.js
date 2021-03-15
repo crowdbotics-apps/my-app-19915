@@ -9,7 +9,7 @@ import {
   Dashboard,
   Goals,
   Stats,
-  Games
+  Games,
 } from 'src/screens';
 
 const authStack = createStackNavigator();
@@ -17,7 +17,7 @@ const authStack = createStackNavigator();
 const AuthStackScreen = () => (
   <authStack.Navigator
     screenOptions={{ headerShown: false }}
-    initialRouteName="Games"
+    initialRouteName="Login"
   >
     <authStack.Screen name="Login" component={Login} />
     <authStack.Screen name="Register" component={Register} />

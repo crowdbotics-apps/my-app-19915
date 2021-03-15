@@ -74,6 +74,8 @@ const Register = props => {
     mediumXHMargin,
     small2xTMargin,
     mediumXTMargin,
+    smallTMargin,
+    tinyTMargin,
     regularHPadding,
     mediumBMargin,
     regularTMargin,
@@ -113,7 +115,7 @@ const Register = props => {
           <View style={mediumXHMargin}>
             <View style={[fill, center]}>
               <Text text="Welcome!" color="secondary" style={heading} />
-              <Text text="Please sign in to continue" color="secondary" style={title} />
+              <Text text="Create new account" color="secondary" style={title} />
             </View>
             <View style={[
               row,
@@ -134,7 +136,7 @@ const Register = props => {
               row,
               center,
               fieldWrapper,
-              small2xTMargin,
+              tinyTMargin,
               regularHPadding,
             ]}>
               <Image source={Images.pass} style={regularHMargin} />
@@ -145,12 +147,12 @@ const Register = props => {
                 }
               />
             </View>
+            <Text text="STEP 1" color="black" style={regularVPadding} category="h6" bold />
             <TouchableOpacity
               style={[
                 row,
                 center,
                 fieldWrapper,
-                small2xTMargin,
                 regularHPadding,
               ]}
               onPress={() => setIsModalOpen(true)}
@@ -167,7 +169,7 @@ const Register = props => {
               row,
               center,
               fieldWrapper,
-              small2xTMargin,
+              tinyTMargin,
               regularHPadding,
             ]}>
               <Image source={Images.gender} style={regularHMargin} />
@@ -180,28 +182,12 @@ const Register = props => {
                 <Text text="Female" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
               </View>
             )}
-            <TouchableOpacity onPress={() => onPress(2)} style={[
-              row,
-              center,
-              fieldWrapper,
-              small2xTMargin,
-              regularHPadding,
-            ]}>
-              <Image source={Images.relation} style={regularHMargin} />
-              <Text text="RELATIONSHIP STATUS" category='p1' style={[fill, borderColor]} />
-              <Icon type='MaterialIcons' name='arrow-drop-down' />
-            </TouchableOpacity>
-            {checked === 2 && (
-              <View style={[primaryBg, regularHPadding, regularVPadding]}>
-                <Text text="Male" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
-                <Text text="Female" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
-              </View>
-            )}
+
             <TouchableOpacity onPress={() => onPress(3)} style={[
               row,
               center,
               fieldWrapper,
-              small2xTMargin,
+              tinyTMargin,
               regularHPadding,
             ]}>
               <Image source={Images.child} style={regularHMargin} />
@@ -214,11 +200,28 @@ const Register = props => {
                 <Text text="Female" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
               </View>
             )}
+            <Text text="STEP 2" color="black" style={regularVPadding} category="h6" bold />
+            <TouchableOpacity onPress={() => onPress(2)} style={[
+              row,
+              center,
+              fieldWrapper,
+              regularHPadding,
+            ]}>
+              <Image source={Images.relation} style={regularHMargin} />
+              <Text text="RELATIONSHIP STATUS" category='p1' style={[fill, borderColor]} />
+              <Icon type='MaterialIcons' name='arrow-drop-down' />
+            </TouchableOpacity>
+            {checked === 2 && (
+              <View style={[primaryBg, regularHPadding, regularVPadding]}>
+                <Text text="Male" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
+                <Text text="Female" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
+              </View>
+            )}
             <TouchableOpacity onPress={() => onPress(4)} style={[
               row,
               center,
               fieldWrapper,
-              small2xTMargin,
+              tinyTMargin,
               regularHPadding,
             ]}>
               <Image source={Images.profession} style={regularHMargin} />
@@ -231,11 +234,11 @@ const Register = props => {
                 <Text text="Female" color="secondary" category='p1' style={[borderB, borderColor, regularVPadding]} />
               </View>
             )}
+            <Text text="STEP 3" color="black" style={regularVPadding} category="h6" bold />
             <View style={[
               row,
               center,
               fieldWrapper,
-              small2xTMargin,
               regularHPadding,
             ]}>
               <Image source={Images.pass} style={regularHMargin} />
