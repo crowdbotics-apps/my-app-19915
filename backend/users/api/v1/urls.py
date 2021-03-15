@@ -5,9 +5,8 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from users.api.v1.viewsets import (
     SignupViewSet,
-    HomePageViewSet,
-    CustomTextViewSet,
-    JWTLoginViewSet)
+    JWTLoginViewSet
+)
 
 router = DefaultRouter()
 router.register("token/signup", SignupViewSet, basename="signup")
