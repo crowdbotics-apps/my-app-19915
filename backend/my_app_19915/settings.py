@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = [
     'fcm_django',
     # end fcm_django push notifications
     "django_rest_passwordreset",
+    'multiselectfield'
 
 ]
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS

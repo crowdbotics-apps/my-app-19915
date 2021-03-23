@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django_rest_passwordreset.signals import reset_password_token_created
+from multiselectfield import MultiSelectField
 
 
 class User(AbstractUser):
@@ -61,11 +62,11 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
     age = models.IntegerField(null=True, blank=True)
-    sex = models.CharField(choices=SEX_CHOICE, max_length=100)
-    relationship_status = models.CharField(choices=RELATIONSHIP_STATUS, max_length=100)
-    children = models.BooleanField(default=False)
-    profession_status = models.CharField(choices=PROFESSIONAL_STATUS, max_length=50)
-    goals = models.CharField(choices=GOALS, max_length=200)
+    sex = models.CharField(choices=SEX_CHOICE, max_length=100, null=True, blank=True)
+    relationship_status = models.CharField(choices=RELATIONSHIP_STATUS, max_length=100, null=True, blank=True)
+    children = models.BooleanField(default=False, null=True, blank=True)
+    profession_status = models.CharField(choices=PROFESSIONAL_STATUS, max_length=50, null=True, blank=True)
+    goals = MultiSelectField(choices=GOALS,  null=True, blank=True)
     coin_balance = models.FloatField(default=0.00)
 
     def get_absolute_url(self):
