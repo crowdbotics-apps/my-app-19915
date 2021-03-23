@@ -13,7 +13,7 @@ class SmileAdmin(admin.ModelAdmin):
 
 
 class SmileExerciseAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image', 'description', 'created']
+    list_display = ['title', 'image', 'description', 'is_active', 'created']
 
 
 class SmileCommunityAdmin(admin.ModelAdmin):

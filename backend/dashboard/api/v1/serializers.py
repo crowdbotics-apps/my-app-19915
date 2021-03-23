@@ -25,6 +25,7 @@ class SmileCommunitySerializer(serializers.ModelSerializer):
         model = SmileCommunity
         fields = '__all__'
 
+
 class SmileScienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = SmileScience

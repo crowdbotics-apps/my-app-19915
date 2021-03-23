@@ -31,10 +31,6 @@ class SignupSerializer(serializers.ModelSerializer):
                 'required': True,
                 'allow_blank': False,
             },
-            'age': {
-                'required': True,
-                # 'allow_blank': False,
-            }
         }
 
     def _get_request(self):

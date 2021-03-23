@@ -17,6 +17,7 @@ from home.models import CustomText, HomePage
 
 class SignupViewSet(ModelViewSet):
     serializer_class = SignupSerializer
+    permission_classes = (AllowAny,)
     http_method_names = ["post"]
 
 

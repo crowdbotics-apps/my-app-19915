@@ -1,21 +1,22 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-
 from dashboard.api.v1.viewsets import (
     QuoteViewSet,
-    SmileViewSet,
+    # SmileViewSet,
     SmileExerciseViewSet,
     SmileCommunityViewSet,
     SmileScienceViewSet,
+    SmileDashboard,
 
 )
 
 router = DefaultRouter()
 router.register("quote", QuoteViewSet, basename="quote")
-router.register("smile", SmileViewSet, basename="smile")
+# router.register("smile", SmileViewSet, basename="smile")
 router.register("smile_exercise", SmileExerciseViewSet, basename="smile_exercise")
 router.register("smile_community", SmileCommunityViewSet, basename="smile_community")
 router.register("smile_science", SmileScienceViewSet, basename="smile_science")
+router.register("smile_dashboard", SmileDashboard, basename="smile_dashboard")
 
 urlpatterns = [
     path("", include(router.urls)),
