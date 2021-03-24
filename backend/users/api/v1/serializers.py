@@ -131,3 +131,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             data = super().validate(attrs)
             data['user'] = UserSerializer(User.objects.get(id=self.user.id)).data
         return data
+
+
+class UserProfileSerializers(serializers.ModelSerializer):
+    goals = fields.MultipleChoiceField(choices=User.GOALS)
+
+    class Meta:
+        model = User
+        fields = ['name', 'age', 'sex', 'relationship_status', 'children', 'profession_status', 'goals']
+

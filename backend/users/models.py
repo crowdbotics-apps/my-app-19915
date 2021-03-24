@@ -85,11 +85,11 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
     msg = EmailMultiAlternatives(
         # title:
-        "Password Reset for {title}".format(title="Wedding's Best"),
+        "Password Reset for {title}".format(title="Smiling app"),
         # message:
         email_plaintext_message,
         # from:
-        "noreply@weddingbest.com",
+        "noreply@smileapp.com",
         # to:
         [reset_password_token.user.email]
     )

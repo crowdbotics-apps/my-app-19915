@@ -61,6 +61,7 @@ class SmileDashboard(ModelViewSet):
             q = queryset
             count = int(days)
             streak = 0
+            latest_streak = 0
             today = date.today()
             date_today = today - timedelta(days=count)
             streak_list = []
@@ -69,11 +70,11 @@ class SmileDashboard(ModelViewSet):
                     streak += 1
                 else:
                     streak_list.append(streak)
+                    latest_streak = streak
                     streak = 0
                 count -= 1
                 date_today = today - timedelta(days=count)
-            streak_list.append(streak)
-
+            # streak_list.append(streak)
             max_streak = max(streak_list)
             try:
                 output = {
@@ -83,8 +84,8 @@ class SmileDashboard(ModelViewSet):
                     'smile_count': queryset.count(),
                     'smile_count_sum': queryset.aggregate(Sum('second')).get('second__sum'),
                     'best_day': b,
-                    'latest_Streak': streak,
-                    'max_streak': max_streak
+                    'latest_Streak': latest_streak,
+                    'max_streak': max_streak,
 
 
                 }

@@ -11,8 +11,10 @@ from users.api.v1.serializers import (
     CustomTextSerializer,
     HomePageSerializer,
     UserSerializer,
+    UserProfileSerializers,
     CustomTokenObtainPairSerializer)
 from home.models import CustomText, HomePage
+from users.models import User
 
 
 class SignupViewSet(ModelViewSet):
@@ -41,3 +43,13 @@ class HomePageViewSet(ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = [IsAdminUser]
     http_method_names = ["get", "put", "patch"]
+
+
+class UserProfileViewSet(ModelViewSet):
+    serializer_class = UserProfileSerializers
+    http_method_names = ["get", "put", 'post']
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = User.objects.all()
+        return queryset
