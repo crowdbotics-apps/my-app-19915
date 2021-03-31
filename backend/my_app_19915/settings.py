@@ -70,7 +70,7 @@ THIRD_PARTY_APPS = [
     'fcm_django',
     # end fcm_django push notifications
     "django_rest_passwordreset",
-    'multiselectfield'
+    'multiselectfield',
 
 ]
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
@@ -248,3 +248,17 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 }
+
+# Debug toolbar settings
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+    INTERNAL_IPS = ['127.0.0.1', ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
