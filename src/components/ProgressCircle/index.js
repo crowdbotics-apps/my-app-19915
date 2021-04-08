@@ -8,19 +8,22 @@ const ProgressCircle = ({
   size,
   formatText,
   color,
+  style,
+  thickness,
   unfilledColor
 }) => {
 
   return (
     <Progress.Circle
       size={size}
-      thickness={5}
+      thickness={thickness}
       color={color}
       borderWidth={0}
       progress={progress}
       showsText={showsText}
       formatText={formatText}
       unfilledColor={unfilledColor}
+      style={style}
     />
   )
 }

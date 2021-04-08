@@ -76,6 +76,9 @@ export default StyleSheet.create({
   justifyContentBetween: {
     justifyContent: 'space-between',
   },
+  justifyContentEvenly:{
+    justifyContent: "space-evenly"
+  },
   scrollSpaceAround: {
     flexGrow: 1,
     justifyContent: 'space-around',
@@ -98,7 +101,7 @@ export default StyleSheet.create({
     flex: 3,
   },
   wrap: {
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   fullSize: {
     height: '100%',

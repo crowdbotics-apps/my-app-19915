@@ -57,5 +57,27 @@ export default StyleSheet.create({
   },
   transparentBg: {
     backgroundColor: 'transparent'
-  }
+  },
+  primaryCardBg: {backgroundColor: Colors.pattensblue
+  },
+  secondaryCardBg: {backgroundColor: Colors.skeptic
+  },
+  tertiaryCardBg: {backgroundColor: Colors.feta
+  },
+  quaternaryCardBg: {backgroundColor: Colors.wheat
+  },
+  primaryText: {color:Colors.danube
+  },
+  secondaryText: {color:Colors.breakerbay
+  },
+  tertiaryText: {color:Colors.greensmoke
+  },
+  quaternaryText: {color:Colors.texasrose
+  },
+
+
+
+
+
+  
 });

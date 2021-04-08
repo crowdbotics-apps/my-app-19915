@@ -47,8 +47,8 @@ const GameCard = ({
           justifyContentBetween
         ]}>
         <Text
-          text='Smileometer'
-          bold
+          text='Game name'
+          
           color="secondary"
           numberOfLines={1}
           style={textWrapper}

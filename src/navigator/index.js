@@ -15,7 +15,7 @@ const RootNavigationStack = (props) => {
 
     return (
         <NavigationContainer ref={navigationRef}>
-            {false ?
+            {true ?
                 <mainStack.Navigator screenOptions={{ headerShown: false }}>
                     <mainStack.Screen name="AuthHome" component={MainStackScreen} />
                 </mainStack.Navigator>

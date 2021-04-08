@@ -39,7 +39,6 @@ const Card = ({ nonary, denary, card1, card2 }) => {
         ]}>
         <Text
           text='Smileometer'
-          bold
           color={denary ? "denary" : "primary"}
           numberOfLines={1}
           style={textWrapper}

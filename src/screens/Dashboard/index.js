@@ -1,6 +1,8 @@
 import React from 'react';
 import { Content } from 'native-base';
-import { View, ImageBackground, Image } from 'react-native';
+import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 // components
 import {
@@ -12,15 +14,16 @@ import {
   MenuIcon,
   CustomButton
 } from 'src/components';
-import { Layout, Images, Gutters, Colors } from 'src/theme';
+import { Layout, Images, Gutters, Colors, Fonts } from 'src/theme';
 
 // styles
 import styles from './styles';
 
 const Dashboard = () => {
+  const { titleSmall } = Fonts;
   const { row, fill, center, justifyContentBetween } = Layout;
-  const { mediumTMargin, mediumBPadding } = Gutters;
-  const { dashboardImg, progressBarWrapper } = styles;
+  const { mediumTMargin, mediumBPadding, largeHMargin, largeXTMargin } = Gutters;
+  const { dashboardImg, progressBarWrapper, buttonWrapper } = styles;
 
   return (
     <>
@@ -28,43 +31,90 @@ const Dashboard = () => {
         <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={<MenuIcon />}
-            right={<Avatar size='regular' />}
+            right={<Avatar size="regular" />}
           />
-          <View style={[fill, center]}>
-            <Image source={Images.dashboard} style={dashboardImg} />
+          <View style={[fill, center, { top: -50 }]}>
+            <ProgressCircle
+              size={340}
+              progress={0.7}
+              showsText={true}
+              color={Colors.primary}
+              formatText={() => ''}
+              thickness={2}
+              unfilledColor={Colors.viking}
+            />
+            <ProgressCircle
+              size={300}
+              progress={0.4}
+              showsText={true}
+              color={Colors.primary}
+              formatText={() => ''}
+              unfilledColor={Colors.viking}
+              thickness={2}
+              style={{ position: 'absolute' }}
+            />
+            <Image source={Images.splash} style={dashboardImg} />
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
             <View>
-              <Text text='Smile seconds' color='secondary' medium bold />
+              <Text text='Smile seconds' color='primary' medium />
               <View style={mediumTMargin}>
                 <ProgressCircle
                   size={100}
                   progress={0.4}
+                  thickness={5}
                   showsText={true}
-                  color={Colors.secondary}
+                  color={Colors.primary}
                   formatText={() => '180s'}
                   unfilledColor={Colors.viking}
                 />
               </View>
             </View>
             <View>
-              <Text text='Smile count' color='secondary' medium bold />
+              <Text text='Smile count' color='primary' medium />
               <View style={mediumTMargin}>
                 <ProgressCircle
                   size={100}
                   progress={0.4}
                   showsText={true}
+                  thickness={5}
                   formatText={() => '24'}
-                  color={Colors.secondary}
+                  color={Colors.primary}
                   unfilledColor={Colors.viking}
                 />
               </View>
             </View>
           </View>
-          <CustomButton text='Start smiling' />
-          <CustomButton text='Check your goals' />
+          <TouchableOpacity >
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={['#EF9919', '#FFD46F']}
+              style={[
+                fill,
+                row,
+                center,
+                largeHMargin,
+                buttonWrapper,
+                largeXTMargin,
+              ]}>
+              <Text style={titleSmall} text="Start smiling" color="river" />
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[{ borderWidth: 1.5, borderColor: Colors.primary },
+            fill,
+            row,
+            center,
+            largeHMargin,
+            buttonWrapper,
+            mediumTMargin,]}>
+
+            <Text style={titleSmall} text="You’re on a 5 day smile streak" color="primary" />
+
+          </TouchableOpacity>
         </Content>
-        <Footer />
+        {/* <Footer light /> */}
       </ImageBackground>
     </>
   );

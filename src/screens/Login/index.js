@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { CheckBox, Content, Input } from 'native-base';
-import { View, ImageBackground, Image } from 'react-native';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {CheckBox, Content, Input} from 'native-base';
+import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 // components
-import { Text, Button, ErrorBox } from 'src/components';
-import { Layout, Images, Gutters } from 'src/theme';
+import {Text, Button, ErrorBox} from 'src/components';
+import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
 import useForm from 'src/hooks/useForm';
@@ -14,24 +15,26 @@ import useForm from 'src/hooks/useForm';
 import validator from 'src/utils/validation';
 
 // actions
-import { login } from './redux/actions';
+import {login} from './redux/actions';
 
 // styles
 import styles from './styles';
 
 const Login = props => {
-  const { navigation: { navigate } } = props;
+  const {
+    navigation: {navigate},
+  } = props;
 
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   const stateSchema = {
     email: {
       value: '',
-      error: ''
+      error: '',
     },
     password: {
       value: '',
-      error: ''
+      error: '',
     },
   };
   const validationStateSchema = {
@@ -57,9 +60,15 @@ const Login = props => {
     };
   };
 
-  const { state, handleOnChange, disable } = useForm(stateSchema, validationStateSchema);
+  const {state, handleOnChange, disable} = useForm(
+    stateSchema,
+    validationStateSchema,
+  );
 
-  const { row, fill, center, alignItemsCenter, justifyContentCenter } = Layout;
+  const {row, fill, center, alignItemsCenter, justifyContentCenter} = Layout;
+
+  const {titleSmall} = Fonts;
+
   const {
     largeHMargin,
     mediumTMargin,
@@ -69,6 +78,7 @@ const Login = props => {
     mediumXTMargin,
     regularHPadding,
     regularVPadding,
+    largeXTMargin,
     regularBPadding,
   } = Gutters;
   const {
@@ -77,7 +87,7 @@ const Login = props => {
     heading,
     fieldWrapper,
     buttonWrapper,
-    checkBoxWrapper
+    checkBoxWrapper,
   } = styles;
   return (
     <>
@@ -86,36 +96,40 @@ const Login = props => {
           <View style={[mediumXHMargin, justifyContentCenter]}>
             <View style={[fill, center, regularBPadding, mediumXTMargin]}>
               <Image source={Images.logos} />
-              <Text text="Welcome!" color="secondary" style={heading} />
-              <Text text="Please sign in to continue" color="secondary" style={title} />
+              <Text text="Welcome!" color="river" style={heading} />
+              <Text
+                text="Please sign in to continue"
+                color="river"
+                style={title}
+              />
             </View>
-            <View style={[
-              row,
-              center,
-              fieldWrapper,
-              mediumXTMargin,
-              regularHPadding,
-            ]}>
+            <View
+              style={[
+                row,
+                center,
+                fieldWrapper,
+                mediumXTMargin,
+                regularHPadding,
+              ]}>
               <Image source={Images.email} style={regularHMargin} />
               <Input
-                placeholder='EMAIL'
-                onChangeText={value =>
-                  assignValues('email', 'email', value)
-                }
+                placeholder="EMAIL"
+                onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
             <ErrorBox errorText={state.email.error} />
-            <View style={[
-              row,
-              center,
-              fieldWrapper,
-              small2xTMargin,
-              regularHPadding,
-            ]}>
+            <View
+              style={[
+                row,
+                center,
+                fieldWrapper,
+                small2xTMargin,
+                regularHPadding,
+              ]}>
               <Image source={Images.pass} style={regularHMargin} />
               <Input
                 secureTextEntry
-                placeholder='PASSWORD'
+                placeholder="PASSWORD"
                 onChangeText={value =>
                   assignValues('password', 'password', value)
                 }
@@ -125,29 +139,37 @@ const Login = props => {
           </View>
           <View style={[mediumXHMargin, small2xTMargin, alignItemsCenter, row]}>
             <CheckBox
-              color='white'
+              color="white"
               style={[checkBoxWrapper, checked && bgColor]}
               checked={checked}
               onPress={() => setChecked(!checked)}
             />
-            <Text text="Please sign in to continue" color="secondary" category="h5" />
+            <Text
+              text="Remember me on this device"
+              color="river"
+              category="h5"
+            />
           </View>
-          <View style={row}>
-            <Button
-              text='Login'
-              color='tertiary'
-              onPress={() => submitForm()}
+
+          <TouchableOpacity onPress={() => submitForm()}>
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              colors={['#A9D670', '#FFF16F']}
               style={[
                 fill,
+                row,
                 center,
                 largeHMargin,
                 buttonWrapper,
-                mediumTMargin
-              ]}
-            />
-          </View>
+                largeXTMargin,
+              ]}>
+              <Text style={titleSmall} text="Login" color="river" />
+            </LinearGradient>
+          </TouchableOpacity>
+
           <View style={[row, center, regularVPadding]}>
-            <Text text="or login using" color="secondary" category='s1' bold />
+            <Text text="or login using" color="river" category="s1" bold />
           </View>
           <View style={[row, center, regularBPadding]}>
             <Image source={Images.google} style={regularHMargin} />
@@ -155,11 +177,23 @@ const Login = props => {
             <Image source={Images.instagram} style={regularHMargin} />
           </View>
           <View style={[center, regularVPadding]}>
-            <Text color='secondary' smallTitle>
-              Don’t have an account?  {''}
-              <Text text="Sign up now" color="primary" smallTitle onPress={() => navigate('Register')} />
+            <Text color="river" smallTitle>
+              Don’t have an account? {''}
+              <Text
+                bold
+                text="Sign up now"
+                color="golden"
+                smallTitle
+                onPress={() => navigate('Register')}
+              />
             </Text>
-            <Text text="Forgot your password?" color="primary" style={regularVPadding} smallTitle />
+            <Text
+              bold
+              text="Forgot your password?"
+              color="golden"
+              style={regularVPadding}
+              smallTitle
+            />
           </View>
         </Content>
       </ImageBackground>
@@ -168,11 +202,11 @@ const Login = props => {
 };
 
 const mapStateToProps = state => ({
-  requesting: state.login.requesting
+  requesting: state.login.requesting,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(login(data))
+  onSubmit: data => dispatch(login(data)),
 });
 
 export default connect(

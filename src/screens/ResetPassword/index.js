@@ -1,10 +1,10 @@
 import React from 'react';
 import { Content, Icon, Input } from 'native-base';
-import { View, ImageBackground, Image } from 'react-native';
-
+import { View, ImageBackground,TouchableOpacity, Image } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 // components
 import { Text, Button } from 'src/components';
-import { Global, Layout, Images, Gutters } from 'src/theme';
+import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
 
 // hooks
 import useForm from 'src/hooks/useForm';
@@ -53,18 +53,22 @@ const ResetPassword = props => {
   const { state, handleOnChange, disable } = useForm(stateSchema, validationStateSchema);
   const { row, fill, center } = Layout;
   const { borderColor } = Global;
+  
+  const {titleSmall} = Fonts;
+  
   const {
     regularHMargin,
     mediumXHMargin,
     mediumXTMargin,
     regularHPadding,
     mediumBMargin,
+    smallHMargin,
     largeXTMargin,
     regularVPadding,
     regularBPadding,
   } = Gutters;
   const {
-    icon,
+    topWrapper,
     title,
     heading,
     fieldWrapper,
@@ -75,26 +79,17 @@ const ResetPassword = props => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content showsVerticalScrollIndicator={false}>
-          <View
-            style={[
-              center,
-              borderColor,
-              largeXTMargin,
-              mediumXHMargin,
-              mediumBMargin,
-              backArrowWrapper
-            ]}>
-            <Icon
-              type="MaterialIcons"
-              name="arrow-back"
-              style={icon}
-            />
+        <View style={[center, smallHMargin]}>
+            <View style={topWrapper}>
+              <Image source={require('src/assets/images/arrow-back.png')} />
+              <Image source={require('src/assets/images/logos.png')} />
+            </View>
           </View>
           <View style={mediumXHMargin}>
 
             <View style={[fill, center]}>
-              <Text text="Help!" color="secondary" style={heading} />
-              <Text text="Forgot your password?" color="secondary" style={title} />
+              <Text text="Help!" color="river" style={heading} />
+              <Text text="Forgot your password?" color="river" style={title} />
             </View>
             <View style={[
               row,
@@ -105,27 +100,24 @@ const ResetPassword = props => {
             ]}>
               <Image source={Images.email} style={regularHMargin} />
               <Input
-                placeholder='EMAIL'
+                placeholder='ENTER EMAIL'
 
                 onChangeText={value =>
                   assignValues('email', 'email', value)
                 }
               />
             </View>
-            <View style={row}>
-              <Button
-                text='Reset my password'
-                color='tertiary'
-                onPress={() => submitForm()}
-                style={[
-                  fill,
-                  center,
-                  buttonWrapper
-                ]}
-              />
-            </View>
+            <TouchableOpacity onPress={() => submitForm()}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#A9D670', '#FFF16F']}
+                style={[fill, row, center, buttonWrapper, largeXTMargin]}>
+                <Text style={titleSmall} text="Reset my password" color="river" />
+              </LinearGradient>
+            </TouchableOpacity>
             <View style={[row, center, regularVPadding]}>
-              <Text text="or login using" color="secondary" category='s1' bold />
+              <Text text="or login using" color="river" category='s1' bold />
             </View>
             <View style={[row, center, regularBPadding]}>
               <Image source={Images.google} style={regularHMargin} />
@@ -135,11 +127,11 @@ const ResetPassword = props => {
           </View>
         </Content>
         <View style={[center, regularVPadding]}>
-          <Text color='secondary' smallTitle>
+          <Text color='river' smallTitle>
             Don’t have an account?  {''}
-            <Text
+            <Text bold
               smallTitle
-              color="primary"
+              color="golden"
               text="Sign up now"
               onPress={() => navigate('Register')}
             />

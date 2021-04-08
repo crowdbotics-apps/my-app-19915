@@ -29,8 +29,29 @@ export const Colors = {
   chenin: '#E0D57C',
   orangetext: "#FC6425",
   tuscany: "#C57030",
-
   error: '#dc3545',
+  pattensblue: "#DDEDFF",
+  skeptic: "#CBE9E2",
+  feta: "#EAF8D4",
+  wheat: "#F6E8B8",
+  danube: "#6997CB",
+  breakerbay: "#5C9F9A",
+  greensmoke: "#92AB69",
+  texasrose: "#FFB156",
+  hawkesblue: "#DCF1FD",
+  riverbed: "#495A66",
+  golden:"#F3A82E",
+  lightgolden:"#F9BD4D",
+  Sunglo: "#DF647A",
+  chelseacucumber: "#6DAF5B",
+  pelorous: "#40B1C0",
+  eden:"#135159",
+  darkeden:"#22828E",
+  lighteden: "#4bd8eb",
+  botticelli: "#C4DDE0",
+  atlantis: "#82C231",
+  shuttlegray: "#546775",
+  easternblue: "#24A4C0"
 }
 
 /**
@@ -55,6 +76,7 @@ const medium = regular * 2 // 30
 const mediumX = small2x * 2 // 40
 const large = regular * 3 // 45
 const largeX = mediumX + regular // 55
+const extraLX = mediumX * 2 // 80
 export const MetricsSizes = {
   tiny,
   small,
@@ -64,5 +86,6 @@ export const MetricsSizes = {
   mediumX,
   large,
   largeX,
-  smallX
+  smallX,
+  extraLX
 }

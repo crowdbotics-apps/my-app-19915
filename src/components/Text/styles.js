@@ -15,4 +15,11 @@ export default StyleSheet.create({
   nonary: { color: Colors.cornflower },
   denary: { color: Colors.russet },
   rarely: { color: Colors.tuscany },
+  river: { color: Colors.riverbed },
+  golden: {color: Colors.golden},
+  Sunglo: {color:Colors.Sunglo},
+  chelseacucumber: {color:Colors.chelseacucumber},
+  pelorous: {color:Colors.pelorous},
+  eden: {color:Colors.eden},
+  atlantis: {color:Colors.atlantis},
 });

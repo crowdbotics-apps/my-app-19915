@@ -30,5 +30,10 @@ export default StyleSheet.create({
     height: 44,
     borderRadius: 4,
     borderWidth: 2,
+  },
+  topWrapper:{
+    marginTop:40,
+    width:320,
+    flexDirection:"row"
   }
 });

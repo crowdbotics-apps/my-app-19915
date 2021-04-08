@@ -5,7 +5,7 @@ import Header from './Header';
 import ProgressCircle from './ProgressCircle';
 import Footer from './Footer';
 import Avatar from './Avatar';
-import MenuIcon from "./Icons/MenuIcon";
+import MenuIcon from "./MenuIcon";
 import CustomButton from "./CustomButton";
 import CardHeader from "./CardHeader";
 import SmileCountablity from "./SmileCountablity";
@@ -14,12 +14,25 @@ import Progress from "./Progress";
 import ChartBar from "./ChartBar";
 import Card from "./Card";
 import GameCard from "./GameCard";
+import GeneralCard from "./GeneralCard";
+import Test from "./Test";
+import MyCamera from "./MyCamera";
+import Tab from "./Tab";
+import SmileStone from "./SmileStone";
+import GoalsCard from "./GoalsCard";
+import MoreCard from "./MoreCard";
+import ArticalCard from "./ArticalCard";
+import CommunityCard from "./CommunityCard";
+
 
 export {
+  Test,
   Text,
   Avatar,
+  MyCamera,
   Footer,
   GameCard,
+  GeneralCard,
   Card,
   ChartBar,
   Progress,
@@ -32,4 +45,10 @@ export {
   SmileCountablity,
   CardHeader,
   CustomButton,
+  Tab,
+  SmileStone,
+  GoalsCard,
+  MoreCard,
+  ArticalCard,
+  CommunityCard
 };
