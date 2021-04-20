@@ -9,7 +9,7 @@ from allauth.account.utils import setup_user_email
 from rest_framework import serializers, exceptions, fields
 from rest_auth.serializers import PasswordResetSerializer
 from rest_framework.exceptions import ValidationError
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, login_rule, user_eligible_for_login
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from home.models import CustomText, HomePage
 
@@ -121,7 +121,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             raise ValidationError({"email": "EMAIL IS NOT REGISTERED "})
         self.user = authenticate(**authenticate_kwargs)
 
-        if not getattr(login_rule, user_eligible_for_login)(self.user):
+        if self.user is None or not self.user.is_active:
             raise exceptions.AuthenticationFailed(
                 self.error_messages['no_active_account'],
                 'no_active_account',
