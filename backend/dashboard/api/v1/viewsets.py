@@ -1,18 +1,14 @@
 import datetime
-import operator
 from datetime import timedelta
-
-from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear, Cast, TruncDate, TruncMonth, TruncWeek, \
-    TruncDay
-from django.utils import timezone
+# from django.utils import timezone
 from django.utils.datetime_safe import date
 from django.db.models import Avg, Sum, Min, Max, Count, DateTimeField
-
 from rest_framework import status
-from rest_framework.decorators import action
+from django.db.models import Func
+# from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework .permissions import AllowAny
+# from rest_framework .permissions import AllowAny
 
 from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer, SmileExerciseSerializer, \
     SmileCommunitySerializer, SmileScienceSerializer
@@ -39,8 +35,9 @@ class SmileDashboard(ModelViewSet):
         days = self.request.query_params.get('days')
         if days:
             previous_day = date.today() - timedelta(days=int(days))
-            year = date.today().year
-            queryset = queryset.filter(created__gte=previous_day, created__year=year)
+            # year = date.today().year
+            # queryset = queryset.filter(created__gte=previous_day, created__year=year)
+            queryset = queryset.filter(created__gte=previous_day)
             b = queryset.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
             day_dashboard_query = queryset.values('user').annotate(total_second=Sum('second')).annotate(total_count=Count('second'))\
                 .annotate(avg_smile=Avg('second')).annotate(max_smile=Max('second')).annotate(min_smile=Min('second'))
@@ -72,7 +69,7 @@ class SmileDashboard(ModelViewSet):
                 }
             except:
                 output = {"avg_smile": 0.0, "min_smile": 0.0, "max_smile": 0.0,
-                          'smile_count': queryset.count()}
+                          'smile_count': day_dashboard_query.count()}
             return Response(output, status=status.HTTP_200_OK)
         else:
             today = date.today()

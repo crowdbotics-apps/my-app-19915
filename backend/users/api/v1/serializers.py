@@ -106,7 +106,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     }
 
     def validate(self, attrs):
-        # data = super().validate(attrs)
+        data = super().validate(attrs)
         authenticate_kwargs = {
             self.username_field: attrs[self.username_field],
             'password': attrs['password'],
@@ -116,7 +116,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         except KeyError:
             pass
         username = attrs.get("username")
-        user = User.objects.filter(username=username).exists()
+        user = User.objects.filter(email=username).exists()
         if not user:
             raise ValidationError({"email": "EMAIL IS NOT REGISTERED "})
         self.user = authenticate(**authenticate_kwargs)
@@ -140,3 +140,32 @@ class UserProfileSerializers(serializers.ModelSerializer):
         model = User
         fields = ['name', 'age', 'sex', 'relationship_status', 'children', 'profession_status', 'goals']
 
+
+class CustomAuthTokenSerializer(serializers.Serializer):
+    username = serializers.EmailField(label=_("Email"))
+    password = serializers.CharField(
+        label=_("Password"),
+        style={'input_type': 'password'},
+        trim_whitespace=False
+    )
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if username and password:
+            user = authenticate(request=self.context.get('request'),
+                                email=username, password=password)
+
+            # The authenticate call simply returns None for is_active=False
+            # users. (Assuming the default ModelBackend authentication
+            # backend.)
+            if not user:
+                msg = _('Unable to log in with provided credentials.')
+                raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = _('Must include "username" and "password".')
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
