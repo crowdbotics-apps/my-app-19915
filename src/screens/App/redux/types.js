@@ -1,0 +1,5 @@
+export const LOGIN = 'SMILEAPP/App/LOGIN';
+export const SET_USER_INFO = 'SMILEAPP/App/SET_USER_INFO';
+export const SET_AUTH_TOKEN = 'SMILEAPP/App/SET_AUTH_TOKEN';
+export const LOGIN_FAILURE = 'SMILEAPP/App/LOGIN_FAILURE';
+export const LOGOUT = 'SMILEAPP/App/LOGOUT';

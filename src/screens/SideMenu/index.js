@@ -1,15 +1,19 @@
 import React from 'react';
-
-import {View, TouchableOpacity, Image, ImageStore} from 'react-native';
+import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // components
 import {Text, Header, MenuIcon,} from 'src/components';
-import {Images,Gutters,Colors} from 'src/theme';
+import {Images,Gutters} from 'src/theme';
+import {View, TouchableOpacity, Image} from 'react-native';
+
+// actions
+import { logout as logoutAction } from '../App/redux/actions';
 
 // styles
 import styles from './styles';
 
-const SideMenu = () => {
+const SideMenu = (props) => {
   const {
     SideMenuContainer,
     userWrapper,
@@ -24,6 +28,11 @@ const SideMenu = () => {
     toggleIcon,
   } = styles;
   const {largeXLPadding} = Gutters;
+
+  const logout = () => {
+    AsyncStorage.clear();
+    props.logout();
+}
   return (
     <>
 
@@ -79,12 +88,14 @@ const SideMenu = () => {
             style={[largeXLPadding, textWrapper]}
             text="Notifications"
           />
-          <Text
-            smallTitle
-            color="secondary"
-            style={[largeXLPadding, bottomWrapper]}
-            text="Logout"
-          />
+          <TouchableOpacity onPress={logout}>
+            <Text
+              smallTitle
+              color="secondary"
+              style={[largeXLPadding, bottomWrapper]}
+              text="Logout"
+            />
+          </TouchableOpacity>
           <View style={bottomBox}>
             <Image source={Images.logos}/>
           </View>
@@ -94,4 +105,11 @@ const SideMenu = () => {
   );
 };
 
-export default SideMenu;
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logoutAction()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SideMenu);

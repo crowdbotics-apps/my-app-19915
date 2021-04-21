@@ -1,8 +1,9 @@
-import React from 'react';
-import { Content } from 'native-base';
-import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
+import {Content} from 'native-base';
+import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 // components
 import {
@@ -12,28 +13,34 @@ import {
   Footer,
   Avatar,
   MenuIcon,
-  CustomButton
+  CustomButton,
 } from 'src/components';
-import { Layout, Images, Gutters, Colors, Fonts } from 'src/theme';
+
+// theme
+import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
 
 // styles
 import styles from './styles';
 
-const Dashboard = () => {
-  const { titleSmall } = Fonts;
-  const { row, fill, center, justifyContentBetween } = Layout;
-  const { mediumTMargin, mediumBPadding, largeHMargin, largeXTMargin } = Gutters;
-  const { dashboardImg, progressBarWrapper, buttonWrapper } = styles;
+//actions
+import {getDashboard} from './redux/actions';
+
+const Dashboard = props => {
+  const {titleSmall} = Fonts;
+  const {row, fill, center, justifyContentBetween} = Layout;
+  const {mediumTMargin, mediumBPadding, largeHMargin, largeXTMargin} = Gutters;
+  const {dashboardImg, progressBarWrapper, buttonWrapper} = styles;
+
+  useEffect(() => {
+    props.getDashboard();
+  }, []);
 
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
-          <Header
-            left={<MenuIcon />}
-            right={<Avatar size="regular" />}
-          />
-          <View style={[fill, center, { top: -50 }]}>
+          <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+          <View style={[fill, center, {top: -50}]}>
             <ProgressCircle
               size={340}
               progress={0.7}
@@ -51,13 +58,13 @@ const Dashboard = () => {
               formatText={() => ''}
               unfilledColor={Colors.viking}
               thickness={2}
-              style={{ position: 'absolute' }}
+              style={{position: 'absolute'}}
             />
             <Image source={Images.splash} style={dashboardImg} />
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
             <View>
-              <Text text='Smile seconds' color='primary' medium />
+              <Text text="Smile seconds" color="primary" medium />
               <View style={mediumTMargin}>
                 <ProgressCircle
                   size={100}
@@ -71,7 +78,7 @@ const Dashboard = () => {
               </View>
             </View>
             <View>
-              <Text text='Smile count' color='primary' medium />
+              <Text text="Smile count" color="primary" medium />
               <View style={mediumTMargin}>
                 <ProgressCircle
                   size={100}
@@ -85,10 +92,10 @@ const Dashboard = () => {
               </View>
             </View>
           </View>
-          <TouchableOpacity >
+          <TouchableOpacity>
             <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
               colors={['#EF9919', '#FFD46F']}
               style={[
                 fill,
@@ -102,16 +109,21 @@ const Dashboard = () => {
             </LinearGradient>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[{ borderWidth: 1.5, borderColor: Colors.primary },
-            fill,
-            row,
-            center,
-            largeHMargin,
-            buttonWrapper,
-            mediumTMargin,]}>
-
-            <Text style={titleSmall} text="You’re on a 5 day smile streak" color="primary" />
-
+          <TouchableOpacity
+            style={[
+              {borderWidth: 1.5, borderColor: Colors.primary},
+              fill,
+              row,
+              center,
+              largeHMargin,
+              buttonWrapper,
+              mediumTMargin,
+            ]}>
+            <Text
+              style={titleSmall}
+              text="You’re on a 5 day smile streak"
+              color="primary"
+            />
           </TouchableOpacity>
         </Content>
         {/* <Footer light /> */}
@@ -120,4 +132,11 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard
+const mapDispatchToProps = dispatch => ({
+  getDashboard: () => dispatch(getDashboard()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Dashboard);

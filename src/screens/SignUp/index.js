@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
-import { Content, Icon, Input } from 'native-base';
+import {Content, Input} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
+import {ActivityIndicator} from 'react-native';
 import {
   View,
   ImageBackground,
@@ -11,8 +13,8 @@ import {
 } from 'react-native';
 
 // components
-import { Text, Button } from 'src/components';
-import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
+import {Text, Button} from 'src/components';
+import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
 import useForm from 'src/hooks/useForm';
@@ -22,10 +24,12 @@ import validator from 'src/utils/validation';
 
 // styles
 import styles from './styles';
+import {signUp} from './redux/actions';
 
 const SignUp = props => {
   const {
-    navigation: { navigate },
+    navigation: {navigate},
+    requesting,
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
@@ -63,34 +67,32 @@ const SignUp = props => {
 
   const submitForm = () => {
     const data = {
+      email: state.email.value,
       password: state.password.value,
-      username: state.email.value,
+      goals: [],
     };
-    // onSubmit(data);
+    props.onSubmit(data);
   };
 
   const onPress = val => {
     val === checked ? setChecked(0) : setChecked(val);
   };
 
-  const { state, handleOnChange, disable } = useForm(
+  const {state, handleOnChange, disable} = useForm(
     stateSchema,
     validationStateSchema,
   );
 
-  const { titleSmall } = Fonts;
-  const { row, fill, center, alignItemsCenter, fullSize } = Layout;
-  const { primaryBg, secondaryBg, borderB, borderColor } = Global;
+  const {titleSmall} = Fonts;
+  const {row, fill, center, alignItemsCenter, fullSize} = Layout;
+  const {secondaryBg} = Global;
   const {
     largeHMargin,
     smallHMargin,
     regularHMargin,
     mediumXHMargin,
     small2xTMargin,
-    mediumXTMargin,
     regularHPadding,
-    largeTMargin,
-    largeBMargin,
     regularTMargin,
     largeXTMargin,
     regularVPadding,
@@ -98,11 +100,9 @@ const SignUp = props => {
   } = Gutters;
   const {
     topWrapper,
-    arrowBack,
     title,
     heading,
     fieldWrapper,
-    backArrowWrapper,
     buttonWrapper,
     modalWrapper,
   } = styles;
@@ -148,13 +148,17 @@ const SignUp = props => {
               />
             </View>
             <TouchableOpacity onPress={() => submitForm()}>
-              <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={['#A9D670', '#FFF16F']}
-                style={[fill, row, center, buttonWrapper, largeXTMargin]}>
-                <Text style={titleSmall} text="Sign up" color="river" />
-              </LinearGradient>
+              {requesting ? (
+                <ActivityIndicator size="large" color="#FFF" />
+              ) : (
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={['#A9D670', '#FFF16F']}
+                  style={[fill, row, center, buttonWrapper, largeXTMargin]}>
+                  <Text style={titleSmall} text="Sign up" color="river" />
+                </LinearGradient>
+              )}
             </TouchableOpacity>
 
             <View style={[row, center, regularVPadding]}>
@@ -212,5 +216,15 @@ const SignUp = props => {
     </>
   );
 };
+const mapStateToProps = state => ({
+  requesting: state.signUp.requesting,
+});
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(signUp(data)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SignUp);

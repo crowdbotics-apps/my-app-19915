@@ -1,22 +1,21 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import {all, call, put, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
+import {showMessage} from 'react-native-flash-message';
 
-import { showMessage } from 'react-native-flash-message';
+// services
+import { navigate } from 'src/navigator/NavigationService';
 
 // config
-import { appConfig } from '../../../config/app';
+import {appConfig} from '../../../config/app';
 
 // utils
 import XHR from '../../../utils/XHR';
 
 // types
-import { LOGIN } from './types';
+import {LOGIN} from '../../App/redux/types';
 
 // actions
-import {
-  reset,
-  setUserData
-} from './actions';
+import {setAuthToken, setUserInfo, loginFailure} from '../../App/redux/actions';
 
 function loginAPI(data) {
   const URL = `${appConfig.backendServerURL}/api/v1/token/login/`;
@@ -31,19 +30,18 @@ function loginAPI(data) {
   return XHR(URL, options);
 }
 
-function* login({ data }) {
+function* login({data}) {
   try {
     const response = yield call(loginAPI, data);
-    const { user } = response;
+    const res = response.data;
 
-    AsyncStorage.setItem('authToken', user);
-
-    yield put(setUserData(user));
+    AsyncStorage.setItem('authToken', res.access);
+    yield put(setAuthToken(res.access));
+    yield put(setUserInfo(res.user));
   } catch (e) {
-    yield put(reset());
-
+    yield put(loginFailure());
     showMessage({
-      message: 'Unable to login, something went wrong.',
+      message: 'Failed to login, something went wrong.',
       type: 'danger',
     });
   }

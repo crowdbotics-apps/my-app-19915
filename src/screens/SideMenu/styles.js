@@ -4,9 +4,9 @@ import {Colors} from 'src/theme';
 export default StyleSheet.create({
   SideMenuContainer: {
     position:"absolute",
-    flex: 1,
     flexDirection: 'row',
-    width: '75%',
+    width: '100%',
+    height:'100%',
     backgroundColor: Colors.riverbed,
   },
   toggleIcon: {
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   textWrapper: {
     justifyContent: 'center',
-    width: 280,
+    width: 260,
     height: 75,
     paddingRight: 30,
     paddingTop: 30,

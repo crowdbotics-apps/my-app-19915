@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {CheckBox, Content, Input} from 'native-base';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {ActivityIndicator} from 'react-native';
 // components
 import {Text, Button, ErrorBox} from 'src/components';
 import {Layout, Images, Gutters, Fonts} from 'src/theme';
@@ -15,7 +15,7 @@ import useForm from 'src/hooks/useForm';
 import validator from 'src/utils/validation';
 
 // actions
-import {login} from './redux/actions';
+import {login} from '../App/redux/actions';
 
 // styles
 import styles from './styles';
@@ -23,6 +23,7 @@ import styles from './styles';
 const Login = props => {
   const {
     navigation: {navigate},
+    requesting,
   } = props;
 
   const [checked, setChecked] = useState(false);
@@ -53,11 +54,11 @@ const Login = props => {
   };
 
   const submitForm = () => {
-    console.log('Login');
     const data = {
       password: state.password.value,
       username: state.email.value,
     };
+    props.onSubmit(data);
   };
 
   const {state, handleOnChange, disable} = useForm(
@@ -150,24 +151,26 @@ const Login = props => {
               category="h5"
             />
           </View>
-
           <TouchableOpacity onPress={() => submitForm()}>
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={['#A9D670', '#FFF16F']}
-              style={[
-                fill,
-                row,
-                center,
-                largeHMargin,
-                buttonWrapper,
-                largeXTMargin,
-              ]}>
-              <Text style={titleSmall} text="Login" color="river" />
-            </LinearGradient>
+            {requesting ? (
+              <ActivityIndicator size="large" color="#FFF" />
+            ) : (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#A9D670', '#FFF16F']}
+                style={[
+                  fill,
+                  row,
+                  center,
+                  largeHMargin,
+                  buttonWrapper,
+                  largeXTMargin,
+                ]}>
+                <Text style={titleSmall} text="Login" color="river" />
+              </LinearGradient>
+            )}
           </TouchableOpacity>
-
           <View style={[row, center, regularVPadding]}>
             <Text text="or login using" color="river" category="s1" bold />
           </View>
@@ -184,7 +187,7 @@ const Login = props => {
                 text="Sign up now"
                 color="golden"
                 smallTitle
-                onPress={() => navigate('Register')}
+                onPress={() => navigate('SignUp')}
               />
             </Text>
             <Text
@@ -193,6 +196,7 @@ const Login = props => {
               color="golden"
               style={regularVPadding}
               smallTitle
+              onPress={() => navigate('ResetPassword')}
             />
           </View>
         </Content>
@@ -203,6 +207,8 @@ const Login = props => {
 
 const mapStateToProps = state => ({
   requesting: state.login.requesting,
+  user: state.app.user,
+  token: state.app.authToken,
 });
 
 const mapDispatchToProps = dispatch => ({
