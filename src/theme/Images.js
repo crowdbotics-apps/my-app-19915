@@ -13,6 +13,7 @@ export default {
   email: require('src/assets/images/email.png'),
   buttonBg: require('src/assets/images/buttonBg.png'),
   toggle: require('src/assets/images/toggle.png'),
+  togglewhite: require('src/assets/images/togglewhite.png'),
   user: require('src/assets/images/user.png'),
   dashboard: require('src/assets/images/dashboard.png'),
   splash: require('src/assets/images/splash.png'),

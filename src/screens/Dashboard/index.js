@@ -6,15 +6,7 @@ import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 // components
-import {
-  Text,
-  Header,
-  ProgressCircle,
-  Footer,
-  Avatar,
-  MenuIcon,
-  CustomButton,
-} from 'src/components';
+import {Text, Header, ProgressCircle, Avatar, MenuIcon} from 'src/components';
 
 // theme
 import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
@@ -39,7 +31,10 @@ const Dashboard = props => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
-          <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+          <Header
+            left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+            right={<Avatar size="regular" />}
+          />
           <View style={[fill, center, {top: -50}]}>
             <ProgressCircle
               size={340}

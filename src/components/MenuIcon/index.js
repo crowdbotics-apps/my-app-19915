@@ -7,7 +7,7 @@ import { Images } from 'src/theme';
 const MenuIcon = ({ action }) => {
   return (
     <TouchableOpacity style={styles.toggle} onPress={action}>
-      <Image source={Images.toggle} />
+      <Image source={Images.togglewhite} />
     </TouchableOpacity>
   );
 };

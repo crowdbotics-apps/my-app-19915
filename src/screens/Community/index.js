@@ -1,10 +1,13 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { Content } from 'native-base';
-
+import {connect} from 'react-redux';
 //styles
 import styles from './styles';
+
+//actions
+import {getCommunity} from './redux/actions';
 
 // components
 import {
@@ -12,52 +15,38 @@ import {
   Header,
   MenuIcon,
   Avatar,
-  Footer,
-  ProgressCircle,
 } from 'src/components';
-import { Gutters, Images, Layout, Fonts, Colors } from 'src/theme';
+import { Gutters, Images, Layout, Fonts } from 'src/theme';
 const {
-  mediumTMargin,
   mediumBPadding,
-  largeHMargin,
   mediumVMargin,
   smallBMargin,
-  smallTMargin,
-  smallHPadding,
-  smallVMargin,
   regularHPadding,
-  mediumHMargin,
   regularVMargin,
-  mediumLMargin,
   small2xHPadding,
-  mediumBMargin,
-  small2xVMargin,
-  mediumHPadding,
   smallLMargin,
-  smallHMargin,
-  largeXTMargin,
 } = Gutters;
 
-const { backImage, resource, progressWrapper, midWrapper, addSpace } = styles;
+const { backImage, resource } = styles;
 
 import { CommunityCard } from '../../components';
 
 const {
-  border,
   row,
   fill,
   center,
-  selfCenter,
   alignItemsCenter,
-  positionA,
-  justifyContentCenter,
   justifyContentBetween,
-  justifyContentEnd,
 } = Layout;
 
-const { titleSmall, titleRegular, textMedium } = Fonts;
+const { titleSmall, textMedium } = Fonts;
 
 const Community = () => {
+  
+  useEffect(() => {
+    props.getCommunity();
+  }, []);
+
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
@@ -115,4 +104,11 @@ const Community = () => {
   );
 };
 
-export default Community;
+const mapDispatchToProps = dispatch => ({
+  getCommunity: () => dispatch(getCommunity()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Community);

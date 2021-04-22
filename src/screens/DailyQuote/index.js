@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
-
+import {connect} from 'react-redux';
 // components
 import {Text} from 'src/components';
 import {Layout, Images, Gutters, Fonts} from 'src/theme';
@@ -8,6 +8,9 @@ import {Layout, Images, Gutters, Fonts} from 'src/theme';
 //styles
 
 import styles from './styles';
+
+//actions
+import {getQuote} from './redux/actions';
 
 const DailyQuote = props => {
   const {rotate180Inverse, fill, center, alignItemsEnd} = Layout;
@@ -23,6 +26,10 @@ const DailyQuote = props => {
     centerText,
     bottomDoubleQuotes,
   } = styles;
+
+  useEffect(() => {
+    props.getQuote();
+  }, []);
 
   return (
     <>
@@ -55,4 +62,11 @@ const DailyQuote = props => {
   );
 };
 
-export default DailyQuote;
+const mapDispatchToProps = dispatch => ({
+  getQuote: () => dispatch(getQuote()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(DailyQuote);

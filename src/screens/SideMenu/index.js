@@ -1,93 +1,74 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // components
-import {Text, Header, MenuIcon,} from 'src/components';
-import {Images,Gutters} from 'src/theme';
+import {Text, MenuIcon} from 'src/components';
+import {Images, Gutters} from 'src/theme';
 import {View, TouchableOpacity, Image} from 'react-native';
 
 // actions
-import { logout as logoutAction } from '../App/redux/actions';
+import {logout as logoutAction} from '../App/redux/actions';
 
 // styles
 import styles from './styles';
 
-const SideMenu = (props) => {
+const SideMenu = props => {
   const {
     SideMenuContainer,
-    userWrapper,
     leftColumn,
-    topIconWrapper,
-    leftSmallColumn,
-    topText,
+    iconWrapper,
     rightColumn,
     textWrapper,
     bottomWrapper,
     bottomBox,
-    toggleIcon,
+    logoWrapper,
+    menuWrapper,
+    activeMenu,
+    settingWrapper,
+    activeMenuWrapper,
+    activeSettingWrapper,
   } = styles;
   const {largeXLPadding} = Gutters;
+
+  const [menuType, setMenuType] = useState('menu');
 
   const logout = () => {
     AsyncStorage.clear();
     props.logout();
-}
+  };
+
+  const menus = {
+    menu: ['Feedback', 'Message', 'Friends', 'Tutorial', 'Notifications'],
+    setting: ['setting2', 'setting3', 'setting4', 'setting5', 'setting6'],
+  };
+
   return (
     <>
-
       <View style={[SideMenuContainer]}>
-        <View style={leftSmallColumn}>
-          <TouchableOpacity style={[toggleIcon]}>
-          <MenuIcon />
+        <View style={leftColumn}>
+          <TouchableOpacity
+            style={[menuWrapper, menuType === 'menu' && activeMenu]}>
+            <MenuIcon action={() => setMenuType('menu')} />
           </TouchableOpacity>
-          <View style={leftColumn}>
-            <View
-              style={topIconWrapper}>
-              <TouchableOpacity>
-                <Image source={require('../../assets/images/setting.png')} />
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity>
-              <Image
-                style={userWrapper}
-                source={require('../../assets/images/man.png')}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            onPress={() => setMenuType('setting')}
+            style={[menuWrapper, menuType === 'setting' && activeMenu]}>
+            <Image source={require('../../assets/images/setting.png')} />
+          </TouchableOpacity>
         </View>
         <View style={rightColumn}>
-          <Text
-            bold
-            style={[topText]}
-            smallTitle
-            color="secondary"
-            text="Feedback"
-          />
-          <Text
-            smallTitle
-            color="secondary"
-            style={[largeXLPadding, textWrapper]}
-            text="Message"
-          />
-          <Text
-            smallTitle
-            color="secondary"
-            style={[largeXLPadding, textWrapper]}
-            text="Friends"
-          />
-          <Text
-            smallTitle
-            color="secondary"
-            style={[largeXLPadding, textWrapper]}
-            text="Tutorial"
-          />
-          <Text
-            smallTitle
-            color="secondary"
-            style={[largeXLPadding, textWrapper]}
-            text="Notifications"
-          />
+          {menus[menuType].map((text, i) => (
+            <TouchableOpacity>
+              <Text
+                style={textWrapper}
+                smallTitle
+                color="secondary"
+                text={text}
+              />
+            </TouchableOpacity>
+          ))}
+
           <TouchableOpacity onPress={logout}>
             <Text
               smallTitle
@@ -97,7 +78,7 @@ const SideMenu = (props) => {
             />
           </TouchableOpacity>
           <View style={bottomBox}>
-            <Image source={Images.logos}/>
+            <Image style={logoWrapper} source={Images.logos} />
           </View>
         </View>
       </View>

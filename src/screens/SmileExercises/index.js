@@ -1,49 +1,42 @@
-import React from 'react';
-
+import React,{useEffect} from 'react';
+import {connect} from 'react-redux';
 import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { Content } from 'native-base';
 
 //styles
 import styles from './styles';
 
+//actions
+import {getExercises} from './redux/actions';
+
 // components
 import { Text, Header, MenuIcon, Avatar, Footer } from 'src/components';
 import { Gutters, Images, Layout, Fonts } from 'src/theme';
 const {
-  mediumTMargin,
   mediumBPadding,
-  largeHMargin,
   mediumVMargin,
   smallBMargin,
   smallTMargin,
   mediumHMargin,
-  mediumLMargin,
-  mediumBMargin,
-  small2xVMargin,
-  smallHMargin,
-  largeXTMargin,
 } = Gutters;
 
 const { backImage, resource, star, text } = styles;
 
-import { MoreCard } from '../../components';
-
 const {
-  border,
   row,
   fill,
-  center,
-  selfCenter,
   alignItemsCenter,
   positionA,
-  justifyContentCenter,
-  justifyContentBetween,
-  justifyContentEnd,
 } = Layout;
 
 const { titleSmall, titleRegular, textMedium } = Fonts;
 
 const SmileExercises = () => {
+
+  useEffect(() => {
+    props.getExercises();
+  }, []);
+
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
@@ -79,4 +72,11 @@ const SmileExercises = () => {
   );
 };
 
-export default SmileExercises;
+const mapDispatchToProps = dispatch => ({
+  getExercises: () => dispatch(getExercises()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SmileExercises);
