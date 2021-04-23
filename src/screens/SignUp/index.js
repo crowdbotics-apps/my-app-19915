@@ -105,6 +105,7 @@ const SignUp = props => {
     fieldWrapper,
     buttonWrapper,
     modalWrapper,
+    activityIndicatorWrapper,
   } = styles;
 
   return (
@@ -149,7 +150,9 @@ const SignUp = props => {
             </View>
             <TouchableOpacity onPress={() => submitForm()}>
               {requesting ? (
-                <ActivityIndicator size="large" color="#FFF" />
+                <View style={[center, activityIndicatorWrapper]}>
+                  <ActivityIndicator size="large" color="#FFF" />
+                </View>
               ) : (
                 <LinearGradient
                   start={{x: 0, y: 0}}

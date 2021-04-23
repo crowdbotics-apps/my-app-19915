@@ -22,7 +22,8 @@ import SmileStone from "./SmileStone";
 import GoalsCard from "./GoalsCard";
 import MoreCard from "./MoreCard";
 import ArticalCard from "./ArticalCard";
-import CommunityCard from "./CommunityCard";
+import CommunityCard from "./CommunityCard"; 
+import DataAvailability from "./DataAvailability";
 
 
 export {
@@ -43,6 +44,7 @@ export {
   ProgressCircle,
   Chart,
   SmileCountablity,
+  DataAvailability,
   CardHeader,
   CustomButton,
   Tab,

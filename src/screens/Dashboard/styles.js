@@ -12,5 +12,12 @@ export default StyleSheet.create({
   buttonWrapper: {
     height: 84,
     borderRadius: 80,
-  }
+  },
+  dataWrapper: {
+    paddingVertical: 20
+},
+bottomButtonWrapper: {
+  height: 60,
+  borderRadius: 80
+},
 });

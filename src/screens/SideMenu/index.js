@@ -59,7 +59,7 @@ const SideMenu = props => {
         </View>
         <View style={rightColumn}>
           {menus[menuType].map((text, i) => (
-            <TouchableOpacity>
+            <TouchableOpacity key={i}>
               <Text
                 style={textWrapper}
                 smallTitle

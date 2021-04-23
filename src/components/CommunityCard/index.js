@@ -9,17 +9,27 @@ import {Fonts, Layout, Gutters, Images} from 'src/theme';
 //style
 import styles from './styles';
 
-const {mediumBPadding, smallVMargin, mediumVMargin, regularHMargin} = Gutters;
+const {smallVMargin} = Gutters;
 const {positionA, positionR, justifyContentEnd, justifyContentCenter} = Layout;
 const {textMedium, titleRegular} = Fonts;
 const {textWrapper, image, icon} = styles;
 
-const CommunityCard = ({withUser, title, description, text, source}) => {
+const CommunityCard = ({withUser, card}) => {
+  console.log('card', card);
+  const {title, description, url} = card;
   return (
     <>
       {withUser && <Image style={icon} source={Images.user} />}
-      <View style={[justifyContentEnd, positionR,{overflow:"hidden"}]}>
-        <Image source={source} style={image} />
+      <View
+        style={[
+          justifyContentEnd,
+          positionR,
+          {overflow: 'hidden', marginBottom: 20},
+        ]}>
+        <Image
+          source={url ? {uri: url} : Images.communityimage1}
+          style={image}
+        />
         <View style={[textWrapper, positionA, justifyContentCenter]}>
           <Text
             bold
@@ -32,7 +42,7 @@ const CommunityCard = ({withUser, title, description, text, source}) => {
             text={description}
             style={[textMedium, smallVMargin]}
           />
-          <Text color="secondary" text={text} style={[textMedium]} />
+          <Text color="secondary" text={'485 members'} style={[textMedium]} />
         </View>
       </View>
     </>

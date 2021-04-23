@@ -31,7 +31,9 @@ async function getDashboardDataAPI() {
 function* getDashboardData() {
   try {
     const response = yield call(getDashboardDataAPI);
-    yield put(getDashBoardDataSuccess());
+    const { data }= response;
+
+    yield put(getDashBoardDataSuccess(data));
   } catch (e) {
     yield put(getDashBoardDataFailure());
 

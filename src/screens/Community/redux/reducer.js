@@ -6,16 +6,17 @@ import {
 
 const initialState = {
   requesting: false,
-  community: false,
+  data: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    
     case GET_COMMUNITY:
       return {...state, requesting: true};
 
     case GET_COMMUNITY_SUCCESS:
-      return {...state, requesting: false, community: action.community};
+      return {...state, requesting: false, data: action.data};
 
     case GET_COMMUNITY_FAILURE:
       return {

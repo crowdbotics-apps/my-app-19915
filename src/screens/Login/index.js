@@ -5,7 +5,7 @@ import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ActivityIndicator} from 'react-native';
 // components
-import {Text, Button, ErrorBox} from 'src/components';
+import {Text, ErrorBox} from 'src/components';
 import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
@@ -72,7 +72,6 @@ const Login = props => {
 
   const {
     largeHMargin,
-    mediumTMargin,
     regularHMargin,
     mediumXHMargin,
     small2xTMargin,
@@ -89,6 +88,7 @@ const Login = props => {
     fieldWrapper,
     buttonWrapper,
     checkBoxWrapper,
+    activityIndicatorWrapper,
   } = styles;
   return (
     <>
@@ -153,7 +153,9 @@ const Login = props => {
           </View>
           <TouchableOpacity onPress={() => submitForm()}>
             {requesting ? (
-              <ActivityIndicator size="large" color="#FFF" />
+              <View style={[center, activityIndicatorWrapper]}>
+                <ActivityIndicator size="large" color="#FFF" />
+              </View>
             ) : (
               <LinearGradient
                 start={{x: 0, y: 0}}

@@ -1,22 +1,25 @@
 import React, {useEffect} from 'react';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {connect} from 'react-redux';
+
 // components
-import {Text} from 'src/components';
-import {Layout, Images, Gutters, Fonts} from 'src/theme';
+import {Text,DataAvailability} from 'src/components';
 
 //styles
-
 import styles from './styles';
+import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 //actions
 import {getQuote} from './redux/actions';
 
 const DailyQuote = props => {
+  const {data, requesting} = props;
+  useEffect(() => {
+    props.getQuote();
+  }, []);
+
   const {rotate180Inverse, fill, center, alignItemsEnd} = Layout;
-
   const {largeXTMargin} = Gutters;
-
   const {
     quoteBox,
     topDoubleQuotesWrapper,
@@ -24,12 +27,9 @@ const DailyQuote = props => {
     bottomDoubleQuotesWrapper,
     centerTextWrapper,
     centerText,
+    dataWrapper,
     bottomDoubleQuotes,
   } = styles;
-
-  useEffect(() => {
-    props.getQuote();
-  }, []);
 
   return (
     <>
@@ -42,11 +42,16 @@ const DailyQuote = props => {
             <Text style={topDoubleQuotes} bold color="river" text="“" />
           </View>
           <View style={centerTextWrapper}>
-            <Text
-              color="river"
-              style={centerText}
-              text="A great pleasure in life is doing what people say you cannot do"
-            />
+            <DataAvailability
+              requesting={requesting}
+              hasData={Boolean(data)}
+              style={dataWrapper}>
+              <Text
+                color="river"
+                style={centerText}
+                text={data && data[0].quote}
+              />
+            </DataAvailability>
           </View>
           <View style={[alignItemsEnd, bottomDoubleQuotesWrapper]}>
             <Text
@@ -62,11 +67,16 @@ const DailyQuote = props => {
   );
 };
 
+const mapStateToProps = state => ({
+  data: state.quote.data,
+  requesting: state.quote.requesting,
+});
+
 const mapDispatchToProps = dispatch => ({
   getQuote: () => dispatch(getQuote()),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(DailyQuote);

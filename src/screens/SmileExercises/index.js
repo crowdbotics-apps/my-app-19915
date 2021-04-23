@@ -31,7 +31,7 @@ const {
 
 const { titleSmall, titleRegular, textMedium } = Fonts;
 
-const SmileExercises = () => {
+const SmileExercises = (props) => {
 
   useEffect(() => {
     props.getExercises();

@@ -8,9 +8,9 @@ export const getQuote = () => ({
   type: GET_QUOTE,
 });
 
-export const getQuoteSuccess = quote => ({
+export const getQuoteSuccess = data => ({
   type: GET_QUOTE_SUCCESS,
-  quote,
+  data,
 });
 
 export const getQuoteFailure = () => ({

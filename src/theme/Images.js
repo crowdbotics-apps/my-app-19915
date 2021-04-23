@@ -86,7 +86,7 @@ export default {
   communityimage2: require('src/assets/images/communityimage2.png'),
   communityimage3: require('src/assets/images/communityimage3.png'),
   polygon: require('src/assets/images/Polygon.png'),
-
+  streak: require('src/assets/images/streak.png'),
   // first dashboard
   // homelight: require('src/assets/dashboard/homelight.png'),
   // homedark: require('src/assets/dashboard/homedark.png'),

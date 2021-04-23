@@ -8,9 +8,9 @@ export const getCommunity = () => ({
   type: GET_COMMUNITY,
 });
 
-export const getCommunitySuccess = quote => ({
+export const getCommunitySuccess = data => ({
   type: GET_COMMUNITY_SUCCESS,
-  quote,
+  data,
 });
 
 export const getCommunityFailure = () => ({

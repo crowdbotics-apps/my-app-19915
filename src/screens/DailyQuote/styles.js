@@ -40,4 +40,7 @@ export default StyleSheet.create({
     width: 60,
     height: 50,
   },
+  dataWrapper: {
+    paddingVertical: 300
+}
 });

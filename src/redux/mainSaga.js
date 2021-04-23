@@ -6,7 +6,9 @@ import signUp from 'src/screens/SignUp/redux/sagas';
 import dashboard from 'src/screens/Dashboard/redux/sagas';
 import quote from 'src/screens/DailyQuote/redux/sagas';
 import exercises from 'src/screens/SmileExercises/redux/sagas';
+import community from 'src/screens/Community/redux/sagas';
+
 
 export function* mainSaga() {
-  yield all([login, signUp, dashboard,quote,exercises]);
+  yield all([login, signUp, dashboard,quote,exercises,community]);
 }

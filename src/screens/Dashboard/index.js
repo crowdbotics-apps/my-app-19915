@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 // components
 import {Text, Header, ProgressCircle, Avatar, MenuIcon} from 'src/components';
-
+import {DataAvailability} from 'src/components';
 // theme
 import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
 
@@ -18,14 +18,27 @@ import styles from './styles';
 import {getDashboard} from './redux/actions';
 
 const Dashboard = props => {
-  const {titleSmall} = Fonts;
-  const {row, fill, center, justifyContentBetween} = Layout;
-  const {mediumTMargin, mediumBPadding, largeHMargin, largeXTMargin} = Gutters;
-  const {dashboardImg, progressBarWrapper, buttonWrapper} = styles;
-
+  const {data, requesting} = props;
   useEffect(() => {
     props.getDashboard();
   }, []);
+
+  const {titleSmall, textLarge} = Fonts;
+  const {row, fill, center, justifyContentBetween} = Layout;
+  const {
+    mediumTMargin,
+    mediumBPadding,
+    largeHMargin,
+    largeXTMargin,
+    smallHPadding,
+  } = Gutters;
+  const {
+    dashboardImg,
+    progressBarWrapper,
+    buttonWrapper,
+    dataWrapper,
+    bottomButtonWrapper,
+  } = styles;
 
   return (
     <>
@@ -61,29 +74,51 @@ const Dashboard = props => {
             <View>
               <Text text="Smile seconds" color="primary" medium />
               <View style={mediumTMargin}>
-                <ProgressCircle
-                  size={100}
-                  progress={0.4}
-                  thickness={5}
-                  showsText={true}
-                  color={Colors.primary}
-                  formatText={() => '180s'}
-                  unfilledColor={Colors.viking}
-                />
+                <DataAvailability
+                  requesting={requesting}
+                  hasData={Boolean(data)}
+                  style={dataWrapper}>
+                  <ProgressCircle
+                    size={100}
+                    progress={0.4}
+                    thickness={5}
+                    showsText={true}
+                    color={Colors.primary}
+                    formatText={() =>
+                      `${
+                        data && data.dashboard[0].total_second
+                          ? data.dashboard[0].total_second
+                          : 0
+                      }s`
+                    }
+                    unfilledColor={Colors.viking}
+                  />
+                </DataAvailability>
               </View>
             </View>
             <View>
               <Text text="Smile count" color="primary" medium />
               <View style={mediumTMargin}>
-                <ProgressCircle
-                  size={100}
-                  progress={0.4}
-                  showsText={true}
-                  thickness={5}
-                  formatText={() => '24'}
-                  color={Colors.primary}
-                  unfilledColor={Colors.viking}
-                />
+                <DataAvailability
+                  requesting={requesting}
+                  hasData={Boolean(data)}
+                  style={dataWrapper}>
+                  <ProgressCircle
+                    size={100}
+                    progress={0.4}
+                    showsText={true}
+                    thickness={5}
+                    formatText={() =>
+                      `${
+                        data && data.dashboard[0].total_count
+                          ? data.dashboard[0].total_count
+                          : 0
+                      }s`
+                    }
+                    color={Colors.primary}
+                    unfilledColor={Colors.viking}
+                  />
+                </DataAvailability>
               </View>
             </View>
           </View>
@@ -111,11 +146,12 @@ const Dashboard = props => {
               row,
               center,
               largeHMargin,
-              buttonWrapper,
+              bottomButtonWrapper,
               mediumTMargin,
             ]}>
+            <Image source={Images.streak} />
             <Text
-              style={titleSmall}
+              style={[smallHPadding, textLarge]}
               text="You’re on a 5 day smile streak"
               color="primary"
             />
@@ -127,11 +163,16 @@ const Dashboard = props => {
   );
 };
 
+const mapStateToProps = state => ({
+  data: state.dashboard.data,
+  requesting: state.dashboard.requesting,
+});
+
 const mapDispatchToProps = dispatch => ({
   getDashboard: () => dispatch(getDashboard()),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Dashboard);

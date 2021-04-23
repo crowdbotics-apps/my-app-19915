@@ -1,22 +1,18 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { Content } from 'native-base';
+import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {Content} from 'native-base';
 import {connect} from 'react-redux';
-//styles
-import styles from './styles';
 
 //actions
 import {getCommunity} from './redux/actions';
 
 // components
-import {
-  Text,
-  Header,
-  MenuIcon,
-  Avatar,
-} from 'src/components';
-import { Gutters, Images, Layout, Fonts } from 'src/theme';
+import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
+
+//styles
+import styles from './styles';
+import {Gutters, Images, Layout, Fonts} from 'src/theme';
 const {
   mediumBPadding,
   mediumVMargin,
@@ -27,22 +23,17 @@ const {
   smallLMargin,
 } = Gutters;
 
-const { backImage, resource } = styles;
+const {backImage, resource, dataWrapper} = styles;
 
-import { CommunityCard } from '../../components';
+import {CommunityCard} from '../../components';
 
-const {
-  row,
-  fill,
-  center,
-  alignItemsCenter,
-  justifyContentBetween,
-} = Layout;
+const {row, fill, center, alignItemsCenter, justifyContentBetween} = Layout;
 
-const { titleSmall, textMedium } = Fonts;
+const {titleSmall, textMedium} = Fonts;
 
-const Community = () => {
-  
+const Community = props => {
+  const {data, requesting} = props;
+
   useEffect(() => {
     props.getCommunity();
   }, []);
@@ -74,41 +65,29 @@ const Community = () => {
         </View>
         <View style={[fill, small2xHPadding]}>
           <Content contentContainerStyle={[mediumBPadding]}>
-            <CommunityCard
-              withUser
-              source={Images.communityimage1}
-              title="Community name"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed congue purus, ac blandit risus"
-              text="485 members"
-            />
-            <View style={[regularVMargin]}>
-              <CommunityCard
-                withUser
-                source={Images.communityimage2}
-                title="Community name"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed congue purus, ac blandit risus"
-                text="485 members"
-              />
-            </View>
-            <CommunityCard
-              source={Images.communityimage3}
-              title="Community name"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed congue purus, ac blandit risus"
-              text="485 members"
-            />
+            <DataAvailability
+              requesting={requesting}
+              hasData={data && data.length > 0}
+              style={dataWrapper}>
+              {data && data.map((item) => <CommunityCard withUser card={item} />)}
+            </DataAvailability>
           </Content>
         </View>
-        {/* <Footer /> */}
       </ImageBackground>
     </>
   );
 };
+
+const mapStateToProps = state => ({
+  data: state.community.data,
+  requesting: state.community.requesting,
+});
 
 const mapDispatchToProps = dispatch => ({
   getCommunity: () => dispatch(getCommunity()),
 });
 
 export default connect(
-  null,
-  mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(Community);

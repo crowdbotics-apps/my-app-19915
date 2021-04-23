@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   requesting: false,
-  quote: false,
+  data: false,
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
       return {...state, requesting: true};
 
     case GET_QUOTE_SUCCESS:
-      return {...state, requesting: false, quote: action.quote};
+      return {...state, requesting: false, data: action.data};
 
     case GET_QUOTE_FAILURE:
       return {

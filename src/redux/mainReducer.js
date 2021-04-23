@@ -6,8 +6,10 @@ import app from 'src/screens/App/redux/reducer';
 import login from 'src/screens/App/redux/reducer';
 import signUp from 'src/screens/SignUp/redux/reducer';
 import dashboard from 'src/screens/Dashboard/redux/reducer';
-import quote from 'src/screens/DailyQuote/redux/reducer'
-import exercises from 'src/screens/SmileExercises/redux/reducer'
+import quote from 'src/screens/DailyQuote/redux/reducer';
+import exercises from 'src/screens/SmileExercises/redux/reducer';
+import community from 'src/screens/Community/redux/reducer';
+
 
 const appPersistConfig = {
   key: 'app',
@@ -21,5 +23,6 @@ export default {
   login,
   dashboard,
   quote,
-  exercises
+  exercises,
+  community
 };

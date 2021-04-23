@@ -26,6 +26,9 @@ export default StyleSheet.create({
     height: 60,
     borderRadius: 80
   },
+  activityIndicatorWrapper:{
+    paddingTop:70
+  },
   modalWrapper: {
     backgroundColor: Colors.nileblue
   },
