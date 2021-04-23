@@ -246,6 +246,36 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
 }
 
+# AWS S3 config
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
+AWS_STORAGE_REGION = env.str("AWS_STORAGE_REGION", "")
+
+USE_S3 = (
+        AWS_ACCESS_KEY_ID
+        and AWS_SECRET_ACCESS_KEY
+        and AWS_STORAGE_BUCKET_NAME
+        and AWS_STORAGE_REGION
+)
+
+if USE_S3:
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read")
+    AWS_MEDIA_LOCATION = env.str("AWS_MEDIA_LOCATION", "media")
+    AWS_AUTO_CREATE_BUCKET = env.bool("AWS_AUTO_CREATE_BUCKET", True)
+    DEFAULT_FILE_STORAGE = env.str(
+        "DEFAULT_FILE_STORAGE", "home.storage_backends.MediaStorage"
+    )
+    # MEDIA_URL = "/mediafiles/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+
+
 # Debug toolbar settings
 if DEBUG:
     INSTALLED_APPS += [
