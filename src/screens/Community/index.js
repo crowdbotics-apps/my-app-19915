@@ -18,7 +18,6 @@ const {
   mediumVMargin,
   smallBMargin,
   regularHPadding,
-  regularVMargin,
   small2xHPadding,
   smallLMargin,
 } = Gutters;
@@ -41,7 +40,10 @@ const Community = props => {
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
-        <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+        <Header
+          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+          right={<Avatar size="regular" />}
+        />
         <View style={[row, alignItemsCenter, smallBMargin]}>
           <TouchableOpacity>
             <Image source={Images.camarrowback} style={backImage} />
@@ -69,7 +71,8 @@ const Community = props => {
               requesting={requesting}
               hasData={data && data.length > 0}
               style={dataWrapper}>
-              {data && data.map((item) => <CommunityCard withUser card={item} />)}
+              {data &&
+                data.map((card, i) => <CommunityCard key={i} card={card} />)}
             </DataAvailability>
           </Content>
         </View>

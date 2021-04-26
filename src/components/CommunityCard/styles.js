@@ -10,7 +10,8 @@ export default StyleSheet.create({
     borderRadius:12
   },
   image: {
-    width: '100%',
+    width: 353,
+    height:350,
     borderRadius: 12
   },
   icon: {

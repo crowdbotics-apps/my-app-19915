@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {View, Image} from 'react-native';
-import {Content} from 'native-base';
+
 // components
 import {Text} from 'src/components';
 import {Fonts, Layout, Gutters, Images} from 'src/theme';
@@ -15,8 +15,8 @@ const {textMedium, titleRegular} = Fonts;
 const {textWrapper, image, icon} = styles;
 
 const CommunityCard = ({withUser, card}) => {
-  console.log('card', card);
-  const {title, description, url} = card;
+  const {name, description} = card;
+
   return (
     <>
       {withUser && <Image style={icon} source={Images.user} />}
@@ -26,15 +26,12 @@ const CommunityCard = ({withUser, card}) => {
           positionR,
           {overflow: 'hidden', marginBottom: 20},
         ]}>
-        <Image
-          source={url ? {uri: url} : Images.communityimage1}
-          style={image}
-        />
+        <Image source={ card.image ? {uri: card.image} : Images.communityimage1} style={image} />
         <View style={[textWrapper, positionA, justifyContentCenter]}>
           <Text
             bold
             color="secondary"
-            text={title}
+            text={name}
             style={[titleRegular, smallVMargin]}
           />
           <Text
@@ -42,7 +39,7 @@ const CommunityCard = ({withUser, card}) => {
             text={description}
             style={[textMedium, smallVMargin]}
           />
-          <Text color="secondary" text={'485 members'} style={[textMedium]} />
+          <Text color="secondary" text={'485 members'} style={textMedium} />
         </View>
       </View>
     </>
