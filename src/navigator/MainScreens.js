@@ -82,7 +82,7 @@ const mainStack = createStackNavigator();
 const MainStackScreen = () => (
     <mainStack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="SmileExercisesMaxHeight"
+        initialRouteName="Dashboard"
     >
         <mainStack.Screen name="Dashboard" component={BottomNavigator} />
         <mainStack.Screen name="Community" component={Community} />

@@ -32,9 +32,9 @@ const SmileExercises = props => {
     exercises,
     requesting,
   } = props;
-  console.log('requesting', requesting, exercises);
+  
   useEffect(() => {
-    console.log('called');
+    
     props.getExercises();
   }, []);
   return (
@@ -49,7 +49,7 @@ const SmileExercises = props => {
           hasData={exercises}
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <Image source={Images.camarrowback} style={backImage} />
             </TouchableOpacity>
             <Text

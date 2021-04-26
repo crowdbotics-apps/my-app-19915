@@ -6,10 +6,10 @@ import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 // components
-import {Text, Header, ProgressCircle, Avatar, MenuIcon} from 'src/components';
+import {Text, Header, ProgressCircle, Avatar, MenuIcon,Footer} from 'src/components';
 import {DataAvailability} from 'src/components';
 // theme
-import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
+import {Layout, Images, Gutters, Colors, Fonts,FooterImages} from 'src/theme';
 
 // styles
 import styles from './styles';
@@ -31,6 +31,7 @@ console.log(data);
     largeHMargin,
     largeXTMargin,
     smallHPadding,
+    smallVMargin
   } = Gutters;
   const {
     dashboardImg,
@@ -48,7 +49,7 @@ console.log(data);
             left={<MenuIcon action={() => props.navigation.openDrawer()} />}
             right={<Avatar size="regular" />}
           />
-          <View style={[fill, center, {top: -50}]}>
+          <View style={[fill, center,smallVMargin]}>
             <ProgressCircle
               size={340}
               progress={0.7}
@@ -71,7 +72,7 @@ console.log(data);
             <Image source={Images.splash} style={dashboardImg} />
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
-            <View>
+            <View style={[mediumTMargin,center]}>
               <Text text="Smile seconds" color="primary" medium />
               <View style={mediumTMargin}>
                 <DataAvailability
@@ -96,9 +97,9 @@ console.log(data);
                 </DataAvailability>
               </View>
             </View>
-            <View>
+            <View style={[mediumTMargin,center]}>
               <Text text="Smile count" color="primary" medium />
-              <View style={mediumTMargin}>
+              <View style={[mediumTMargin,center]}>
                 <DataAvailability
                   requesting={requesting}
                   hasData={Boolean(data)}
@@ -157,7 +158,6 @@ console.log(data);
             />
           </TouchableOpacity>
         </Content>
-        {/* <Footer light /> */}
       </ImageBackground>
     </>
   );

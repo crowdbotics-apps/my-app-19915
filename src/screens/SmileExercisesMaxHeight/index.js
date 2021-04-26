@@ -15,9 +15,10 @@ import styles from './styles';
 // components
 import {
   Text,
+  Footer,
   Header,
-  MenuIcon,
   Avatar,
+  MenuIcon,
   ArticalCard,
   ProgressCircle,
   DataAvailability,
@@ -31,7 +32,6 @@ const {
   mediumBPadding,
   mediumVMargin,
   smallBMargin,
-  smallVMargin,
   regularHPadding,
   smallLMargin,
   smallRMargin,
@@ -45,8 +45,6 @@ const {
   addSpace,
   dataWrapper,
 } = styles;
-
-import {} from '../../components';
 
 const {
   border,
@@ -71,13 +69,13 @@ const SmileExercisesMaxHeight = props => {
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
-        <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+        <Header left={<MenuIcon action={()=>props.navigation.openDrawer()}/>} right={<Avatar size="regular" />} />
         <DataAvailability
           requesting={requesting}
           hasData={sciences && sciences.length > 0}
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <Image source={Images.camarrowback} style={backImage} />
             </TouchableOpacity>
             <Text
@@ -142,11 +140,12 @@ const SmileExercisesMaxHeight = props => {
                     <ArticalCard item={item} />
                   </View>
                 ))}
+            </ScrollView>
               <View style={[center, mediumVMargin, addSpace]}>
                 <Text color="river" style={[titleSmall]} text="Add space" />
               </View>
-            </ScrollView>
           </Content>
+        <Footer/>
         </DataAvailability>
       </ImageBackground>
     </>

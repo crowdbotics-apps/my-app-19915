@@ -41,13 +41,13 @@ const Footer = ({ exerciseProp, light }) => {
   return (
     <NBFooter style={[transparentBg, footer]}>
       <FooterTab style={transparentBg}>
-        {/* {routes.map((screen, i) => (
+        {routes.map((screen, i) => (
           <TouchableOpacity
             key={i}
             style={touch}
             onPress={() => setActive(i)}
           >{light ? <Image
-            source={FooterImages[
+            source={Images[
               `${screen.image}${active === i ? 'dark' : 'light'}`
             ]}
           /> :
@@ -63,7 +63,7 @@ const Footer = ({ exerciseProp, light }) => {
               style={smallVPadding}
             />
           </TouchableOpacity>
-        ))} */}
+        ))}
       </FooterTab>
     </NBFooter>
   );

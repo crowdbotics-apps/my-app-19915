@@ -21,7 +21,7 @@ export default StyleSheet.create({
 
   textWrapper: {
     justifyContent: 'center',
-    width: 290,
+    width: 263,
     height: 75,
     paddingRight: 30,
     paddingTop: 30,
@@ -50,7 +50,7 @@ export default StyleSheet.create({
   },
 
   rightColumn: {
-    width: 280,
+    width: 250,
     backgroundColor: Colors.riverbed,
     alignItems: 'center',
   },

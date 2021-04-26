@@ -8,14 +8,15 @@ export default StyleSheet.create({
       marginHorizontal:20
   },
   resource:{marginLeft:20},
-  star:{top:-10,left:330},
+  star:{top:-10,left:290},
   text:{
       lineHeight:20
   },
   image:{
     marginTop: 15,
-    width:"100%",
-    height:350
+    width:414,
+    height:400,
+    paddingHorizontal:50
   },
   dataWrapper:{
     paddingVertical:250

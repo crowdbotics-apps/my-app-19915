@@ -114,7 +114,7 @@ const SignUp = props => {
         <Content showsVerticalScrollIndicator={false}>
           <View style={[center, smallHMargin]}>
             <View style={topWrapper}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => props.navigation.goBack()}>
                 <Image source={Images.arrowback} />
               </TouchableOpacity>
               <Image source={require('src/assets/images/logos.png')} />

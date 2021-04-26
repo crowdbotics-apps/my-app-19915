@@ -24,6 +24,6 @@ export default StyleSheet.create({
   },
   addSpace: {backgroundColor: '#fff', height: 174},
   dataWrapper:{
-    paddingVertical:100
+    paddingVertical:230
   },
 });
