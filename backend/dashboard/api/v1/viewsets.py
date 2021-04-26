@@ -2,7 +2,7 @@ import datetime
 from datetime import timedelta
 # from django.utils import timezone
 from django.utils.datetime_safe import date
-from django.db.models import Avg, Sum, Min, Max, Count, DateTimeField
+from django.db.models import Avg, Sum, Min, Max, Count, DateTimeField, Prefetch
 from rest_framework import status
 from django.db.models import Func
 # from rest_framework.decorators import action
@@ -11,8 +11,8 @@ from rest_framework.viewsets import ModelViewSet
 # from rest_framework .permissions import AllowAny
 
 from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer, SmileExerciseSerializer, \
-    SmileCommunitySerializer, SmileScienceSerializer
-from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience
+    SmileCommunitySerializer, SmileScienceSerializer, FavoriteExerciseSerializer
+from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience, FavoriteExercise
 
 
 class QuoteViewSet(ModelViewSet):
@@ -88,7 +88,7 @@ class SmileDashboard(ModelViewSet):
 
 class SmileExerciseViewSet(ModelViewSet):
     serializer_class = SmileExerciseSerializer
-    queryset = SmileExercise.objects.filter(is_active=True)
+    queryset = SmileExercise.objects.filter(is_active=True).prefetch_related("favorite")
 
 
 class SmileCommunityViewSet(ModelViewSet):
@@ -99,3 +99,8 @@ class SmileCommunityViewSet(ModelViewSet):
 class SmileScienceViewSet(ModelViewSet):
     serializer_class = SmileScienceSerializer
     queryset = SmileScience.objects.all()
+
+
+class FavoriteExerciseViewSet(ModelViewSet):
+    serializer_class = FavoriteExerciseSerializer
+    queryset = FavoriteExercise.objects.all()

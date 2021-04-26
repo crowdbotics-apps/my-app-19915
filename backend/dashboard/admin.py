@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience
+from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience, FavoriteExercise
 
 # Register your models here.
 
@@ -24,8 +24,13 @@ class SmileScienceAdmin(admin.ModelAdmin):
     list_display = ['article_name', 'description', 'image', 'created']
 
 
+class FavoriteExerciseAdmin(admin.ModelAdmin):
+    list_display = ['user', 'favorite_exercise',  'created']
+
+
 admin.site.register(Quote, QuoteAdmin)
 admin.site.register(Smile, SmileAdmin)
 admin.site.register(SmileExercise, SmileExerciseAdmin)
 admin.site.register(SmileCommunity, SmileCommunityAdmin)
 admin.site.register(SmileScience, SmileScienceAdmin)
+admin.site.register(FavoriteExercise, FavoriteExerciseAdmin)
