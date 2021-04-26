@@ -9,13 +9,13 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_EXERCISES} from './types';
+import {GET_SCIENCE} from './types';
 
 // actions
-import {getExercisesSuccess, getExercisesFailure} from './actions';
+import {getSciencesSuccess, getSciencesFailure} from './actions';
 
-async function getExercisesAPI() {
-  const URL = `${appConfig.backendServerURL}/api/v1/smile_exercise/`;
+async function getSciencesAPI() {
+  const URL = `${appConfig.backendServerURL}/api/v1/smile_science/`;
   const authToken = await AsyncStorage.getItem('authToken');
 
   const options = {
@@ -28,16 +28,13 @@ async function getExercisesAPI() {
   return XHR(URL, options);
 }
 
-function* getExercises() {
+function* getSciences() {
   try {
-    console.log('saga');
-    const response = yield call(getExercisesAPI);
+    const response = yield call(getSciencesAPI);
     const {data} = response;
-    console.log('data',data);
-    yield put(getExercisesSuccess(data[0]));
+    yield put(getSciencesSuccess(data));
   } catch (e) {
-    console.log(e);
-    yield put(getExercisesFailure());
+    yield put(getSciencesFailure());
 
     showMessage({
       message: 'Unable to load data, something went wrong.',
@@ -46,4 +43,4 @@ function* getExercises() {
   }
 }
 
-export default all([takeLatest(GET_EXERCISES, getExercises)]);
+export default all([takeLatest(GET_SCIENCE, getSciences)]);

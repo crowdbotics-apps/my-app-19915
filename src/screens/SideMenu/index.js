@@ -17,7 +17,6 @@ const SideMenu = props => {
   const {
     SideMenuContainer,
     leftColumn,
-    iconWrapper,
     rightColumn,
     textWrapper,
     bottomWrapper,
@@ -25,9 +24,6 @@ const SideMenu = props => {
     logoWrapper,
     menuWrapper,
     activeMenu,
-    settingWrapper,
-    activeMenuWrapper,
-    activeSettingWrapper,
   } = styles;
   const {largeXLPadding} = Gutters;
 
@@ -45,7 +41,7 @@ const SideMenu = props => {
 
   return (
     <>
-      <View style={[SideMenuContainer]}>
+      <View style={SideMenuContainer}>
         <View style={leftColumn}>
           <TouchableOpacity
             style={[menuWrapper, menuType === 'menu' && activeMenu]}>

@@ -9,6 +9,7 @@ import dashboard from 'src/screens/Dashboard/redux/reducer';
 import quote from 'src/screens/DailyQuote/redux/reducer';
 import exercises from 'src/screens/SmileExercises/redux/reducer';
 import community from 'src/screens/Community/redux/reducer';
+import sciences from 'src/screens/SmileExercisesMaxHeight/redux/reducer'
 
 
 const appPersistConfig = {
@@ -24,5 +25,6 @@ export default {
   dashboard,
   quote,
   exercises,
-  community
+  community,
+  sciences
 };

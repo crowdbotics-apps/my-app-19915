@@ -1,7 +1,7 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { Content } from 'native-base';
+import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {Content} from 'native-base';
 
 //styles
 import styles from './styles';
@@ -10,8 +10,8 @@ import styles from './styles';
 import {getExercises} from './redux/actions';
 
 // components
-import { Text, Header, MenuIcon, Avatar, Footer } from 'src/components';
-import { Gutters, Images, Layout, Fonts } from 'src/theme';
+import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
+import {Gutters, Images, Layout, Fonts} from 'src/theme';
 const {
   mediumBPadding,
   mediumVMargin,
@@ -20,63 +20,80 @@ const {
   mediumHMargin,
 } = Gutters;
 
-const { backImage, resource, star, text } = styles;
+const {backImage, resource, star, text, image,dataWrapper} = styles;
 
-const {
-  row,
-  fill,
-  alignItemsCenter,
-  positionA,
-} = Layout;
+const {row, fill, alignItemsCenter, positionA} = Layout;
 
-const { titleSmall, titleRegular, textMedium } = Fonts;
+const {titleSmall, titleRegular, textMedium} = Fonts;
 
-const SmileExercises = (props) => {
-
+const SmileExercises = props => {
+  const {
+    navigation: {openDrawer},
+    exercises,
+    requesting,
+  } = props;
+  console.log('requesting', requesting, exercises);
   useEffect(() => {
+    console.log('called');
     props.getExercises();
   }, []);
-
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
-        <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
-        <View style={[row, alignItemsCenter, smallBMargin]}>
-          <TouchableOpacity>
-            <Image source={Images.camarrowback} style={backImage} />
-          </TouchableOpacity>
-          <Text
-            bold
-            text="Smile exercise name"
-            color="river"
-            style={[titleSmall, resource]}
-          />
-        </View>
-        <Content contentContainerStyle={mediumBPadding}>
-          <View style={smallTMargin}>
-            <Image source={Images.smilingrest} style={[{ marginTop: 15 }]} />
-            <Image source={Images.star} style={[positionA, star]} />
-          </View>
-          <View style={[mediumHMargin]}>
+        <Header
+          left={<MenuIcon action={() => openDrawer()} />}
+          right={<Avatar size="regular" />}
+        />
+        <DataAvailability
+          requesting={requesting}
+          hasData={exercises}
+          style={dataWrapper}>
+          <View style={[row, alignItemsCenter, smallBMargin]}>
+            <TouchableOpacity>
+              <Image source={Images.camarrowback} style={backImage} />
+            </TouchableOpacity>
             <Text
+              bold
+              text={exercises.title}
               color="river"
-              text="Lorem ipsum dolor sit amet"
-              style={[titleRegular, mediumVMargin]}
+              style={[titleSmall, resource]}
             />
-            <Text color="river" style={[textMedium, text]} text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tempor, ligula fringilla volutpat luctus, nisl leo auctor nibh, non commodo metus magna eget nulla. In quis diam eu nunc tristique varius non vitae dui. Suspendisse ut sodales enim. Suspendisse et felis porttitor nisi luctus scelerisque. Morbi quam mauris, ornare ut venenatis sit amet, laoreet a dolor. Suspendisse eget risus ornare, ullamcorper lectus quis, efficitur urna. Donec eleifend tincidunt lacus eu hendrerit. Nulla vitae libero mattis, mollis nunc vitae, facilisis mauris. Morbi at vestibulum mi. Nam viverra condimentum volutpat. Maecenas ultricies, magna ac eleifend venenatis, magna est ultrices leo, imperdiet luctus nisi sem quis purus. Sed euismod eros a lectus malesuada, id sagittis justo faucibus. Sed sit amet odio lacinia mauris tempor consectetur sed a tortor. Integer sed erat quam. Mauris lobortis tortor non dui pellentesque aliquet. Fusce urna tortor, lobortis hendrerit nisl at, pretium feugiat magna." />
           </View>
-        </Content>
-        {/* <Footer /> */}
+          <Content contentContainerStyle={mediumBPadding}>
+            <View style={smallTMargin}>
+              <Image source={{uri: exercises.image}} style={image} />
+              <Image source={Images.star} style={[positionA, star]} />
+            </View>
+            <View style={[mediumHMargin]}>
+              <Text
+                color="river"
+                text={exercises.title}
+                style={[titleRegular, mediumVMargin]}
+              />
+              <Text
+                color="river"
+                style={[textMedium, text]}
+                text={exercises.description}
+              />
+            </View>
+          </Content>
+          {/* <Footer /> */}
+        </DataAvailability>
       </ImageBackground>
     </>
   );
 };
+
+const mapStateToProps = state => ({
+  exercises: state.exercises.data,
+  requesting: state.exercises.requesting,
+});
 
 const mapDispatchToProps = dispatch => ({
   getExercises: () => dispatch(getExercises()),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SmileExercises);

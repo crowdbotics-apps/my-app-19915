@@ -5,31 +5,31 @@ import {Content} from 'native-base';
 // components
 import {Text} from 'src/components';
 import {Fonts, Gutters} from 'src/theme';
+import styles from './styles';
 
 const {mediumBPadding, smallVMargin, regularHMargin} = Gutters;
 const {textMedium} = Fonts;
-
-const ArticalCard = ({
-  title,
-  description,
-  source,
-  imageStyle,
-  containerStyle,
-  textWrapperStyle,
-}) => {
+const {imageWrapper, card, textWrapper} = styles;
+const ArticalCard = ({item, items}) => {
+  const {image, article_name, description} = item;
   return (
     <>
-      <View style={containerStyle}>
-        <Image source={source} style={imageStyle} />
+      <View style={card}>
+        <Image source={{uri: image}} style={imageWrapper} />
 
-        <View style={textWrapperStyle}>
+        <View style={textWrapper}>
           <Text
             bold
             color="river"
-            text={title}
+            text={article_name}
             style={[textMedium, smallVMargin]}
           />
-          <Text color="river" text={description} style={[textMedium]} />
+          <Text
+            color="river"
+            text={description}
+            style={textMedium}
+            numberOfLines={1}
+          />
         </View>
       </View>
     </>

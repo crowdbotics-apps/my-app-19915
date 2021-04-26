@@ -8,9 +8,9 @@ export const getExercises = () => ({
   type: GET_EXERCISES,
 });
 
-export const getExercisesSuccess = exercises => ({
+export const getExercisesSuccess = data => ({
   type: GET_EXERCISES_SUCCESS,
-  exercises,
+  data,
 });
 
 export const getExercisesFailure = () => ({

@@ -1,9 +1,9 @@
-import React from 'react'
-import { Text as UIKText } from 'react-native-ui-kitten'
+import React from 'react';
+import {Text as UIKText} from 'react-native-ui-kitten';
 
 // styles
-import styles from './styles'
-import { Fonts } from 'src/theme'
+import styles from './styles';
+import {Fonts} from 'src/theme';
 
 const Text = ({
   text,
@@ -20,7 +20,13 @@ const Text = ({
   onPress,
   smallTextX,
   children,
-  small, regular, medium, large, smallTitle, regularTitle, largeTitle
+  small,
+  regular,
+  medium,
+  large,
+  smallTitle,
+  regularTitle,
+  largeTitle,
 }) => {
   const {
     textCenter,
@@ -35,8 +41,8 @@ const Text = ({
     titleRegular,
     textUnderline,
     textSmallX,
-    lineHeightWrpper
-  } = Fonts
+    lineHeightWrpper,
+  } = Fonts;
 
   return (
     <UIKText
@@ -59,13 +65,12 @@ const Text = ({
         largeTitle && titleLarge,
         lineHeight && lineHeightWrpper,
         smallTextX && textSmallX,
-        style
+        style,
       ]}
-      numberOfLines={numberOfLines && numberOfLines}
-    >
+      numberOfLines={numberOfLines && numberOfLines}>
       {text ? text : children}
     </UIKText>
-  )
-}
+  );
+};
 
-export default Text
+export default Text;

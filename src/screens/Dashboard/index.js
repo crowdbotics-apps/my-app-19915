@@ -22,7 +22,7 @@ const Dashboard = props => {
   useEffect(() => {
     props.getDashboard();
   }, []);
-
+console.log(data);
   const {titleSmall, textLarge} = Fonts;
   const {row, fill, center, justifyContentBetween} = Layout;
   const {
@@ -86,7 +86,7 @@ const Dashboard = props => {
                     color={Colors.primary}
                     formatText={() =>
                       `${
-                        data && data.dashboard[0].total_second
+                        data && data.dashboard.length>0
                           ? data.dashboard[0].total_second
                           : 0
                       }s`
@@ -110,7 +110,7 @@ const Dashboard = props => {
                     thickness={5}
                     formatText={() =>
                       `${
-                        data && data.dashboard[0].total_count
+                        data && data.dashboard.count>0
                           ? data.dashboard[0].total_count
                           : 0
                       }s`

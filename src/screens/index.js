@@ -39,5 +39,5 @@ export {
   SmileExercises,
   SocialSection,
   SmileExercisesMaxHeight,
-  Community
+  Community,
 };

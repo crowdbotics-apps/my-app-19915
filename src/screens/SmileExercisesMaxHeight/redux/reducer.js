@@ -1,7 +1,7 @@
 import {
-  GET_EXERCISES,
-  GET_EXERCISES_SUCCESS,
-  GET_EXERCISES_FAILURE,
+  GET_SCIENCE,
+  GET_SCIENCE_SUCCESS,
+  GET_SCIENCE_FAILURE,
 } from './types';
 
 const initialState = {
@@ -11,13 +11,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_EXERCISES:
+    case GET_SCIENCE:
       return {...state, requesting: true};
 
-    case GET_EXERCISES_SUCCESS:
+    case GET_SCIENCE_SUCCESS:
       return {...state, requesting: false, data: action.data};
 
-    case GET_EXERCISES_FAILURE:
+    case GET_SCIENCE_FAILURE:
       return {
         ...state,
         requesting: false,

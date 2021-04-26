@@ -11,5 +11,13 @@ export default StyleSheet.create({
   star:{top:-10,left:330},
   text:{
       lineHeight:20
+  },
+  image:{
+    marginTop: 15,
+    width:"100%",
+    height:350
+  },
+  dataWrapper:{
+    paddingVertical:250
   }
 });
