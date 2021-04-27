@@ -19,43 +19,55 @@ const SideMenu = props => {
     leftColumn,
     rightColumn,
     textWrapper,
-    bottomWrapper,
     bottomBox,
     logoWrapper,
     menuWrapper,
     activeMenu,
+    menuItem,
+    logoutStyle
   } = styles;
-  const {largeXLPadding} = Gutters;
 
-  const [menuType, setMenuType] = useState('menu');
+  const [menuType, setMenuType] = useState(0);
 
-  const logout = () => {
-    AsyncStorage.clear();
-    props.logout();
-  };
+  const onPressMenu = (type) => {
+    if (type === 'Logout') {
+      AsyncStorage.clear();
+      props.logout();
+    }
+  }
 
-  const menus = {
-    menu: ['Feedback', 'Message', 'Friends', 'Tutorial', 'Notifications'],
-    setting: ['setting2', 'setting3', 'setting4', 'setting5', 'setting6'],
-  };
+  const menus = [
+    [
+      'Feedback',
+      'Message',
+      'Friends',
+      'Tutorial',
+      'Notifications',
+      'Logout',
+    ],
+    ['setting2', 'setting3', 'setting4', 'setting5', 'setting6'],
+  ];
 
   return (
     <>
       <View style={SideMenuContainer}>
         <View style={leftColumn}>
           <TouchableOpacity
-            style={[menuWrapper, menuType === 'menu' && activeMenu]}>
-            <MenuIcon action={() => setMenuType('menu')} />
+            style={[menuWrapper, menuType === 0 && activeMenu]}>
+            <MenuIcon action={() => setMenuType(0)} />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setMenuType('setting')}
-            style={[menuWrapper, menuType === 'setting' && activeMenu]}>
+            onPress={() => setMenuType(1)}
+            style={[menuWrapper, menuType === 1 && activeMenu]}>
             <Image source={require('../../assets/images/setting.png')} />
           </TouchableOpacity>
         </View>
         <View style={rightColumn}>
           {menus[menuType].map((text, i) => (
-            <TouchableOpacity key={i}>
+            <TouchableOpacity
+              key={i} style={menus[menuType].length - 1 === i ? logoutStyle : menuItem}
+              onPress={()=>onPressMenu(text)}
+            >
               <Text
                 style={textWrapper}
                 smallTitle
@@ -64,15 +76,6 @@ const SideMenu = props => {
               />
             </TouchableOpacity>
           ))}
-
-          <TouchableOpacity onPress={logout}>
-            <Text
-              smallTitle
-              color="secondary"
-              style={[largeXLPadding, bottomWrapper]}
-              text="Logout"
-            />
-          </TouchableOpacity>
           <View style={bottomBox}>
             <Image style={logoWrapper} source={Images.logos} />
           </View>

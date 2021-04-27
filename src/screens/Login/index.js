@@ -85,6 +85,7 @@ const Login = props => {
     title,
     bgColor,
     heading,
+    errorStyle,
     fieldWrapper,
     buttonWrapper,
     checkBoxWrapper,
@@ -118,7 +119,9 @@ const Login = props => {
                 onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
-            <ErrorBox errorText={state.email.error} />
+            <View style={errorStyle}>
+            <ErrorBox  errorText={state.email.error} />
+            </View>
             <View
               style={[
                 row,
@@ -136,7 +139,9 @@ const Login = props => {
                 }
               />
             </View>
-            <ErrorBox errorText={state.password.error} />
+            <View style={errorStyle}>
+            <ErrorBox  errorText={state.password.error} />
+            </View>
           </View>
           <View style={[mediumXHMargin, small2xTMargin, alignItemsCenter, row]}>
             <CheckBox
@@ -160,7 +165,7 @@ const Login = props => {
               <LinearGradient
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
-                colors={['#A9D670', '#FFF16F']}
+                colors={['#56D3FB','#53F4EB']}
                 style={[
                   fill,
                   row,
@@ -183,7 +188,7 @@ const Login = props => {
           </View>
           <View style={[center, regularVPadding]}>
             <Text color="river" smallTitle>
-              Don’t have an account? {''}
+              Don’t have an account?
               <Text
                 bold
                 text="Sign up now"

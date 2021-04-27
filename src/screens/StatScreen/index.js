@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Content } from 'native-base';
-import { View, Image, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 
 // components
 import {
@@ -9,9 +9,6 @@ import {
   Footer,
   Avatar,
   MenuIcon,
-  Progress,
-  CardHeader,
-  ProgressCircle,
   SmileCountablity,
 } from 'src/components';
 import { Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
@@ -19,11 +16,11 @@ import { Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
 // styles
 import styles from './styles';
 
-const StatScreen = () => {
+const StatScreen = (props) => {
   const [active, setActive] = useState(6)
   const { row, fill, center, wrap, positionA, alignItemsCenter } = Layout;
-  const { mediumTMargin, mediumVMargin, regularVMargin, mediumHMargin, mediumBPadding } = Gutters;
-  const { dayWrapper, activeDayWrapper, dayStyle, textWrapper, text2Wrapper } = styles;
+  const { regularVMargin, mediumHMargin, mediumBPadding } = Gutters;
+  const { dayWrapper, activeDayWrapper, dayStyle } = styles;
 
   const weeks = [
     'Mon',
@@ -49,7 +46,7 @@ const StatScreen = () => {
       <ImageBackground source={Images.screenbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
           <Header
-            left={<MenuIcon />}
+            left={<MenuIcon action={() => props.navigation.openDrawer()} />}
             right={<Avatar size='regular' />}
           />
           <View style={[
@@ -134,7 +131,7 @@ const StatScreen = () => {
           />
 
         </Content>
-        {/* <Footer light /> */}
+        <Footer activeRoute='Stats' navigation={props.navigation} />
       </ImageBackground>
     </>
   );

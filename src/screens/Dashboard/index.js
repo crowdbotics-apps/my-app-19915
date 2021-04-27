@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Text, Header, ProgressCircle, Avatar, MenuIcon,Footer} from 'src/components';
 import {DataAvailability} from 'src/components';
 // theme
-import {Layout, Images, Gutters, Colors, Fonts,FooterImages} from 'src/theme';
+import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
 
 // styles
 import styles from './styles';
@@ -22,7 +22,6 @@ const Dashboard = props => {
   useEffect(() => {
     props.getDashboard();
   }, []);
-console.log(data);
   const {titleSmall, textLarge} = Fonts;
   const {row, fill, center, justifyContentBetween} = Layout;
   const {
@@ -51,7 +50,7 @@ console.log(data);
           />
           <View style={[fill, center,smallVMargin]}>
             <ProgressCircle
-              size={340}
+              size={325}
               progress={0.7}
               showsText={true}
               color={Colors.primary}
@@ -60,7 +59,7 @@ console.log(data);
               unfilledColor={Colors.viking}
             />
             <ProgressCircle
-              size={300}
+              size={285}
               progress={0.4}
               showsText={true}
               color={Colors.primary}
@@ -127,7 +126,7 @@ console.log(data);
             <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
-              colors={['#EF9919', '#FFD46F']}
+              colors={['#56D3FB','#53F4EB']}
               style={[
                 fill,
                 row,
@@ -158,6 +157,7 @@ console.log(data);
             />
           </TouchableOpacity>
         </Content>
+        <Footer activeRoute='Home' navigation={props.navigation} />
       </ImageBackground>
     </>
   );

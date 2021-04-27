@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   dashboardImg: {
-    width: 250,
-    height: 250,
+    width: 230,
+    height: 230,
     position: 'absolute'
   },
   progressBarWrapper: {

@@ -58,7 +58,7 @@ const BottomNavigator = () => {
                         iconName = !focused ? Images.statslight : Images.statsdark;
                     } else if (route.name === 'Games') {
                         iconName = !focused ? Images.gameslight : Images.gamesdark;
-                    } else if (route.name === 'Exercise') {
+                    } else if (route.name === 'More') {
                         iconName = !focused ? Images.morelight : Images.moredark;
                     }
                     // You can return any component that you like here!
@@ -72,7 +72,7 @@ const BottomNavigator = () => {
             <Tab.Screen name="Goals" component={GoalScreen} />
             <Tab.Screen name="Stats" component={StatScreen} />
             <Tab.Screen name="Games" component={GameScreen} />
-            <Tab.Screen name="Exercise" component={SmileExercises} />
+            <Tab.Screen name="More" component={MoreScreen} />
         </Tab.Navigator>
     );
 };
@@ -82,9 +82,10 @@ const mainStack = createStackNavigator();
 const MainStackScreen = () => (
     <mainStack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Dashboard"
+        initialRouteName="SmileExercisesMaxHeight"
     >
-        <mainStack.Screen name="Dashboard" component={BottomNavigator} />
+        <mainStack.Screen name="Dashboard" component={Dashboard} />
+        {/* <mainStack.Screen name="Dashboard" component={BottomNavigator} /> */}
         <mainStack.Screen name="Community" component={Community} />
         <mainStack.Screen name="SocialSection" component={SocialSection} />
         <mainStack.Screen name="SmileExercises" component={SmileExercises} />

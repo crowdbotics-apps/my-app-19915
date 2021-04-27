@@ -145,7 +145,7 @@ const SmileExercisesMaxHeight = props => {
                 <Text color="river" style={[titleSmall]} text="Add space" />
               </View>
           </Content>
-        <Footer/>
+          <Footer activeRoute='Dashboard' navigation={props.navigation} />
         </DataAvailability>
       </ImageBackground>
     </>

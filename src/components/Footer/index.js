@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { Footer as NBFooter, FooterTab } from 'native-base';
 
+// services
+import { navigate } from 'src/navigator/NavigationService';
+
 // components
 import { Text } from 'src/components';
 import { Global, Gutters, Images } from 'src/theme';
@@ -9,8 +12,7 @@ import { Global, Gutters, Images } from 'src/theme';
 // styles
 import styles from './styles';
 
-const Footer = ({ exerciseProp, light }) => {
-  const [active, setActive] = useState(0)
+const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, light }) => {
   const { touch, footer } = styles;
   const { transparentBg } = Global
   const { smallVPadding } = Gutters
@@ -18,25 +20,37 @@ const Footer = ({ exerciseProp, light }) => {
   const routes = [
     {
       image: 'home',
-      text: 'Home'
+      text: 'Home',
+      route: 'Dashboard'
     },
     {
       image: 'goals',
-      text: 'Goals'
+      text: 'Goals',
+      route: 'GoalScreen'
     },
     {
       image: 'stats',
-      text: 'Stats'
+      text: 'Stats',
+      route: 'StatScreen'
     },
     {
       image: 'games',
-      text: 'Games'
+      text: 'Games',
+      route: 'GameScreen'
     },
     {
       image: exerciseProp ? 'exercises' : 'more',
-      text: exerciseProp ? 'Exercises' : 'More'
+      text: exerciseProp ? 'Exercises' : 'More',
+      route: exerciseProp ? 'SmileExercises' : 'MoreScreen'
     }
   ];
+  const onPress = (route) => {
+    if (activeRoute === 'Dashboard') {
+        navigate(route);
+    } else {
+        replace(route);
+    }
+}
 
   return (
     <NBFooter style={[transparentBg, footer]}>
@@ -45,20 +59,20 @@ const Footer = ({ exerciseProp, light }) => {
           <TouchableOpacity
             key={i}
             style={touch}
-            onPress={() => setActive(i)}
+            onPress={()=> onPress(screen.route)}
           >{light ? <Image
             source={Images[
-              `${screen.image}${active === i ? 'dark' : 'light'}`
+              `${screen.image}${activeRoute === screen.text ? 'dark' : 'light'}`
             ]}
           /> :
             <Image
               source={Images[
-                `${screen.image}${active === i ? 'dark' : 'light'}`
+                `${screen.image}${activeRoute === screen.text ? 'dark' : 'light'}`
               ]}
             />}
             <Text
               text={screen.text}
-              color={active === i ? "primary" : "secondary"}
+              color={activeRoute === screen.text ? "primary" : "secondary"}
               medium
               style={smallVPadding}
             />

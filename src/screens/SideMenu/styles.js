@@ -4,8 +4,7 @@ import {Colors} from 'src/theme';
 export default StyleSheet.create({
   SideMenuContainer: {
     flexDirection: 'row',
-    width: '100%',
-    height: '100%',
+    flex: 1,
     backgroundColor: Colors.riverbed,
   },
 
@@ -16,51 +15,46 @@ export default StyleSheet.create({
   leftColumn: {
     backgroundColor: Colors.shuttlegray,
     width: 67,
-    height: '100%',
+  },
+
+  rightColumn: {
+    flex: 1,
+    backgroundColor: Colors.riverbed,
+  },
+
+  menuItem: {
+    height: 75,
+    borderBottomWidth: 2,
+    borderColor: Colors.shuttlegray,
   },
 
   textWrapper: {
     justifyContent: 'center',
-    width: 263,
-    height: 75,
-    paddingRight: 30,
-    paddingTop: 30,
-    borderBottomWidth: 2,
-    borderColor: Colors.shuttlegray,
-    textAlign: 'right',
-  },
-  bottomWrapper: {
-    justifyContent: 'center',
-    width: 280,
-    height: 75,
     paddingRight: 30,
     paddingTop: 30,
     textAlign: 'right',
   },
-  
+
   menuWrapper: {
-    height: 74,
+    height: 74.6,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: Colors.shuttlegray,
   },
 
   activeMenu: {
     backgroundColor: Colors.riverbed,
   },
 
-  rightColumn: {
-    width: 250,
-    backgroundColor: Colors.riverbed,
-    alignItems: 'center',
+  logoutStyle: {
+    borderBottomWidth: 0,
   },
 
   bottomBox: {
     backgroundColor: Colors.riverbed,
-    width: 240,
     height: 240,
-    marginVertical: 10,
-    paddingBottom: 20,
+    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

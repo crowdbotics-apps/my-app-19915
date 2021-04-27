@@ -42,6 +42,8 @@ export default StyleSheet.create({
     marginTop:40,
     width:320,
     flexDirection:"row"
-  }
+  },
+
+  errorStyle:{paddingTop:10,paddingLeft:25}
 
 });

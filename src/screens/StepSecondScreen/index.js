@@ -233,7 +233,7 @@ const StepSecondScreen = props => {
               <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
-                colors={['#A9D670', '#FFF16F']}
+                colors={['#56D3FB','#53F4EB']}
                 style={[fill, row, center, buttonWrapper, largeXTMargin]}>
                 <Text style={titleSmall} text="Continue" color="river" />
               </LinearGradient>

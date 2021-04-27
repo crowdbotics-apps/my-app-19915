@@ -30,13 +30,10 @@ async function getExercisesAPI() {
 
 function* getExercises() {
   try {
-    console.log('saga');
     const response = yield call(getExercisesAPI);
     const {data} = response;
-    console.log('data',data);
     yield put(getExercisesSuccess(data[0]));
   } catch (e) {
-    console.log(e);
     yield put(getExercisesFailure());
 
     showMessage({

@@ -3,7 +3,6 @@ import { Content } from 'native-base';
 import {
   View,
   Image,
-  ScrollView,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
@@ -15,8 +14,6 @@ import {
   Footer,
   Avatar,
   MenuIcon,
-  Progress,
-  CardHeader,
   ProgressCircle,
   SmileStone,
   GoalsCard,
@@ -26,13 +23,12 @@ import { Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
 // styles
 import styles from './styles';
 
-const GoalScreen = () => {
+const GoalScreen = (props) => {
   const [active, setActive] = useState(6);
   const {
     row,
     fill,
     center,
-    justifyContentEvenly,
     justifyContentBetween,
     wrap,
     positionA,
@@ -44,33 +40,20 @@ const GoalScreen = () => {
     bold,
     titleSmall,
     textMediumX,
-    textMedium,
     titleRegular,
   } = Fonts;
 
   const {
-    smallHPadding,
     mediumTMargin,
-    smallBMargin,
     mediumHMargin,
     mediumBPadding,
-    regularVPadding,
-    mediumHPadding,
     smallTMargin,
     small2xRMargin,
     mediumVMargin,
-    small2xPadding,
-    smallRMargin,
-    smallHMargin,
-    largeXTMargin,
-    regularTMargin,
     small2xHMargin,
-    smallLMargin,
-    largeXHMargin,
     smallVMargin,
   } = Gutters;
   const {
-    goalsBottomCard,
     dayWrapper,
     activeDayWrapper,
     dayStyle,
@@ -89,7 +72,7 @@ const GoalScreen = () => {
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
-          <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+          <Header left={<MenuIcon action={() => props.navigation.openDrawer()} />} right={<Avatar size="regular" />} />
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
               {weeks.map((week, i) => (
@@ -244,7 +227,7 @@ const GoalScreen = () => {
             </View>
           </View>
         </Content>
-        {/* <Footer /> */}
+        <Footer activeRoute='Goals' navigation={props.navigation} />
       </ImageBackground>
     </>
   );

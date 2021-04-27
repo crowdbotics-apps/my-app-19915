@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 // components
-import {Text, Button} from 'src/components';
+import {Text, Button, ErrorBox} from 'src/components';
 import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
@@ -102,6 +102,7 @@ const SignUp = props => {
     topWrapper,
     title,
     heading,
+    errorStyle,
     fieldWrapper,
     buttonWrapper,
     modalWrapper,
@@ -132,6 +133,10 @@ const SignUp = props => {
                 onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
+            <View style={errorStyle}>
+              <ErrorBox errorText={state.email.error} />
+            </View>
+
             <View
               style={[
                 row,
@@ -148,6 +153,9 @@ const SignUp = props => {
                 }
               />
             </View>
+            <View style={errorStyle}>
+              <ErrorBox errorText={state.password.error} />
+            </View>
             <TouchableOpacity onPress={() => submitForm()}>
               {requesting ? (
                 <View style={[center, activityIndicatorWrapper]}>
@@ -157,7 +165,7 @@ const SignUp = props => {
                 <LinearGradient
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
-                  colors={['#A9D670', '#FFF16F']}
+                  colors={['#56D3FB','#53F4EB']}
                   style={[fill, row, center, buttonWrapper, largeXTMargin]}>
                   <Text style={titleSmall} text="Sign up" color="river" />
                 </LinearGradient>

@@ -11,14 +11,13 @@ import {
   MenuIcon,
   Card,
   GameCard,
-  SmileCountablity,
 } from 'src/components';
 import { Layout, Images, Gutters, Global } from 'src/theme';
 
 // styles
 import styles from './styles';
 
-const GameScreen = () => {
+const GameScreen = (props) => {
   const { row, fill } = Layout;
   const { regularHMargin, mediumHMargin, mediumBPadding } = Gutters;
   const { fetureText } = styles;
@@ -28,7 +27,7 @@ const GameScreen = () => {
       <ImageBackground source={Images.screenbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
           <Header
-            left={<MenuIcon />}
+            left={<MenuIcon action={() => props.navigation.openDrawer()} />}
             right={<Avatar size='regular' />}
           />
           {/* <SmileCountablity
@@ -66,7 +65,7 @@ const GameScreen = () => {
           <GameCard rarely card1 />
           <GameCard tuscany card2 />
         </Content>
-        {/* <Footer light /> */}
+        <Footer activeRoute='Games' navigation={props.navigation} />
       </ImageBackground>
     </>
   );

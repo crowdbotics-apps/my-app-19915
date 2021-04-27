@@ -10,15 +10,9 @@ import styles from './styles';
 import { Text, Header, MenuIcon, Avatar, Footer } from 'src/components';
 import { Gutters, Images, Layout, Fonts } from 'src/theme';
 const {
-  mediumTMargin,
-  mediumBPadding,
-  largeHMargin,
-  smallBMargin,
-  mediumLMargin,
   mediumBMargin,
   mediumVPadding,
   small2xVMargin,
-  largeXTMargin,
 } = Gutters;
 
 const { backImage } = styles;
@@ -26,27 +20,20 @@ const { backImage } = styles;
 import { MoreCard } from '../../components';
 
 const {
-  border,
   row,
   fill,
-  center,
-  selfCenter,
   alignItemsCenter,
-  positionA,
-  justifyContentCenter,
-  justifyContentBetween,
-  justifyContentEnd,
 } = Layout;
 
-const { titleSmall, textMedium } = Fonts;
+const { titleSmall } = Fonts;
 
-const MoreScreen = () => {
+const MoreScreen = (props) => {
   return (
     <>
       <ImageBackground source={Images.screenbg} style={fill}>
-        <Header left={<MenuIcon />} right={<Avatar size="regular" />} />
+        <Header left={<MenuIcon action={()=>props.navigation.openDrawer()}/>} right={<Avatar size="regular" />} />
         <View style={[row, alignItemsCenter, mediumBMargin]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <Image source={Images.camarrowback} style={backImage} />
           </TouchableOpacity>
           <Text text="Resources" color="river" style={[titleSmall, { marginLeft: 60 }]} />
@@ -70,7 +57,7 @@ const MoreScreen = () => {
             description="Connect to other people who love smiling"
           />
         </Content>
-        {/* <Footer /> */}
+        <Footer activeRoute='More' navigation={props.navigation} />
       </ImageBackground>
     </>
   );
