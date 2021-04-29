@@ -23,8 +23,9 @@ class Smile(models.Model):
 
 
 class SmileExercise(models.Model):
-    title = models.CharField(max_length=200)
+    exercise_name = models.CharField(max_length=200)
     image = models.FileField(upload_to='smile_exercise')
+    title = models.CharField(max_length=200)
     description = models.TextField()
     is_active = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now=True)
@@ -51,3 +52,12 @@ class SmileScience(models.Model):
 
     def __str__(self):
         return self.article_name
+
+
+class FavoriteExercise(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_favorite')
+    favorite_exercise = models.ForeignKey(SmileExercise, on_delete=models.CASCADE, related_name='favorite')
+    created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user)

@@ -7,6 +7,7 @@ from dashboard.api.v1.viewsets import (
     SmileCommunityViewSet,
     SmileScienceViewSet,
     SmileDashboard,
+    FavoriteExerciseViewSet
 
 )
 
@@ -17,6 +18,7 @@ router.register("smile_exercise", SmileExerciseViewSet, basename="smile_exercise
 router.register("smile_community", SmileCommunityViewSet, basename="smile_community")
 router.register("smile_science", SmileScienceViewSet, basename="smile_science")
 router.register("smile_dashboard", SmileDashboard, basename="smile_dashboard")
+router.register("smile_favorite", FavoriteExerciseViewSet, basename="smile_favorite")
 
 urlpatterns = [
     path("", include(router.urls)),
