@@ -21,15 +21,19 @@ import Tab from "./Tab";
 import SmileStone from "./SmileStone";
 import GoalsCard from "./GoalsCard";
 import MoreCard from "./MoreCard";
+import MoreResource from "./MoreResource";
 import ArticalCard from "./ArticalCard";
+import ActivityCard from "./ActivityCard";
 import CommunityCard from "./CommunityCard"; 
 import DataAvailability from "./DataAvailability";
+import NotificationCard from "./NotificationCard";
 
 
 export {
   Test,
   Text,
   Avatar,
+  ActivityCard,
   MyCamera,
   Footer,
   GameCard,
@@ -45,12 +49,14 @@ export {
   Chart,
   SmileCountablity,
   DataAvailability,
+  NotificationCard,
   CardHeader,
   CustomButton,
   Tab,
   SmileStone,
   GoalsCard,
   MoreCard,
+  MoreResource,
   ArticalCard,
   CommunityCard
 };

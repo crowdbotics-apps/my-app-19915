@@ -22,7 +22,7 @@ const Dashboard = props => {
   useEffect(() => {
     props.getDashboard();
   }, []);
-  const {titleSmall, textLarge} = Fonts;
+  const {titleSmall, textMedium} = Fonts;
   const {row, fill, center, justifyContentBetween} = Layout;
   const {
     mediumTMargin,
@@ -149,9 +149,9 @@ const Dashboard = props => {
               bottomButtonWrapper,
               mediumTMargin,
             ]}>
-            <Image source={Images.streak} />
+            <Image style={{marginHorizontal:5}} source={Images.streak} />
             <Text
-              style={[smallHPadding, textLarge]}
+              style={textMedium}
               text="You’re on a 5 day smile streak"
               color="primary"
             />

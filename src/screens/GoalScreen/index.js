@@ -39,6 +39,7 @@ const GoalScreen = (props) => {
     textCenter,
     bold,
     titleSmall,
+    textLarge,
     textMediumX,
     titleRegular,
   } = Fonts;
@@ -52,6 +53,9 @@ const GoalScreen = (props) => {
     mediumVMargin,
     small2xHMargin,
     smallVMargin,
+    mediumTPadding,
+    smallTPadding,
+    smallVPadding
   } = Gutters;
   const {
     dayWrapper,
@@ -142,7 +146,7 @@ const GoalScreen = (props) => {
               textStyle={[textCenter, smallVMargin, titleSmall]}
               text="Level"
               subText="53"
-              subTextStyle={[titleRegular, bold]}
+              subTextStyle={[smallTPadding,titleRegular, bold]}
             />
             <SmileStone
               containerStyle={[center, card, centerCard]}
@@ -173,29 +177,29 @@ const GoalScreen = (props) => {
             <Text text="Smilestone" style={titleSmall} />
             <Image source={Images.dots} />
           </View>
-          <View style={[smallVMargin]}>
-            <View style={[row]}>
+          <View style={smallVMargin}>
+            <View style={row}>
               <GoalsCard
                 containerStyle={[fill, bottomCardContainer, small2xHMargin]}
                 text1="smile seconds"
-                text1Style={[titleSmall]}
+                text1Style={titleSmall}
                 text2="180s"
-                text2Style={[bold, smallVMargin, textMediumX]}
+                text2Style={[smallVPadding,bold, smallVMargin, textMediumX]}
                 text2Color="atlantis"
                 text3="Congratulations You completed this smilestone"
-                text3Style={titleSmall}
+                text3Style={[textLarge,smallTMargin]}
               />
               <GoalsCard
                 containerStyle={[fill, bottomCardContainer, small2xRMargin]}
                 text1="smile count"
-                text1Style={[titleSmall]}
+                text1Style={titleSmall}
                 text2="24"
                 text2Style={[bold, smallVMargin, textMediumX]}
                 text2Color="atlantis"
                 text3="2 more times"
-                text3Style={[titleSmall, bold]}
+                text3Style={[textLarge, bold]}
                 text4="for your smile count goal"
-                text4Style={[titleSmall]}
+                text4Style={textLarge}
               />
             </View>
 
@@ -203,26 +207,26 @@ const GoalScreen = (props) => {
               <GoalsCard
                 containerStyle={[fill, bottomCardContainer, small2xHMargin]}
                 text1="longest smile"
-                text1Style={[titleSmall]}
+                text1Style={titleSmall}
                 text2="18s"
                 text2Style={[bold, smallVMargin, textMediumX]}
                 text2Color="atlantis"
                 text3="12 seconds"
-                text3Style={[titleSmall, bold]}
+                text3Style={[textLarge, bold]}
                 text4="to beat your longest smile"
-                text4Style={[titleSmall]}
+                text4Style={textLarge}
               />
               <GoalsCard
                 containerStyle={[fill, bottomCardContainer, small2xRMargin]}
                 text1="smile count"
-                text1Style={[titleSmall]}
+                text1Style={titleSmall}
                 text2="4 days"
                 text2Style={[bold, smallVMargin, textMediumX]}
                 text2Color="atlantis"
                 text3="18 days"
-                text3Style={[titleSmall, bold]}
+                text3Style={[textLarge, bold]}
                 text4="longest best smile streak"
-                text4Style={[titleSmall]}
+                text4Style={textLarge}
               />
             </View>
           </View>

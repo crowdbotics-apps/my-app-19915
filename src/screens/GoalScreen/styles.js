@@ -16,7 +16,6 @@ export default StyleSheet.create({
   },
   centerCard: {
     flex: 1,
-    height: 170,
     padding: 20,
     borderWidth: 1,
     borderRadius: 12,
@@ -25,7 +24,6 @@ export default StyleSheet.create({
   },
 
   goalsBottomCard: {
-    width: 100,
     height: 68,
     borderRadius: 10,
     backgroundColor: '#50ADBA',
@@ -35,7 +33,6 @@ export default StyleSheet.create({
   bottomCardContainer: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    width: 150,
     height: 175,
     padding: 10,
     justifyContent: 'space-between',

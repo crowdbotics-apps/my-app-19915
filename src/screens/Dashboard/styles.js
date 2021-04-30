@@ -20,4 +20,7 @@ bottomButtonWrapper: {
   height: 60,
   borderRadius: 80
 },
+image:{
+  
+}
 });

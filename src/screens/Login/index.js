@@ -151,6 +151,7 @@ const Login = props => {
               onPress={() => setChecked(!checked)}
             />
             <Text
+            style={titleSmall}
               text="Remember me on this device"
               color="river"
               category="h5"
@@ -213,7 +214,7 @@ const Login = props => {
 };
 
 const mapStateToProps = state => ({
-  requesting: state.login.requesting,
+  requesting: state.app.requesting,
   user: state.app.user,
   token: state.app.authToken,
 });

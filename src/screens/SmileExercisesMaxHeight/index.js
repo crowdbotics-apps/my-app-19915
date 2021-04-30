@@ -85,7 +85,7 @@ const SmileExercisesMaxHeight = props => {
               style={[titleSmall, resource]}
             />
           </View>
-          <Content contentContainerStyle={[mediumBPadding, regularHPadding]}>
+          <Content contentContainerStyle={[regularHPadding,mediumBPadding]}>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal>
               {sciences &&
                 sciences.map((item, i) => (

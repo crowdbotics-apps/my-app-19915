@@ -34,9 +34,9 @@ const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, 
       route: 'StatScreen'
     },
     {
-      image: 'games',
-      text: 'Games',
-      route: 'GameScreen'
+      image: 'activities',
+      text: 'Activity',
+      route: 'ActivitiesScreen'
     },
     {
       image: exerciseProp ? 'exercises' : 'more',
@@ -45,7 +45,7 @@ const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, 
     }
   ];
   const onPress = (route) => {
-    if (activeRoute === 'Dashboard') {
+    if (activeRoute === 'Home') {
         navigate(route);
     } else {
         replace(route);

@@ -16,9 +16,14 @@ import {
     CameraScreen,
     SideMenu,
     Tutorial,
+    MyAccount,
     MoreScreen,
+    LevelScreen,
+    QuoteSection,
     SmileExercises,
     SocialSection,
+    ActivitiesScreen,
+    NotificationScreen,
     SmileExercisesMaxHeight,
     Community
 } from 'src/screens';
@@ -82,10 +87,13 @@ const mainStack = createStackNavigator();
 const MainStackScreen = () => (
     <mainStack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="SmileExercisesMaxHeight"
+        initialRouteName="Dashboard"
     >
-        <mainStack.Screen name="Dashboard" component={Dashboard} />
         {/* <mainStack.Screen name="Dashboard" component={BottomNavigator} /> */}
+        <mainStack.Screen name="ActivitiesScreen" component={ActivitiesScreen} />
+        <mainStack.Screen name="MyAccount" component={MyAccount} />
+        <mainStack.Screen name="Dashboard" component={Dashboard} />
+        <mainStack.Screen name="QuoteSection" component={QuoteSection} />
         <mainStack.Screen name="Community" component={Community} />
         <mainStack.Screen name="SocialSection" component={SocialSection} />
         <mainStack.Screen name="SmileExercises" component={SmileExercises} />
@@ -99,7 +107,9 @@ const MainStackScreen = () => (
         <mainStack.Screen name="StatScreen" component={StatScreen} />
         <mainStack.Screen name="GameScreen" component={GameScreen} />
         <mainStack.Screen name="CameraScreen" component={CameraScreen} />
+        <mainStack.Screen name="LevelScreen" component={LevelScreen} />
         <mainStack.Screen name="MoreScreen" component={MoreScreen} />
+        <mainStack.Screen name="NotificationScreen" component={NotificationScreen} />
         <mainStack.Screen name="Tutorial" component={Tutorial} />
         <mainStack.Screen name="SmileExercisesMaxHeight" component={SmileExercisesMaxHeight} />
     </mainStack.Navigator>

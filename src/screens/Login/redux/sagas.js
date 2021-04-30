@@ -34,10 +34,11 @@ function* login({data}) {
   try {
     const response = yield call(loginAPI, data);
     const res = response.data;
+    const resp = { ...res, user: { ...res.user, password: data.password } }
 
     AsyncStorage.setItem('authToken', res.access);
     yield put(setAuthToken(res.access));
-    yield put(setUserInfo(res.user));
+    yield put(setUserInfo(resp.user));
   } catch (e) {
     yield put(loginFailure());
     showMessage({

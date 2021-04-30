@@ -14,13 +14,21 @@ import CameraScreen from "./CameraScreen";
 import Tutorial from "./Tutorial";
 import SideMenu from "./SideMenu";
 import MoreScreen from "./MoreScreen";
-import SmileExercises from "./SmileExercises";
-import SocialSection from "./SocialSection";
 import Community from "./Community";
+import LevelScreen from "./LevelScreen";
+import SocialSection from "./SocialSection";
+import QuoteSection from "./QuoteSection";
+import MyAccount from "./MyAccount";
+import SmileExercises from "./SmileExercises";
+import ActivitiesScreen from "./ActivitiesScreen";
+import NotificationScreen from "./NotificationScreen";
 import SmileExercisesMaxHeight from "./SmileExercisesMaxHeight";
 
 export {
+  ActivitiesScreen,
   GameScreen,
+  MyAccount,
+  QuoteSection,
   StatScreen,
   GoalScreen,
   Dashboard,
@@ -36,8 +44,10 @@ export {
   SideMenu,
   Tutorial,
   MoreScreen,
+  LevelScreen,
   SmileExercises,
   SocialSection,
+  NotificationScreen,
   SmileExercisesMaxHeight,
   Community,
 };

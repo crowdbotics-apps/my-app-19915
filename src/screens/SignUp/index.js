@@ -147,6 +147,7 @@ const SignUp = props => {
               ]}>
               <Image source={Images.pass} style={regularHMargin} />
               <Input
+                secureTextEntry
                 placeholder="SELECT PASSWORD"
                 onChangeText={value =>
                   assignValues('password', 'password', value)
