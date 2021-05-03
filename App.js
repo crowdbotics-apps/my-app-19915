@@ -4,12 +4,9 @@ import { ApplicationProvider } from 'react-native-ui-kitten';
 import { Provider as ReduxProvider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-
 import { Root } from 'native-base';
-import { StatusBar } from 'react-native'
-
+import { StatusBar, Platform } from 'react-native'
 import FlashMessage from 'react-native-flash-message';
-import { Platform } from 'react-native';
 import SplashScreen from './src/screens/Splash';
 import { store } from './src/redux/store';
 import NavigatorProvider from './src/navigator';
