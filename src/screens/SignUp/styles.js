@@ -1,49 +1,64 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from 'src/theme';
+import {StyleSheet} from 'react-native';
+import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   icon: {
-    color: Colors.secondary
+    color: Colors.secondary,
   },
   heading: {
-    fontSize: 60,
-    lineHeight: 60,
-    marginTop:39
+    fontSize: 50,
+    lineHeight: 50,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  backImage: {
+    width: 40,
+    height: 40,
+    right: 70,
+  },
+
+  logo: {
+    width: 160,
+    height: 160,
+    right: 15,
   },
   title: {
-    fontSize: 20,
-    lineHeight: 20,
-    marginBottom:40
+    fontSize: 18,
+    lineHeight: 18,
+    marginBottom: 20,
+    textAlign: 'center',
   },
   fieldWrapper: {
-    height: 60,
+    height: 55,
     fontSize: 14,
     borderRadius: 30,
     color: Colors.nileblue,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
   buttonWrapper: {
-    height: 60,
-    borderRadius: 80
+    height: 55,
+    borderRadius: 80,
   },
-  activityIndicatorWrapper:{
-    paddingTop:70
+  activityIndicatorWrapper: {
+    paddingTop: 70,
   },
   modalWrapper: {
-    backgroundColor: Colors.nileblue
+    backgroundColor: Colors.nileblue,
   },
+
+  social: {width: 40, height: 40, resizeMode: 'contain'},
   backArrowWrapper: {
     width: 44,
     height: 44,
     borderWidth: 2,
     borderRadius: 4,
   },
-  topWrapper:{
-    marginTop:40,
-    width:320,
-    flexDirection:"row"
+  topWrapper: {
+    marginTop: 20,
+    width: 320,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 
-  errorStyle:{paddingTop:10,paddingLeft:25}
-
+  errorStyle: {paddingTop: 10, paddingLeft: 25},
 });

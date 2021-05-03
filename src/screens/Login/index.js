@@ -68,7 +68,7 @@ const Login = props => {
 
   const {row, fill, center, alignItemsCenter, justifyContentCenter} = Layout;
 
-  const {titleSmall} = Fonts;
+  const {titleSmall, textMedium} = Fonts;
 
   const {
     largeHMargin,
@@ -78,12 +78,18 @@ const Login = props => {
     mediumXTMargin,
     regularHPadding,
     regularVPadding,
+    mediumTMargin,
+    smallBPadding,
+    smallTMargin,
+    smallVPadding,
     largeXTMargin,
     regularBPadding,
   } = Gutters;
   const {
+    logo,
     title,
     bgColor,
+    social,
     heading,
     errorStyle,
     fieldWrapper,
@@ -96,8 +102,8 @@ const Login = props => {
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={[mediumXHMargin, justifyContentCenter]}>
-            <View style={[fill, center, regularBPadding, mediumXTMargin]}>
-              <Image source={Images.logos} />
+            <View style={[fill, center, smallTMargin]}>
+              <Image style={logo} source={Images.logos} />
               <Text text="Welcome!" color="river" style={heading} />
               <Text
                 text="Please sign in to continue"
@@ -105,14 +111,7 @@ const Login = props => {
                 style={title}
               />
             </View>
-            <View
-              style={[
-                row,
-                center,
-                fieldWrapper,
-                mediumXTMargin,
-                regularHPadding,
-              ]}>
+            <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.email} style={regularHMargin} />
               <Input
                 placeholder="EMAIL"
@@ -120,16 +119,9 @@ const Login = props => {
               />
             </View>
             <View style={errorStyle}>
-            <ErrorBox  errorText={state.email.error} />
+              <ErrorBox errorText={state.email.error} />
             </View>
-            <View
-              style={[
-                row,
-                center,
-                fieldWrapper,
-                small2xTMargin,
-                regularHPadding,
-              ]}>
+            <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.pass} style={regularHMargin} />
               <Input
                 secureTextEntry
@@ -140,10 +132,10 @@ const Login = props => {
               />
             </View>
             <View style={errorStyle}>
-            <ErrorBox  errorText={state.password.error} />
+              <ErrorBox errorText={state.password.error} />
             </View>
           </View>
-          <View style={[mediumXHMargin, small2xTMargin, alignItemsCenter, row]}>
+          <View style={[mediumXHMargin, alignItemsCenter, row]}>
             <CheckBox
               color="white"
               style={[checkBoxWrapper, checked && bgColor]}
@@ -151,7 +143,7 @@ const Login = props => {
               onPress={() => setChecked(!checked)}
             />
             <Text
-            style={titleSmall}
+              style={textMedium}
               text="Remember me on this device"
               color="river"
               category="h5"
@@ -166,35 +158,35 @@ const Login = props => {
               <LinearGradient
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
-                colors={['#56D3FB','#53F4EB']}
+                colors={['#56D3FB', '#53F4EB']}
                 style={[
                   fill,
                   row,
                   center,
                   largeHMargin,
                   buttonWrapper,
-                  largeXTMargin,
+                  mediumTMargin,
                 ]}>
                 <Text style={titleSmall} text="Login" color="river" />
               </LinearGradient>
             )}
           </TouchableOpacity>
           <View style={[row, center, regularVPadding]}>
-            <Text text="or login using" color="river" category="s1" bold />
+            <Text text="or login using" color="river" category="s1" />
           </View>
-          <View style={[row, center, regularBPadding]}>
-            <Image source={Images.google} style={regularHMargin} />
-            <Image source={Images.facebook} style={regularHMargin} />
-            <Image source={Images.instagram} style={regularHMargin} />
+          <View style={[row, center, smallBPadding]}>
+            <Image style={[regularHMargin, social]} source={Images.google} />
+            <Image style={[regularHMargin, social]} source={Images.facebook} />
+            <Image style={[regularHMargin, social]} source={Images.instagram} />
           </View>
-          <View style={[center, regularVPadding]}>
-            <Text color="river" smallTitle>
-              Don’t have an account?
+          <View style={[center, smallVPadding]}>
+            <Text color="river" medium>
+              Don’t have an account?{' '}
               <Text
                 bold
                 text="Sign up now"
                 color="golden"
-                smallTitle
+                medium
                 onPress={() => navigate('SignUp')}
               />
             </Text>
@@ -202,8 +194,8 @@ const Login = props => {
               bold
               text="Forgot your password?"
               color="golden"
-              style={regularVPadding}
-              smallTitle
+              style={smallVPadding}
+              medium
               onPress={() => navigate('ResetPassword')}
             />
           </View>

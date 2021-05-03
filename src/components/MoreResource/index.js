@@ -33,7 +33,7 @@ const MoreResource = ({data,source}) => {
             />
             {count && <Text style={titleSmall} text={count} />}
             <TouchableOpacity>
-              <Image source={Images.polygon2} />
+              <Image source={Images.polygon1} />
             </TouchableOpacity>
           </View>
         )}

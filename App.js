@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     loadAssets();
-    Platform === 'android' && StatusBar.setBackgroundColor(Colors.primary)
+    Platform.OS === 'android' && StatusBar.setBackgroundColor(Colors.primary)
   });
 
   const loadAssets = () => {

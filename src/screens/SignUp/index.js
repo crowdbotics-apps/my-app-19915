@@ -91,16 +91,18 @@ const SignUp = props => {
     smallHMargin,
     regularHMargin,
     mediumXHMargin,
-    small2xTMargin,
     regularHPadding,
-    regularTMargin,
-    largeXTMargin,
+    mediumTMargin,
+    smallVPadding,
     regularVPadding,
-    regularBPadding,
+    smallBPadding,
   } = Gutters;
   const {
     topWrapper,
     title,
+    logo,
+    social,
+    backImage,
     heading,
     errorStyle,
     fieldWrapper,
@@ -116,9 +118,9 @@ const SignUp = props => {
           <View style={[center, smallHMargin]}>
             <View style={topWrapper}>
               <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                <Image source={Images.arrowback} />
+                <Image style={backImage} source={Images.arrowback} />
               </TouchableOpacity>
-              <Image source={require('src/assets/images/logos.png')} />
+              <Image style={logo} source={require('src/assets/images/logos.png')} />
             </View>
           </View>
           <View style={mediumXHMargin}>
@@ -142,7 +144,6 @@ const SignUp = props => {
                 row,
                 center,
                 fieldWrapper,
-                small2xTMargin,
                 regularHPadding,
               ]}>
               <Image source={Images.pass} style={regularHMargin} />
@@ -167,37 +168,37 @@ const SignUp = props => {
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
                   colors={['#56D3FB','#53F4EB']}
-                  style={[fill, row, center, buttonWrapper, largeXTMargin]}>
+                  style={[fill, row, center, buttonWrapper, mediumTMargin]}>
                   <Text style={titleSmall} text="Sign up" color="river" />
                 </LinearGradient>
               )}
             </TouchableOpacity>
 
             <View style={[row, center, regularVPadding]}>
-              <Text text="or sign up using" color="river" category="s1" bold />
+              <Text text="or sign up using" color="river" category="s1" />
             </View>
-            <View style={[row, center, regularBPadding]}>
-              <Image source={Images.google} style={regularHMargin} />
-              <Image source={Images.facebook} style={regularHMargin} />
-              <Image source={Images.instagram} style={regularHMargin} />
+            <View style={[row, center, smallBPadding]}>
+              <Image source={Images.google} style={[regularHMargin,social]} />
+              <Image source={Images.facebook} style={[regularHMargin,social]} />
+              <Image source={Images.instagram} style={[regularHMargin,social]} />
             </View>
           </View>
-          <View style={[center, regularVPadding]}>
-            <Text color="river" smallTitle>
+          <View style={[center, smallVPadding]}>
+            <Text color="river" medium>
               Already have an account? {''}
               <Text
                 bold
                 text="Sign In now"
                 color="golden"
-                smallTitle
+                medium
                 onPress={() => navigate('Login')}
               />
             </Text>
             <Text
               bold
-              smallTitle
+              medium
               color="golden"
-              style={regularVPadding}
+              style={smallVPadding}
               text="Forgot your password?"
               onPress={() => navigate('ResetPassword')}
             />

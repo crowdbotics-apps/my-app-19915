@@ -1,41 +1,65 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from 'src/theme';
+import {StyleSheet} from 'react-native';
+import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
-  text14: {
-    fontSize: 20
+  icon: {
+    color: Colors.secondary,
   },
   heading: {
-    fontSize: 60,
-    lineHeight: 60
+    fontSize: 50,
+    lineHeight: 50,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+
+  logo: {
+    width: 160,
+    height: 160,
   },
   title: {
-    fontSize: 20,
-    lineHeight: 20
+    fontSize: 18,
+    lineHeight: 18,
+    marginBottom: 20,
+    textAlign: 'center',
   },
   fieldWrapper: {
-    height: 60,
+    height: 55,
     fontSize: 14,
     borderRadius: 30,
     color: Colors.nileblue,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
   buttonWrapper: {
-    height: 60,
+    height: 55,
     borderRadius: 80,
   },
-  activityIndicatorWrapper:{
-    paddingTop:75
+  activityIndicatorWrapper: {
+    paddingTop: 70,
   },
+  modalWrapper: {
+    backgroundColor: Colors.nileblue,
+  },
+  social: {width: 40, height: 40, resizeMode: 'contain'},
   checkBoxWrapper: {
+    borderRadius: 5,
+    marginRight: 25,
+    backgroundColor: Colors.white,
+  },
+  backArrowWrapper: {
+    width: 44,
+    height: 44,
+    borderWidth: 2,
     borderRadius: 4,
-    marginRight: 22,
-    backgroundColor: Colors.white
+  },
+  topWrapper: {
+    marginTop: 20,
+    width: 320,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   bgColor: {
     backgroundColor: Colors.nileblue
   },
 
-  errorStyle:{paddingTop:10,paddingLeft:25}
-
+  errorStyle: {paddingTop: 10, paddingLeft: 25},
 });
