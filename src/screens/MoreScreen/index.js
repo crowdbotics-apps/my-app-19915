@@ -65,7 +65,7 @@ const MoreScreen = props => {
         </View>
         <Content contentContainerStyle={mediumHPadding}>
           {
-            cardData.map((data,i)=><MoreResource  data={data}/>)
+            cardData.map((data,i)=>  <MoreResource key={i} data={data}/>)
           }
         </Content>
         <Footer activeRoute="More" navigation={props.navigation} />

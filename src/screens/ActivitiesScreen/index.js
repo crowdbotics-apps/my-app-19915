@@ -19,13 +19,9 @@ import {
 } from 'src/components';
 import {Gutters, Images, Layout, Fonts, Colors} from 'src/theme';
 const {
-  mediumBPadding,
   mediumVMargin,
-  mediumBMargin,
   smallBMargin,
-  regularHPadding,
   smallLMargin,
-  smallRMargin,
   mediumHPadding,
   largeHMargin,
   largeXTMargin,
