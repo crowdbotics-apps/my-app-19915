@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // components
 import {Text, MenuIcon} from 'src/components';
 import {Images, Gutters} from 'src/theme';
-import {View, TouchableOpacity, Image} from 'react-native';
+import {View, TouchableOpacity, Image,SafeAreaView} from 'react-native';
 
 // actions
 import {logout as logoutAction} from '../App/redux/actions';
@@ -49,8 +49,7 @@ const SideMenu = props => {
   ];
 
   return (
-    <>
-      <View style={SideMenuContainer}>
+      <SafeAreaView style={SideMenuContainer}>
         <View style={leftColumn}>
           <TouchableOpacity
             style={[menuWrapper, menuType === 0 && activeMenu]}>
@@ -80,8 +79,7 @@ const SideMenu = props => {
             <Image style={logoWrapper} source={Images.logos} />
           </View>
         </View>
-      </View>
-    </>
+      </SafeAreaView>
   );
 };
 
