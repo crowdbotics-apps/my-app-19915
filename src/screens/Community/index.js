@@ -60,7 +60,7 @@ const Community = props => {
           <TouchableOpacity>
             <View style={[row, center]}>
               <Text color="river" style={[textMedium]} text="Filter by" />
-              <Image style={[smallLMargin]} source={Images.polygon1} />
+              <Image style={[smallLMargin]} source={Images.polygon2} />
             </View>
           </TouchableOpacity>
         </View>
