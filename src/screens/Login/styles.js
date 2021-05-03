@@ -25,7 +25,7 @@ export default StyleSheet.create({
     borderRadius: 80,
   },
   activityIndicatorWrapper:{
-    paddingTop:78
+    paddingTop:75
   },
   checkBoxWrapper: {
     borderRadius: 4,

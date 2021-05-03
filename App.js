@@ -9,7 +9,7 @@ import { Root } from 'native-base';
 import { StatusBar } from 'react-native'
 
 import FlashMessage from 'react-native-flash-message';
-
+import { Platform } from 'react-native';
 import SplashScreen from './src/screens/Splash';
 import { store } from './src/redux/store';
 import NavigatorProvider from './src/navigator';
@@ -23,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     loadAssets();
-    StatusBar.setBackgroundColor(Colors.primary)
+    Platform === 'android' && StatusBar.setBackgroundColor(Colors.primary)
   });
 
   const loadAssets = () => {
