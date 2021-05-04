@@ -49,6 +49,7 @@ const SideMenu = props => {
   ];
 
   return (
+    <>
       <SafeAreaView style={SideMenuContainer}>
         <View style={leftColumn}>
           <TouchableOpacity
@@ -80,6 +81,7 @@ const SideMenu = props => {
           </View>
         </View>
       </SafeAreaView>
+      </>
   );
 };
 
