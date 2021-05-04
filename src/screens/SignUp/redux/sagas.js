@@ -36,14 +36,16 @@ function signUpAPI(data) {
 function* signUp({ data }) {
   try {
     const response = yield call(signUpAPI, data);
-    yield put(signUpSuccess());
+    yield put(signUpSuccess(data));
     navigate("Login")
+    console.log(response);
     
   } catch (e) {
+    const { response } = e;
     yield put(signUpFailure());
 
     showMessage({
-      message: 'Unable to signUp, something went wrong.',
+      message: String(response.data.email),
       type: 'danger',
     });
   }

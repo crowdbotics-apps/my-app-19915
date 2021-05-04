@@ -1,4 +1,9 @@
 apply plugin: "com.android.application"
+
+//unimodule
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
+
+
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
@@ -195,6 +200,10 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    //unimodule
+    addUnimodulesDependencies()
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
@@ -222,3 +231,12 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+android {
+    defaultConfig {
+        multiDexEnabled true
+    }
+}
+dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
