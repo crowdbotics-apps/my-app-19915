@@ -61,5 +61,5 @@ export default StyleSheet.create({
     backgroundColor: Colors.nileblue
   },
 
-  errorStyle: {paddingTop: 10, paddingLeft: 25},
+  errorStyle: {paddingTop: 10, paddingLeft: 25,marginBottom:5},
 });
