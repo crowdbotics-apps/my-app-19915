@@ -38,16 +38,18 @@ function* signUp({ data }) {
     const response = yield call(signUpAPI, data);
     yield put(signUpSuccess(data));
     navigate("Login")
-    console.log(response);
     
   } catch (e) {
     const { response } = e;
-    yield put(signUpFailure());
-
+if (e.response){
+  yield put(signUpFailure(response.data.email));
+  }
+  else {
     showMessage({
-      message: String(response.data.email),
+      message: 'oops! Unable to signup. Something went wrong',
       type: 'danger',
     });
+  }
   }
 }
 

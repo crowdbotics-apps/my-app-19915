@@ -1,12 +1,17 @@
 import {
   SIGNUP,
   SIGNUP_SUCCESS,
-  SIGNUP_FAILURE
+  SIGNUP_FAILURE,
+  RESET_SERVER_ERROR,
 } from './types';
 
 export const signUp = data => ({
   type: SIGNUP,
   data
+});
+
+export const resetServerError =  () => ({
+  type:  RESET_SERVER_ERROR,
 });
 
 export const signUpSuccess = () => ({

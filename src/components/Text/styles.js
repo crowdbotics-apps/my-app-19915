@@ -23,5 +23,6 @@ export default StyleSheet.create({
   eden: {color:Colors.eden},
   atlantis: {color:Colors.atlantis},
   golden:{color:Colors.golden},
-  lightgolden:{color:Colors.lightgolden}
+  lightgolden:{color:Colors.lightgolden},
+  red:{color:'red'}
 });

@@ -1,7 +1,7 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import {showMessage} from 'react-native-flash-message';
-
+import {loginSocial} from 'src/services/ApiService'
 // services
 import { navigate } from 'src/navigator/NavigationService';
 
@@ -40,10 +40,22 @@ function* login({data}) {
     yield put(setAuthToken(res.access));
     yield put(setUserInfo(resp.user));
   } catch (e) {
-    yield put(loginFailure());
-    showMessage({
-      message: 'Failed to login, something went wrong.',
-      type: 'danger',
+    yield put(loginFailure('EMAIL OR PASSWORD IS INVALID'));
+  }
+}
+
+function* handleSocialLogin({data,navigation}) {
+  try {
+    const response = yield call(loginSocial, data);
+    if (response.status === 200) {
+      yield saveToken(response.data.key);
+      yield setupHttp();
+    }
+    yield put({type: USER_LOGIN_SUCCEEDED});
+  } catch (error) {
+    yield put({
+      type: USER_LOGIN_FAILED,
+      error: error.message,
     });
   }
 }

@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {CheckBox, Content, Input} from 'native-base';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ActivityIndicator} from 'react-native';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
 // components
-import {Text, ErrorBox} from 'src/components';
+import {Text, ErrorBox, Error} from 'src/components';
 import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
@@ -15,8 +16,8 @@ import useForm from 'src/hooks/useForm';
 import validator from 'src/utils/validation';
 
 // actions
-import {login} from '../App/redux/actions';
-
+import {login, resetServerError} from '../App/redux/actions';
+import {socialLoginAction} from 'src/screens/App/redux/actions';
 // styles
 import styles from './styles';
 
@@ -24,8 +25,9 @@ const Login = props => {
   const {
     navigation: {navigate},
     requesting,
+    serverErrors,
   } = props;
-
+ 
   const [checked, setChecked] = useState(false);
 
   const stateSchema = {
@@ -49,7 +51,15 @@ const Login = props => {
     },
   };
 
+  useEffect(() => {
+    serverErrors && props.resetServerError();
+    return () => {
+      serverErrors && props.resetServerError();
+    };
+  }, []);
+
   const assignValues = (fieldName, backendName, value) => {
+    serverErrors && props.resetServerError();
     handleOnChange(fieldName, value);
   };
 
@@ -66,6 +76,36 @@ const Login = props => {
     validationStateSchema,
   );
 
+  const loginWithFacebook = () => {
+    LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+      'user_friends',
+    ]).then(
+      result => {
+        if (result.isCancelled) {
+          console.log('==> Login cancelled');
+        } else {
+          console.log(
+            '==> Login success with permissions: ' +
+              result.grantedPermissions.toString(),
+          );
+          AccessToken.getCurrentAccessToken().then(async accessToken => {
+            props.socialLoginAction({
+              key: accessToken.accessToken,
+              provider: 'facebook',
+            });
+            // console.log('key-------------',key)
+            navigation.navigate('Home');
+          });
+        }
+      },
+      function(error) {
+        console.log('==> Login fail with error: ' + error);
+      },
+    );
+  };
+
   const {row, fill, center, alignItemsCenter, justifyContentCenter} = Layout;
 
   const {titleSmall, textMedium} = Fonts;
@@ -74,16 +114,12 @@ const Login = props => {
     largeHMargin,
     regularHMargin,
     mediumXHMargin,
-    small2xTMargin,
-    mediumXTMargin,
     regularHPadding,
     regularVPadding,
     mediumTMargin,
     smallBPadding,
     smallTMargin,
     smallVPadding,
-    largeXTMargin,
-    regularBPadding,
   } = Gutters;
   const {
     logo,
@@ -91,7 +127,7 @@ const Login = props => {
     bgColor,
     social,
     heading,
-    errorStyle,
+    errorBoxStyle,
     fieldWrapper,
     buttonWrapper,
     checkBoxWrapper,
@@ -111,27 +147,36 @@ const Login = props => {
                 style={title}
               />
             </View>
+            {serverErrors && <Error errorText={serverErrors} />}
             <View style={[row, center, fieldWrapper, regularHPadding]}>
-              <Image source={Images.email} style={regularHMargin} />
+              <Image
+                source={serverErrors ? Images.emailerror : Images.email}
+                style={regularHMargin}
+              />
               <Input
+                placeholderTextColor={serverErrors ? 'red' : null}
                 placeholder="EMAIL"
                 onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
-            <View style={errorStyle}>
+            <View style={errorBoxStyle}>
               <ErrorBox errorText={state.email.error} />
             </View>
             <View style={[row, center, fieldWrapper, regularHPadding]}>
-              <Image source={Images.pass} style={regularHMargin} />
+              <Image
+                source={serverErrors ? Images.passworderror : Images.pass}
+                style={regularHMargin}
+              />
               <Input
                 secureTextEntry
+                placeholderTextColor={serverErrors ? 'red' : null}
                 placeholder="PASSWORD"
                 onChangeText={value =>
                   assignValues('password', 'password', value)
                 }
               />
             </View>
-            <View style={errorStyle}>
+            <View style={errorBoxStyle}>
               <ErrorBox errorText={state.password.error} />
             </View>
           </View>
@@ -209,10 +254,13 @@ const mapStateToProps = state => ({
   requesting: state.app.requesting,
   user: state.app.user,
   token: state.app.authToken,
+  serverErrors: state.app.serverErrors,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(login(data)),
+  socialLoginAction: data => dispatch(loginWithFacebook(data)),
+  resetServerError: () => dispatch(resetServerError()),
 });
 
 export default connect(
