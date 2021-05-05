@@ -43,11 +43,18 @@ function* signUp({ data }) {
   } catch (e) {
     const { response } = e;
     yield put(signUpFailure());
-
+if (e.response){
     showMessage({
       message: String(response.data.email),
       type: 'danger',
     });
+  }
+  else {
+    showMessage({
+      message: 'oops! Unable to signup. Something went wrong',
+      type: 'danger',
+    });
+  }
   }
 }
 
