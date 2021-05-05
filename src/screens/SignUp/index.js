@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
 import {Content, Input} from 'native-base';
@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 // components
-import {Text, Button, ErrorBox} from 'src/components';
+import {Text, Button, ErrorBox, Error} from 'src/components';
 import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
@@ -21,6 +21,9 @@ import useForm from 'src/hooks/useForm';
 
 // utils
 import validator from 'src/utils/validation';
+
+//action
+import {resetServerError} from 'src/screens/SignUp/redux/actions';
 
 // styles
 import styles from './styles';
@@ -30,6 +33,7 @@ const SignUp = props => {
   const {
     navigation: {navigate},
     requesting,
+    serverErrors,
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
@@ -61,7 +65,15 @@ const SignUp = props => {
     },
   };
 
+  useEffect(() => {
+    props.resetServerError();
+    return () => {
+      props.resetServerError();
+    };
+  }, []);
+
   const assignValues = (fieldName, backendName, value) => {
+    serverErrors && props.resetServerError();
     handleOnChange(fieldName, value);
   };
 
@@ -120,7 +132,10 @@ const SignUp = props => {
               <TouchableOpacity onPress={() => props.navigation.goBack()}>
                 <Image style={backImage} source={Images.arrowback} />
               </TouchableOpacity>
-              <Image style={logo} source={require('src/assets/images/logos.png')} />
+              <Image
+                style={logo}
+                source={require('src/assets/images/logos.png')}
+              />
             </View>
           </View>
           <View style={mediumXHMargin}>
@@ -128,6 +143,9 @@ const SignUp = props => {
               <Text text="Welcome!" color="river" style={heading} />
               <Text text="Create new account" color="river" style={title} />
             </View>
+            {serverErrors && (
+              <Error errorText={String(serverErrors).toUpperCase()} />
+            )}
             <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.email} style={regularHMargin} />
               <Input
@@ -139,13 +157,7 @@ const SignUp = props => {
               <ErrorBox errorText={state.email.error} />
             </View>
 
-            <View
-              style={[
-                row,
-                center,
-                fieldWrapper,
-                regularHPadding,
-              ]}>
+            <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.pass} style={regularHMargin} />
               <Input
                 secureTextEntry
@@ -167,7 +179,7 @@ const SignUp = props => {
                 <LinearGradient
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
-                  colors={['#56D3FB','#53F4EB']}
+                  colors={['#56D3FB', '#53F4EB']}
                   style={[fill, row, center, buttonWrapper, mediumTMargin]}>
                   <Text style={titleSmall} text="Sign up" color="river" />
                 </LinearGradient>
@@ -178,9 +190,15 @@ const SignUp = props => {
               <Text text="or sign up using" color="river" category="s1" />
             </View>
             <View style={[row, center, smallBPadding]}>
-              <Image source={Images.google} style={[regularHMargin,social]} />
-              <Image source={Images.facebook} style={[regularHMargin,social]} />
-              <Image source={Images.instagram} style={[regularHMargin,social]} />
+              <Image source={Images.google} style={[regularHMargin, social]} />
+              <Image
+                source={Images.facebook}
+                style={[regularHMargin, social]}
+              />
+              <Image
+                source={Images.instagram}
+                style={[regularHMargin, social]}
+              />
             </View>
           </View>
           <View style={[center, smallVPadding]}>
@@ -231,10 +249,12 @@ const SignUp = props => {
 };
 const mapStateToProps = state => ({
   requesting: state.signUp.requesting,
+  serverErrors: state.signUp.serverErrors,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(signUp(data)),
+  resetServerError: () => dispatch(resetServerError()),
 });
 
 export default connect(

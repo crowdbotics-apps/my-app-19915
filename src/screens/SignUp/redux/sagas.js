@@ -38,16 +38,11 @@ function* signUp({ data }) {
     const response = yield call(signUpAPI, data);
     yield put(signUpSuccess(data));
     navigate("Login")
-    console.log(response);
     
   } catch (e) {
     const { response } = e;
-    yield put(signUpFailure());
 if (e.response){
-    showMessage({
-      message: String(response.data.email),
-      type: 'danger',
-    });
+  yield put(signUpFailure(response.data.email));
   }
   else {
     showMessage({

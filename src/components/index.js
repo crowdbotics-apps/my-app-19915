@@ -1,6 +1,7 @@
 import Text from './Text';
 import Button from './Button';
 import ErrorBox from './ErrorBox';
+import Error from './Error';
 import Header from './Header';
 import ProgressCircle from './ProgressCircle';
 import Footer from './Footer';
@@ -43,6 +44,7 @@ export {
   Progress,
   Header,
   ErrorBox,
+  Error,
   Button,
   MenuIcon,
   ProgressCircle,

@@ -98,6 +98,8 @@ export default {
   polygon1: require('src/assets/images/Polygon1.png'),
   starfav: require('src/assets/images/starfav.png'),
   eye: require('src/assets/images/eye.png'),
+  emailerror: require('src/assets/images/emailerror.png'),
+  passworderror: require('src/assets/images/passworderror.png'),
   userprofile: require('src/assets/images/userprofilepic.png'),
   profilecam: require('src/assets/images/userprofile.png'),
 

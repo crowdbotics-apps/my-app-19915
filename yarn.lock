@@ -7429,6 +7429,11 @@ react-native-eva-icons@1.1.0:
   resolved "https://registry.yarnpkg.com/react-native-eva-icons/-/react-native-eva-icons-1.1.0.tgz#323e55d759187edc216d049e7c0012a27383e0ed"
   integrity sha512-0k6sbiKoHxmmbCgAZTHj6llcdcwtbyZJ1E2AK0my7QU0WRaWwqWMep5AUlMbrIiuYE9mkMZiabEXYcfn3ir2PA==
 
+react-native-fbsdk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-3.0.0.tgz#07ef41758bb17a0acaff744008af625a45ef9a01"
+  integrity sha512-i0JocuzLlGk13J0xFDjm8GlX7SADAL2kh/syE/HOn5HHdW+PFjC31MNj5AtzIw2TicHXpHGO6VPKNfdWFbxboA==
+
 react-native-flash-message@^0.1.23:
   version "0.1.23"
   resolved "https://registry.yarnpkg.com/react-native-flash-message/-/react-native-flash-message-0.1.23.tgz#50a17201a2d9d6b22a2f174a97b22c30bff15638"
@@ -7525,6 +7530,11 @@ react-native-screens@1.0.0-alpha.22:
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
+
+react-native-secure-key-store@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-secure-key-store/-/react-native-secure-key-store-2.0.9.tgz#9094d4d914145a301864b941c6289f57058780a5"
+  integrity sha512-9qi1rOlv4qNSpJIjqcIB7d0EQSwo2Yho8NVBT/Jc9NeYibDLHdArLXl8jn8H6nlf+8alk/bXqr4rPINrCTtmog==
 
 react-native-snap-carousel@*:
   version "3.9.1"
