@@ -10,6 +10,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 # from rest_framework .permissions import AllowAny
 
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.instagram.views import InstagramOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from rest_auth.registration.views import SocialLoginView
+
 from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer, SmileExerciseSerializer, \
     SmileCommunitySerializer, SmileScienceSerializer, FavoriteExerciseSerializer
 from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience, FavoriteExercise
@@ -104,3 +110,18 @@ class SmileScienceViewSet(ModelViewSet):
 class FavoriteExerciseViewSet(ModelViewSet):
     serializer_class = FavoriteExerciseSerializer
     queryset = FavoriteExercise.objects.all()
+
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+    callback_url = "https://developers.google.com/oauthplayground"
+
+
+class InstagramLogin(SocialLoginView):
+    adapter_class = InstagramOAuth2Adapter
+    client_class = OAuth2Client

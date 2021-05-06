@@ -63,6 +63,8 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.instagram',
     'django_extensions',
     'drf_yasg',
 
@@ -162,6 +164,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 )
+
+SITE_ID = 1
+
+SOCIAL_AUTH_FACEBOOK_KEY = env.str('FACEBOOK_APP_ID', '')
+SOCIAL_AUTH_FACEBOOK_SECRET = env.str('FACEBOOK_APP_SECRET', '')
+
+SOCIAL_AUTH_INSTAGRAM_KEY = env.str('INSTAGRAM_APP_ID', '')
+SOCIAL_AUTH_INSTAGRAM_SECRET = env.str('INSTAGRAM_APP_SECRET', '')
+
+SOCIAL_AUTH_GOOGLE_KEY = env.str('GOOGLE_APP_ID', '')
+SOCIAL_AUTH_GOOGLE_SECRET = env.str('GOOGLE_APP_SECRET', '')
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [

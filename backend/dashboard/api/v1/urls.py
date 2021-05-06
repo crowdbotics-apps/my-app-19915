@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from dashboard.api.v1.viewsets import (
     QuoteViewSet,
@@ -7,7 +7,10 @@ from dashboard.api.v1.viewsets import (
     SmileCommunityViewSet,
     SmileScienceViewSet,
     SmileDashboard,
-    FavoriteExerciseViewSet
+    FavoriteExerciseViewSet,
+    FacebookLogin,
+    GoogleLogin,
+    InstagramLogin
 
 )
 
@@ -23,5 +26,7 @@ router.register("smile_favorite", FavoriteExerciseViewSet, basename="smile_favor
 urlpatterns = [
     path("", include(router.urls)),
     # path('quote', QuoteViewSet.as_view(), name='quote'),
-
+    path('login/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('login/google/', GoogleLogin.as_view(), name='google_login'),
+    path('login/instagram/', InstagramLogin.as_view(), name='instagram_login'),
 ]
