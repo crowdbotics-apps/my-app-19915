@@ -5,14 +5,14 @@ import { BarChart } from 'react-native-svg-charts'
 const ChartBar = ({ bar }) => {
 
   const data1 = [30, 16, 30, 40, 45]
-    .map((value) => ({ value, svg: { fill: Colors.primary } }))
+    .map((value) => ({ value, svg: { fill: Colors.loblolly } }))
   const data2 = [64, 50, 45, 54, 24, 30, 20, 45, 35, 53, 63, 54, 34, 50, 30, 45, 35, 53, 63]
     .map((value) => ({ value }))
 
   const barData = data1.concat(data2)
 
   const data3 = [24, 30, 20, 45, 35, 53, 63, 54, 64, 50, 45, 54, 24, 30, 20, 45, 35, 53, 63, 54, 34, 50, 30, 45]
-    .map((value) => ({ value, svg: { fill: Colors.primary } }))
+    .map((value) => ({ value, svg: { fill: Colors.loblolly } }))
   const data4 = []
     .map((value) => ({ value }))
 

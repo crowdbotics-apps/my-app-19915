@@ -21,7 +21,7 @@ const {backImage} = styles;
 
 import {MoreResource} from 'src/components';
 
-const {row, fill, alignItemsCenter} = Layout;
+const {row, fill,center} = Layout;
 
 const {titleSmall} = Fonts;
 
@@ -48,19 +48,16 @@ const MoreScreen = props => {
 
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
           right={<Avatar size="regular" />}
         />
-        <View style={[row, alignItemsCenter, mediumBMargin]}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
-            <Image source={Images.camarrowback} style={backImage} />
-          </TouchableOpacity>
+        <View style={[row, center, mediumBMargin]}>
           <Text
             text="More Resources"
             color="river"
-            style={[titleSmall, {marginLeft: 60}]}
+            style={titleSmall}
           />
         </View>
         <Content contentContainerStyle={mediumHPadding}>

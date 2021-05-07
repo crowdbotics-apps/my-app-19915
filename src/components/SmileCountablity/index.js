@@ -99,11 +99,11 @@ const SmileCountablity = ({
       small2xVPadding,
       mainWrapper]}>
       <View style={[row, alignItemsCenter, justifyContentBetween]}>
-        <Text text={text} color='primary' style={firstText} bold />
-        <Text text={subText} color='primary' style={secondText} bold />
+        <Text text={text} color='riverbed' style={firstText} />
+        <Text text={subText} color='golden' style={secondText} bold />
       </View>
       <View style={[row, alignItemsCenter, tinyVPadding]}>
-        <Text text={description} color='senary' medium />
+        <Text text={description} color='riverbed' medium />
         {coloredText && <Text text={coloredDesc} color='octonary' medium bold />}
       </View>
       {loadingWeek &&
@@ -125,7 +125,7 @@ const SmileCountablity = ({
       {lineChart && <Chart />}
       {barChart && <ChartBar />}
       {barChartData && <ChartBar bar />}
-      {dateText && <Text text={date} color='primary' style={[secondText, small2xVPadding]} bold />}
+      {dateText && <Text text={date} color='golden' style={[secondText, small2xVPadding]} bold />}
       {cameraText && (
         <View style={[row, alignItemsCenter, smallTPadding]}>
           {cameraIcon && <Image source={Images.camera} />}

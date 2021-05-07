@@ -102,6 +102,12 @@ export default {
   passworderror: require('src/assets/images/passworderror.png'),
   userprofile: require('src/assets/images/userprofilepic.png'),
   profilecam: require('src/assets/images/userprofile.png'),
+  man: require('src/assets/images/man.png'),
+  levelboxgolden: require('src/assets/images/levelgolden.png'),
+  lateststreakgolden: require('src/assets/images/lateststreakgolden.png'),
+  maxstreakgolden: require('src/assets/images/maxstreakgolden.png'),
+  polygongolden: require('src/assets/images/polygongolden.png'),
+  checked: require('src/assets/images/checked.png'),
 
   // first dashboard
   // homelight: require('src/assets/dashboard/homelight.png'),

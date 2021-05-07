@@ -1,21 +1,24 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
-import {showMessage} from 'react-native-flash-message';
-import {loginSocial} from 'src/services/ApiService'
-// services
-import { navigate } from 'src/navigator/NavigationService';
 
 // config
-import {appConfig} from '../../../config/app';
+import {appConfig} from 'src/config/app';
 
 // utils
-import XHR from '../../../utils/XHR';
+import XHR from 'src/utils/XHR';
+import {errorAlert} from 'src/utils/alerts';
 
 // types
-import {LOGIN} from '../../App/redux/types';
+import {LOGIN, FACEBOOK_LOGIN} from 'src/screens/App/redux/types';
 
 // actions
-import {setAuthToken, setUserInfo, loginFailure} from '../../App/redux/actions';
+import {
+  setAuthToken,
+  setUserInfo,
+  loginFailure,
+  setFacebookLogin,
+  resetLogin,
+} from 'src/screens/App/redux/actions';
 
 function loginAPI(data) {
   const URL = `${appConfig.backendServerURL}/api/v1/token/login/`;
@@ -30,11 +33,25 @@ function loginAPI(data) {
   return XHR(URL, options);
 }
 
+function facebookLoginAPI(accessToken) {
+  const URL = `${
+    appConfig.backendServerURL
+  }/login/facebook/`;
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  };
+
+  return XHR(URL, options);
+}
+
 function* login({data}) {
   try {
     const response = yield call(loginAPI, data);
     const res = response.data;
-    const resp = { ...res, user: { ...res.user, password: data.password } }
+    const resp = {...res, user: {...res.user, password: data.password}};
 
     AsyncStorage.setItem('authToken', res.access);
     yield put(setAuthToken(res.access));
@@ -44,20 +61,29 @@ function* login({data}) {
   }
 }
 
-function* handleSocialLogin({data,navigation}) {
+function* facebookLogin({accessToken}) {
   try {
-    const response = yield call(loginSocial, data);
-    if (response.status === 200) {
-      yield saveToken(response.data.key);
-      yield setupHttp();
+    const res = yield call(facebookLoginAPI, accessToken);
+
+    AsyncStorage.setItem('authToken', res.data.token);
+    AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+
+    yield put(setUserInfo(res.data.user));
+    yield put(setAuthToken(res.data.token));
+    yield put(setFacebookLogin(true));
+  } catch (e) {
+    const {response} = e;
+    if (response && response.data.error) {
+      errorAlert(response.data.error);
+    } else {
+      errorAlert('Unable to login with facebook, please try again later.');
     }
-    yield put({type: USER_LOGIN_SUCCEEDED});
-  } catch (error) {
-    yield put({
-      type: USER_LOGIN_FAILED,
-      error: error.message,
-    });
+  } finally {
+    yield put(resetLogin());
   }
 }
 
-export default all([takeLatest(LOGIN, login)]);
+export default all([
+  takeLatest(LOGIN, login),
+  takeLatest(FACEBOOK_LOGIN, facebookLogin),
+]);

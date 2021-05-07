@@ -17,7 +17,7 @@ import validator from 'src/utils/validation';
 
 // actions
 import {login, resetServerError} from '../App/redux/actions';
-import {socialLoginAction} from 'src/screens/App/redux/actions';
+import {facebookLogin as facebookLoginAction} from 'src/screens/App/redux/actions';
 // styles
 import styles from './styles';
 
@@ -26,8 +26,9 @@ const Login = props => {
     navigation: {navigate},
     requesting,
     serverErrors,
+    requestingFacebook,
   } = props;
- 
+
   const [checked, setChecked] = useState(false);
 
   const stateSchema = {
@@ -76,34 +77,23 @@ const Login = props => {
     validationStateSchema,
   );
 
-  const loginWithFacebook = () => {
-    LoginManager.logInWithPermissions([
-      'public_profile',
-      'email',
-      'user_friends',
-    ]).then(
-      result => {
-        if (result.isCancelled) {
-          console.log('==> Login cancelled');
-        } else {
-          console.log(
-            '==> Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-          AccessToken.getCurrentAccessToken().then(async accessToken => {
-            props.socialLoginAction({
-              key: accessToken.accessToken,
-              provider: 'facebook',
-            });
-            // console.log('key-------------',key)
-            navigation.navigate('Home');
-          });
-        }
-      },
-      function(error) {
-        console.log('==> Login fail with error: ' + error);
-      },
-    );
+  const facebookLogin = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (result.isCancelled) {
+        alert('Login was cancelled');
+      } else {
+        AccessToken.getCurrentAccessToken().then(data => {
+          props.facebookLogin(data.accessToken.toString());
+          console.log(accessToken);
+        });
+      }
+    } catch (e) {
+      alert(`Login failed with error: ${e}`);
+    }
   };
 
   const {row, fill, center, alignItemsCenter, justifyContentCenter} = Layout;
@@ -127,6 +117,7 @@ const Login = props => {
     bgColor,
     social,
     heading,
+    errorStyle,
     errorBoxStyle,
     fieldWrapper,
     buttonWrapper,
@@ -148,7 +139,14 @@ const Login = props => {
               />
             </View>
             {serverErrors && <Error errorText={serverErrors} />}
-            <View style={[row, center, fieldWrapper, regularHPadding]}>
+            <View
+              style={[
+                row,
+                center,
+                fieldWrapper,
+                regularHPadding,
+                serverErrors && errorStyle,
+              ]}>
               <Image
                 source={serverErrors ? Images.emailerror : Images.email}
                 style={regularHMargin}
@@ -162,7 +160,14 @@ const Login = props => {
             <View style={errorBoxStyle}>
               <ErrorBox errorText={state.email.error} />
             </View>
-            <View style={[row, center, fieldWrapper, regularHPadding]}>
+            <View
+              style={[
+                row,
+                center,
+                fieldWrapper,
+                regularHPadding,
+                serverErrors && errorStyle,
+              ]}>
               <Image
                 source={serverErrors ? Images.passworderror : Images.pass}
                 style={regularHMargin}
@@ -220,9 +225,21 @@ const Login = props => {
             <Text text="or login using" color="river" category="s1" />
           </View>
           <View style={[row, center, smallBPadding]}>
-            <Image style={[regularHMargin, social]} source={Images.google} />
-            <Image style={[regularHMargin, social]} source={Images.facebook} />
-            <Image style={[regularHMargin, social]} source={Images.instagram} />
+            <TouchableOpacity>
+              <Image style={[regularHMargin, social]} source={Images.google} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>facebookLogin()}>
+              <Image
+                style={[regularHMargin, social]}
+                source={Images.facebook}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                style={[regularHMargin, social]}
+                source={Images.instagram}
+              />
+            </TouchableOpacity>
           </View>
           <View style={[center, smallVPadding]}>
             <Text color="river" medium>
@@ -254,12 +271,13 @@ const mapStateToProps = state => ({
   requesting: state.app.requesting,
   user: state.app.user,
   token: state.app.authToken,
+  requestingFacebook: state.app.requestingFacebook,
   serverErrors: state.app.serverErrors,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(login(data)),
-  socialLoginAction: data => dispatch(loginWithFacebook(data)),
+  facebookLogin: accessToken => dispatch(facebookLoginAction(accessToken)),
   resetServerError: () => dispatch(resetServerError()),
 });
 

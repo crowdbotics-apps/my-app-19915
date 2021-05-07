@@ -10,7 +10,7 @@ const Chart = () => {
     <Path
       key={'line '}
       d={line}
-      stroke={Colors.primary}
+      stroke={Colors.loblolly}
       fill={'none'}
     />
   )

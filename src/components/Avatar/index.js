@@ -15,7 +15,7 @@ const Avatar = ({ imageUrl, size, style, round,action }) => {
     <TouchableOpacity onPress={action} style={[alignItemsCenter, round && rounded, style && style]}>
       <Image
         style={[image, round && rounded, styles[size]]}
-        source={imageUrl ? { uri: imageUrl } : Images.user}
+        source={imageUrl ? { uri: imageUrl } : Images.man}
       />
     </TouchableOpacity>
   );

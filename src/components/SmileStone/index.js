@@ -10,8 +10,8 @@ const SmileStone = ({containerStyle,imageSource,textStyle, text,style,subText,su
     return (
     <View style={containerStyle} >
        <Image style={style} source={imageSource}/>
-       <Text style={textStyle} text={text } />
-      <Text style={subTextStyle}  text={subText}/>
+       <Text color='riverbed' style={textStyle} text={text } />
+      <Text color='riverbed' style={subTextStyle}  text={subText}/>
     </View>
 )}
 export default SmileStone;

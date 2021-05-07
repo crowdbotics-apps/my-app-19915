@@ -39,7 +39,7 @@ const SmileExercises = props => {
   }, []);
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Header
           left={<MenuIcon action={() => openDrawer()} />}
           right={<Avatar size="regular" />}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Content } from 'native-base';
-import { View, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, ImageBackground,Image } from 'react-native';
 
 // components
 import {
@@ -43,23 +43,12 @@ const StatScreen = (props) => {
 
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
           <Header
-            left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+            left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
             right={<Avatar size='regular' />}
           />
-          <View style={[
-            row,
-            wrap,
-            mediumHMargin,
-            regularVMargin,
-            alignItemsCenter,
-          ]}
-          >
-            <Text text='Statistics for ' color='secondary' regularTitle />
-            <Text text="this week ..." color="octonary" regularTitle bold />
-          </View>
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
               {weeks.map((week, i) => (
@@ -68,7 +57,7 @@ const StatScreen = (props) => {
                   <Text
                     style={dayWrapper}
                     text={week}
-                    color='secondary'
+                    color='riverbed'
                     smallTextX
                   />
                 </View>
@@ -84,13 +73,27 @@ const StatScreen = (props) => {
                   <Text
                     style={[active === i ? activeDayWrapper : dayWrapper]}
                     text={day}
-                    color='secondary'
+                    color='riverbed'
                     smallTextX
                   />
                 </TouchableOpacity>
               ))}
             </View>
           </View>
+          <View style={[
+            center,
+            row,
+            wrap,
+            mediumHMargin,
+            regularVMargin,
+            alignItemsCenter,
+          ]}
+          >
+            <Text text='Statistics for ' color='riverbed' regularTitle />
+            <Text text="today" color="golden" regularTitle bold />
+            <Image source={Images.polygongolden} />
+          </View>
+          
 
           <SmileCountablity
             marginTop
@@ -100,33 +103,32 @@ const StatScreen = (props) => {
             description="Day with highest number of smiles"
           />
           <SmileCountablity
-            barChart
             subText="5 days"
             text='Recent smile streak'
             description="Days in a row with at least one smile"
           />
           <SmileCountablity
-            barChartData
-            subText="24 days"
-            text='Recent smile streak'
-            description="Days in a row with at least one smile"
+            lineChart
+            subText="24s"
+            text='Length of smile'
+            description="Average duration of smiles"
           />
           <SmileCountablity
-            dateText
-            date="Saturday, 29.01"
+            lineChart
+            subText="32s"
+            text='Longest smile'
+            description="Average duration of smiles"
+          />
+          <SmileCountablity
+            barChart
+            subText="25 days"
             text='Best smile streak'
-            description="Days with at least one smile"
-          />
-          <SmileCountablity
-            barChart
-            subText="5 days"
-            text='Recent smile streak'
             description="Days in a row with at least one smile"
           />
           <SmileCountablity
-            barChartData
-            subText="24 days"
-            text='Recent smile streak'
+            barChart
+            subText="25 days"
+            text='Best smile streak'
             description="Days in a row with at least one smile"
           />
 

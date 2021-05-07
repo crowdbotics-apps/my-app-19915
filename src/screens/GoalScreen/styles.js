@@ -37,4 +37,8 @@ export default StyleSheet.create({
     padding: 10,
     justifyContent: 'space-between',
   },
+  checkedStyle:{
+    backgroundColor:Colors.carrotorange,
+    opacity:0.9
+  }
 });

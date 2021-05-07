@@ -45,26 +45,27 @@ const Dashboard = props => {
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
           <Header
-            left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+            left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
             right={<Avatar size="regular" />}
           />
           <View style={[fill, center,smallVMargin]}>
             <ProgressCircle
+            outerStrokeLinecap='round'
               size={325}
               progress={0.7}
               showsText={true}
-              color={Colors.primary}
+              color={Colors.riverbed}
               formatText={() => ''}
               thickness={2}
-              unfilledColor={Colors.viking}
+              unfilledColor={Colors.loblolly}
             />
             <ProgressCircle
               size={285}
               progress={0.4}
               showsText={true}
-              color={Colors.primary}
+              color={Colors.riverbed}
               formatText={() => ''}
-              unfilledColor={Colors.viking}
+              unfilledColor={Colors.loblolly}
               thickness={2}
               style={{position: 'absolute'}}
             />
@@ -72,7 +73,7 @@ const Dashboard = props => {
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
             <View style={[mediumTMargin,center]}>
-              <Text text="Smile seconds" color="primary" medium />
+              <Text text="Smile seconds" color="riverbed" medium />
               <View style={mediumTMargin}>
                 <DataAvailability
                   requesting={requesting}
@@ -83,7 +84,7 @@ const Dashboard = props => {
                     progress={0.4}
                     thickness={5}
                     showsText={true}
-                    color={Colors.primary}
+                    color={Colors.riverbed}
                     formatText={() =>
                       `${
                         data && data.dashboard.length>0
@@ -91,13 +92,13 @@ const Dashboard = props => {
                           : 0
                       }s`
                     }
-                    unfilledColor={Colors.viking}
+                    unfilledColor={Colors.loblolly}
                   />
                 </DataAvailability>
               </View>
             </View>
             <View style={[mediumTMargin,center]}>
-              <Text text="Smile count" color="primary" medium />
+              <Text text="Smile count" color="riverbed" medium />
               <View style={[mediumTMargin,center]}>
                 <DataAvailability
                   requesting={requesting}
@@ -115,8 +116,8 @@ const Dashboard = props => {
                           : 0
                       }s`
                     }
-                    color={Colors.primary}
-                    unfilledColor={Colors.viking}
+                    color={Colors.riverbed}
+                    unfilledColor={Colors.loblolly}
                   />
                 </DataAvailability>
               </View>
@@ -141,7 +142,7 @@ const Dashboard = props => {
 
           <TouchableOpacity
             style={[
-              {borderWidth: 1.5, borderColor: Colors.primary},
+              {borderWidth: 1, borderColor: Colors.lightgolden},
               fill,
               row,
               center,
@@ -153,7 +154,7 @@ const Dashboard = props => {
             <Text
               style={textMedium}
               text="You’re on a 5 day smile streak"
-              color="primary"
+              color="golden"
             />
           </TouchableOpacity>
         </Content>

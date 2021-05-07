@@ -72,7 +72,7 @@ const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, 
             />}
             <Text
               text={screen.text}
-              color={activeRoute === screen.text ? "primary" : "secondary"}
+              color={activeRoute === screen.text ? "golden" : "riverbed"}
               medium
               style={smallVPadding}
             />

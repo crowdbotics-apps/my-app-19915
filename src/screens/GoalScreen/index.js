@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
-import { Content } from 'native-base';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Content} from 'native-base';
+import {View, Image, TouchableOpacity, ImageBackground} from 'react-native';
 
 // components
 import {
@@ -18,12 +13,12 @@ import {
   SmileStone,
   GoalsCard,
 } from 'src/components';
-import { Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
+import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 
 // styles
 import styles from './styles';
 
-const GoalScreen = (props) => {
+const GoalScreen = props => {
   const [active, setActive] = useState(6);
   const {
     row,
@@ -55,7 +50,7 @@ const GoalScreen = (props) => {
     smallVMargin,
     mediumTPadding,
     smallTPadding,
-    smallVPadding
+    smallVPadding,
   } = Gutters;
   const {
     dayWrapper,
@@ -66,6 +61,7 @@ const GoalScreen = (props) => {
     card,
     cardsContainer,
     centerCard,
+    checkedStyle,
     bottomCardContainer,
   } = styles;
 
@@ -74,9 +70,14 @@ const GoalScreen = (props) => {
 
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
-          <Header left={<MenuIcon action={() => props.navigation.openDrawer()} />} right={<Avatar size="regular" />} />
+          <Header
+            left={
+              <MenuIcon grey action={() => props.navigation.openDrawer()} />
+            }
+            right={<Avatar size="regular" />}
+          />
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
               {weeks.map((week, i) => (
@@ -84,7 +85,7 @@ const GoalScreen = (props) => {
                   <Text
                     style={dayWrapper}
                     text={week}
-                    color="secondary"
+                    color="riverbed"
                     smallTextX
                   />
                 </View>
@@ -99,7 +100,7 @@ const GoalScreen = (props) => {
                   <Text
                     style={[active === i ? activeDayWrapper : dayWrapper]}
                     text={day}
-                    color="secondary"
+                    color="riverbed"
                     smallTextX
                   />
                 </TouchableOpacity>
@@ -109,7 +110,8 @@ const GoalScreen = (props) => {
 
           <View style={[center, row, wrap, mediumVMargin]}>
             <Text text="Smile activity" style={textMediumX} />
-            <Text bold text="Today . " color="golden" style={textMediumX} />
+            <Text bold text=" today" color="golden" style={textMediumX} />
+            <Image source={Images.polygongolden} />
           </View>
 
           <View style={[fill, center]}>
@@ -118,52 +120,28 @@ const GoalScreen = (props) => {
                 size={264}
                 progress={0.6}
                 showsText={false}
-                color={Colors.secondary}
-                unfilledColor={Colors.viking}
+                color={Colors.riverbed}
+                unfilledColor={Colors.loblolly}
               />
-              <View style={[center, positionA]}>
-                <Text bold text="62%" color="secondary" style={textWrapper} />
+              <View style={[center, positionA, {top: 30}]}>
+                <Text bold text="62%" color="riverbed" style={textWrapper} />
                 <Text
-                  bold
-                  color="secondary"
+                  color="riverbed"
                   text="of goals"
                   style={text2Wrapper}
                 />
                 <Text
-                  bold
+
                   style={text2Wrapper}
-                  color="secondary"
+                  color="riverbed"
                   text="completed today"
                 />
-                <Image source={Images.progresicon} />
+                <Image
+                  style={{position: 'absolute', top: 40, zIndex: 1}}
+                  source={Images.profilecam}
+                />
               </View>
             </View>
-          </View>
-          <View style={[small2xHMargin, cardsContainer, mediumTMargin]}>
-            <SmileStone
-              containerStyle={[center, card]}
-              imageSource={Images.levelbox}
-              textStyle={[textCenter, smallVMargin, titleSmall]}
-              text="Level"
-              subText="53"
-              subTextStyle={[smallTPadding,titleRegular, bold]}
-            />
-            <SmileStone
-              containerStyle={[center, card, centerCard]}
-              imageSource={Images.lateststreak}
-              textStyle={[textCenter, titleSmall, smallVMargin]}
-              text="Latest Streak"
-              subText="18d"
-              subTextStyle={[titleRegular, bold]}
-            />
-            <SmileStone
-              containerStyle={[center, card]}
-              imageSource={Images.maxstreak}
-              textStyle={[textCenter, titleSmall, smallVMargin]}
-              text="Max Streak"
-              subText="38d"
-              subTextStyle={[titleRegular, bold]}
-            />
           </View>
 
           <View
@@ -174,8 +152,7 @@ const GoalScreen = (props) => {
               justifyContentBetween,
               alignItemsCenter,
             ]}>
-            <Text text="Smilestone" style={titleSmall} />
-            <Image source={Images.dots} />
+            <Text text="Goals" color='riverbed' style={titleSmall} />
           </View>
           <View style={smallVMargin}>
             <View style={row}>
@@ -184,10 +161,9 @@ const GoalScreen = (props) => {
                 text1="smile seconds"
                 text1Style={titleSmall}
                 text2="180s"
-                text2Style={[smallVPadding,bold, smallVMargin, textMediumX]}
-                text2Color="atlantis"
+                text2Style={[smallVPadding, bold, smallVMargin, textMediumX]}
                 text3="Congratulations You completed this smilestone"
-                text3Style={[textLarge,smallTMargin]}
+                text3Style={[textLarge, smallTMargin]}
               />
               <GoalsCard
                 containerStyle={[fill, bottomCardContainer, small2xRMargin]}
@@ -195,43 +171,43 @@ const GoalScreen = (props) => {
                 text1Style={titleSmall}
                 text2="24"
                 text2Style={[bold, smallVMargin, textMediumX]}
-                text2Color="atlantis"
+                text2Color="golden"
                 text3="2 more times"
                 text3Style={[textLarge, bold]}
                 text4="for your smile count goal"
                 text4Style={textLarge}
               />
             </View>
+          </View>
 
-            <View style={[row, smallTMargin]}>
-              <GoalsCard
-                containerStyle={[fill, bottomCardContainer, small2xHMargin]}
-                text1="longest smile"
-                text1Style={titleSmall}
-                text2="18s"
-                text2Style={[bold, smallVMargin, textMediumX]}
-                text2Color="atlantis"
-                text3="12 seconds"
-                text3Style={[textLarge, bold]}
-                text4="to beat your longest smile"
-                text4Style={textLarge}
-              />
-              <GoalsCard
-                containerStyle={[fill, bottomCardContainer, small2xRMargin]}
-                text1="smile count"
-                text1Style={titleSmall}
-                text2="4 days"
-                text2Style={[bold, smallVMargin, textMediumX]}
-                text2Color="atlantis"
-                text3="18 days"
-                text3Style={[textLarge, bold]}
-                text4="longest best smile streak"
-                text4Style={textLarge}
-              />
-            </View>
+          <View style={[small2xHMargin, cardsContainer, mediumTMargin]}>
+            <SmileStone
+              containerStyle={[center, card]}
+              imageSource={Images.levelboxgolden}
+              textStyle={[textCenter, smallVMargin, titleSmall]}
+              text="Level"
+              subText="53"
+              subTextStyle={[smallTPadding, titleRegular, bold]}
+            />
+            <SmileStone
+              containerStyle={[center, card, centerCard]}
+              imageSource={Images.lateststreakgolden}
+              textStyle={[textCenter, titleSmall, smallVMargin]}
+              text="Latest Streak"
+              subText="18d"
+              subTextStyle={[titleRegular, bold]}
+            />
+            <SmileStone
+              containerStyle={[center, card]}
+              imageSource={Images.maxstreakgolden}
+              textStyle={[textCenter, titleSmall, smallVMargin]}
+              text="Max Streak"
+              subText="38d"
+              subTextStyle={[titleRegular, bold]}
+            />
           </View>
         </Content>
-        <Footer activeRoute='Goals' navigation={props.navigation} />
+        <Footer activeRoute="Goals" navigation={props.navigation} />
       </ImageBackground>
     </>
   );

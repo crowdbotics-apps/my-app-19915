@@ -4,6 +4,7 @@ import DatePicker from 'react-native-date-picker';
 import {Content, Input} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import {ActivityIndicator} from 'react-native';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import {
   View,
   ImageBackground,
@@ -24,6 +25,7 @@ import validator from 'src/utils/validation';
 
 //action
 import {resetServerError} from 'src/screens/SignUp/redux/actions';
+import {facebookLogin as facebookLoginAction} from 'src/screens/App/redux/actions';
 
 // styles
 import styles from './styles';
@@ -34,6 +36,7 @@ const SignUp = props => {
     navigation: {navigate},
     requesting,
     serverErrors,
+    requestingFacebook,
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
@@ -88,6 +91,24 @@ const SignUp = props => {
 
   const onPress = val => {
     val === checked ? setChecked(0) : setChecked(val);
+  };
+
+  const facebookLogin = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+      if (result.isCancelled) {
+        alert('Login was cancelled');
+      } else {
+        AccessToken.getCurrentAccessToken().then(data => {
+          props.facebookLogin(data.accessToken.toString());
+        });
+      }
+    } catch (error) {
+      alert(`Login failed with error: ${error}`);
+    }
   };
 
   const {state, handleOnChange, disable} = useForm(
@@ -190,15 +211,24 @@ const SignUp = props => {
               <Text text="or sign up using" color="river" category="s1" />
             </View>
             <View style={[row, center, smallBPadding]}>
-              <Image source={Images.google} style={[regularHMargin, social]} />
-              <Image
-                source={Images.facebook}
-                style={[regularHMargin, social]}
-              />
-              <Image
-                source={Images.instagram}
-                style={[regularHMargin, social]}
-              />
+              <TouchableOpacity>
+                <Image
+                  source={Images.google}
+                  style={[regularHMargin, social]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=>facebookLogin()}>
+                <Image
+                  source={Images.facebook}
+                  style={[regularHMargin, social]}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Image
+                  source={Images.instagram}
+                  style={[regularHMargin, social]}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={[center, smallVPadding]}>
@@ -250,11 +280,13 @@ const SignUp = props => {
 const mapStateToProps = state => ({
   requesting: state.signUp.requesting,
   serverErrors: state.signUp.serverErrors,
+  requestingFacebook: state.app.requestingFacebook,
 });
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(signUp(data)),
   resetServerError: () => dispatch(resetServerError()),
+  facebookLogin: accessToken => dispatch(facebookLoginAction(accessToken)),
 });
 
 export default connect(

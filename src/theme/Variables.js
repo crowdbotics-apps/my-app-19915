@@ -51,7 +51,9 @@ export const Colors = {
   botticelli: "#C4DDE0",
   atlantis: "#82C231",
   shuttlegray: "#546775",
-  easternblue: "#24A4C0"
+  easternblue: "#24A4C0",
+  loblolly: "#C5CACE",
+  loblolly1:"#C3CDD2"
 }
 
 /**

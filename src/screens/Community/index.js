@@ -38,7 +38,7 @@ const Community = props => {
 
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Header
           left={<MenuIcon action={() => props.navigation.openDrawer()} />}
           right={<Avatar size="regular" />}

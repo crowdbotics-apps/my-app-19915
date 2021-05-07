@@ -63,19 +63,16 @@ const ActivitiesScreen = props => {
   ];
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
           right={<Avatar size="regular" />}
         />
-        <View style={[row, alignItemsCenter, smallBMargin]}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
-            <Image source={Images.camarrowback} style={backImage} />
-          </TouchableOpacity>
+        <View style={[row, center,alignItemsCenter, smallBMargin]}>
           <Text
             text="Activities"
             color="river"
-            style={[titleSmall, {marginLeft: 60}]}
+            style={titleSmall}
           />
         </View>
         <Content contentContainerStyle={mediumHPadding}>
@@ -91,9 +88,10 @@ const ActivitiesScreen = props => {
             <View style={[progressWrapper]}>
               <View style={[center]}>
                 <ProgressCircle
-                  size={107}
+                  size={106}
                   strokeCap="round"
-                  progress={0.5}
+                  progress={0.6}
+                  thickness={5}
                   showsText={false}
                   color={Colors.golden}
                   unfilledColor={Colors.lightgolden}

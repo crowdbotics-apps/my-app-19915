@@ -62,5 +62,6 @@ export default StyleSheet.create({
   },
 
   errorBoxStyle: {paddingTop: 13, paddingLeft: 25,marginBottom:8},
+  errorStyle:{borderColor:'red',borderWidth:1}
   
 });

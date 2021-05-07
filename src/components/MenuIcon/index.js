@@ -4,10 +4,10 @@ import { TouchableOpacity, StyleSheet, Image } from 'react-native';
 // components
 import { Images } from 'src/theme';
 
-const MenuIcon = ({ action }) => {
+const MenuIcon = ({ action,grey }) => {
   return (
     <TouchableOpacity style={styles.toggle} onPress={action}>
-      <Image source={Images.togglewhite} />
+      <Image source={grey?Images.toggle:Images.togglewhite} />
     </TouchableOpacity>
   );
 };

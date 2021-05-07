@@ -15,7 +15,7 @@ export default StyleSheet.create({
     paddingTop: 14,
     borderRadius: 40,
     textAlign: 'center',
-    backgroundColor: Colors.goldenrod
+    backgroundColor: Colors.golden
   },
   progressBarWrapper: {
     marginHorizontal: 49
