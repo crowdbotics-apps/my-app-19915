@@ -200,11 +200,15 @@ SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool("SOCIALACCOUNT_ALLOW_REGISTRATION", 
 REST_AUTH_SERIALIZERS = {
     # Replace password reset serializer to fix 500 error
     "PASSWORD_RESET_SERIALIZER": "users.api.v1.serializers.PasswordSerializer",
+    "USER_DETAILS_SERIALIZER": "users.api.v1.serializers.UserSerializer"
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     # Use custom serializer that has no username and matches web signup
     "REGISTER_SERIALIZER": "users.api.v1.serializers.SignupSerializer",
 }
+
+REST_USE_JWT = True
+
 
 # Six Digit Token Generator
 DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
