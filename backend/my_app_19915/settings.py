@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import datetime
 import os
 from datetime import timedelta
 
@@ -23,7 +23,6 @@ DEBUG = env.bool("DEBUG", default=False)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -35,7 +34,6 @@ SITE_ID = 1
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("SECURE_REDIRECT", default=False)
-
 
 # Application definition
 
@@ -107,7 +105,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_app_19915.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -122,7 +119,6 @@ if env.str("DATABASE_URL", default=None):
     DATABASES = {
         'default': env.db()
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -142,7 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -151,7 +146,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -209,7 +203,6 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 REST_USE_JWT = True
 
-
 # Six Digit Token Generator
 DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
     "CLASS": "django_rest_passwordreset.tokens.RandomNumberTokenGenerator",
@@ -218,7 +211,9 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
         "max_number": 9999
     }
 }
-
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=365),
+}
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -226,6 +221,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
 
@@ -239,7 +235,6 @@ EMAIL_HOST_USER = env.str("SENDGRID_USERNAME", "")
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 
 # start fcm_django push notifications
 FCM_DJANGO_SETTINGS = {
@@ -256,7 +251,6 @@ SWAGGER_SETTINGS = {
 if DEBUG:
     # output email to console instead of sending
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
@@ -291,7 +285,6 @@ if USE_S3:
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
-
 
 # Debug toolbar settings
 if DEBUG:
