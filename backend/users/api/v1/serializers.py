@@ -6,6 +6,7 @@ from allauth.account.forms import ResetPasswordForm
 from allauth.utils import email_address_exists, generate_unique_username
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
+from rest_auth.models import TokenModel
 from rest_framework import serializers, exceptions, fields
 from rest_auth.serializers import PasswordResetSerializer
 from rest_framework.exceptions import ValidationError
@@ -18,9 +19,12 @@ User = get_user_model()
 
 class SignupSerializer(serializers.ModelSerializer):
     goals = fields.MultipleChoiceField(choices=User.GOALS)
+
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'password', 'age', 'sex', 'relationship_status', 'children', 'profession_status', 'goals')
+        fields = (
+        'id', 'name', 'email', 'password', 'age', 'sex', 'relationship_status', 'children', 'profession_status',
+        'goals')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -92,6 +96,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'name']
+
+
+class CustomTokenSerializer(serializers.ModelSerializer):
+    user_detail = UserSerializer(source="user", read_only=True)
+
+    class Meta:
+        model = TokenModel
+        fields = ('key', "user_detail")
 
 
 class PasswordSerializer(PasswordResetSerializer):

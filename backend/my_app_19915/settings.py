@@ -159,7 +159,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend'
 )
 
-SITE_ID = 1
+SITE_ID = 3
 
 SOCIAL_AUTH_FACEBOOK_KEY = env.str('FACEBOOK_APP_ID', '')
 SOCIAL_AUTH_FACEBOOK_SECRET = env.str('FACEBOOK_APP_SECRET', '')
@@ -194,14 +194,15 @@ SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool("SOCIALACCOUNT_ALLOW_REGISTRATION", 
 REST_AUTH_SERIALIZERS = {
     # Replace password reset serializer to fix 500 error
     "PASSWORD_RESET_SERIALIZER": "users.api.v1.serializers.PasswordSerializer",
-    "USER_DETAILS_SERIALIZER": "users.api.v1.serializers.UserSerializer"
+    "USER_DETAILS_SERIALIZER": "users.api.v1.serializers.UserSerializer",
+    'TOKEN_SERIALIZER': "users.api.v1.serializers.CustomTokenSerializer"
 }
 REST_AUTH_REGISTER_SERIALIZERS = {
     # Use custom serializer that has no username and matches web signup
     "REGISTER_SERIALIZER": "users.api.v1.serializers.SignupSerializer",
 }
 
-REST_USE_JWT = True
+# REST_USE_JWT = True
 
 # Six Digit Token Generator
 DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
@@ -211,17 +212,18 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
         "max_number": 9999
     }
 }
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=365),
-}
+# JWT_AUTH = {
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=365),
+# }
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
 
