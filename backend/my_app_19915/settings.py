@@ -159,7 +159,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend'
 )
 
-SITE_ID = 3
+SITE_ID = 1
 
 SOCIAL_AUTH_FACEBOOK_KEY = env.str('FACEBOOK_APP_ID', '')
 SOCIAL_AUTH_FACEBOOK_SECRET = env.str('FACEBOOK_APP_SECRET', '')
