@@ -67,7 +67,7 @@ const Login = props => {
   const submitForm = () => {
     const data = {
       password: state.password.value,
-      username: state.email.value,
+      email: state.email.value,
     };
     props.onSubmit(data);
   };
@@ -88,7 +88,6 @@ const Login = props => {
       } else {
         AccessToken.getCurrentAccessToken().then(data => {
           props.facebookLogin(data.accessToken.toString());
-          console.log(accessToken);
         });
       }
     } catch (e) {
