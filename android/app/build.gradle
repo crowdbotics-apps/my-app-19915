@@ -1,7 +1,7 @@
 apply plugin: "com.android.application"
 
 //unimodule
-//apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
@@ -140,7 +140,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        missingDimensionStrategy 'react-native-camera', 'general'
+        missingDimensionStrategy 'react-native-camera', 'mlkit'
     }
     splits {
         abi {
@@ -157,6 +157,7 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        
     }
     buildTypes {
         debug {
@@ -165,7 +166,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.release  //Uncoment this when you make sign apk
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -202,7 +203,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     //unimodule
-    //addUnimodulesDependencies()
+    addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
@@ -240,3 +241,4 @@ android {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

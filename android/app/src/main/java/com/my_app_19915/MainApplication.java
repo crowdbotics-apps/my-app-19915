@@ -2,7 +2,7 @@ package com.my_app_19915;
 
 //unimodule
 // com.myapp should be your package name
-//import com.my_app_19915.generated.BasePackageList;
+import com.my_app_19915.generated.BasePackageList;
 
 import android.app.Application;
 import android.content.Context;
@@ -16,16 +16,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 //unimodule
-// import java.util.Arrays; 
-// import org.unimodules.adapters.react.ModuleRegistryAdapter;
-// import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-// import org.unimodules.core.interfaces.SingletonModule;
+import java.util.Arrays; 
+import org.unimodules.adapters.react.ModuleRegistryAdapter;
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+import org.unimodules.core.interfaces.SingletonModule;
 
 
 public class MainApplication extends androidx.multidex.MultiDexApplication implements ReactApplication {
 
 //unimodule
-//private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
+private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
 
   private final ReactNativeHost mReactNativeHost =
@@ -43,10 +43,10 @@ public class MainApplication extends androidx.multidex.MultiDexApplication imple
           // packages.add(new MyReactNativePackage());
 
           // Add unimodules
-          // List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
-          //   new ModuleRegistryAdapter(mModuleRegistryProvider)
-          // );
-          // packages.addAll(unimodules);
+          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+            new ModuleRegistryAdapter(mModuleRegistryProvider)
+          );
+          packages.addAll(unimodules);
 
           
           return packages;

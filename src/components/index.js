@@ -17,7 +17,6 @@ import Card from "./Card";
 import GameCard from "./GameCard";
 import GeneralCard from "./GeneralCard";
 import Test from "./Test";
-import MyCamera from "./MyCamera";
 import Tab from "./Tab";
 import SmileStone from "./SmileStone";
 import GoalsCard from "./GoalsCard";
@@ -35,7 +34,6 @@ export {
   Text,
   Avatar,
   ActivityCard,
-  MyCamera,
   Footer,
   GameCard,
   GeneralCard,

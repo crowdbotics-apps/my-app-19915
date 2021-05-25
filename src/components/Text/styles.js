@@ -24,5 +24,6 @@ export default StyleSheet.create({
   atlantis: {color:Colors.atlantis},
   golden:{color:Colors.golden},
   lightgolden:{color:Colors.lightgolden},
+  malibu:{color:Colors.malibu},
   red:{color:'red'}
 });

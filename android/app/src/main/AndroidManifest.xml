@@ -7,8 +7,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -21,7 +19,9 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyCA63HJpE1k9ExLBvLZaGeoBZ0yvoPlzsI"/>
-
+      <meta-data
+      android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+      android:value="ocr, face" /> 
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

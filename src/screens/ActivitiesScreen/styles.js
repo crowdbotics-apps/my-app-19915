@@ -13,7 +13,7 @@ export default StyleSheet.create({
         height: 158,
         borderColor: Colors.lightgolden,
       },
-      progressWrapper: {height: 118},
+      progressWrapper: {height: 110},
       buttonWrapper: {
           width:'100%',
         height: 60,

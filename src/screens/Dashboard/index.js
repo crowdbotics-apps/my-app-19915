@@ -6,7 +6,14 @@ import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 // components
-import {Text, Header, ProgressCircle, Avatar, MenuIcon,Footer} from 'src/components';
+import {
+  Text,
+  Header,
+  ProgressCircle,
+  Avatar,
+  MenuIcon,
+  Footer,
+} from 'src/components';
 import {DataAvailability} from 'src/components';
 // theme
 import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
@@ -18,7 +25,12 @@ import styles from './styles';
 import {getDashboard} from './redux/actions';
 
 const Dashboard = props => {
-  const {data, requesting} = props;
+  const {
+    data,
+    requesting,
+    navigation: {navigate},
+  } = props;
+
   useEffect(() => {
     props.getDashboard();
   }, []);
@@ -29,8 +41,7 @@ const Dashboard = props => {
     mediumBPadding,
     largeHMargin,
     largeXTMargin,
-    smallHPadding,
-    smallVMargin
+    smallVMargin,
   } = Gutters;
   const {
     dashboardImg,
@@ -45,12 +56,14 @@ const Dashboard = props => {
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content contentContainerStyle={mediumBPadding}>
           <Header
-            left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+            left={
+              <MenuIcon grey action={() => props.navigation.openDrawer()} />
+            }
             right={<Avatar size="regular" />}
           />
-          <View style={[fill, center,smallVMargin]}>
+          <View style={[fill, center, smallVMargin]}>
             <ProgressCircle
-            outerStrokeLinecap='round'
+              outerStrokeLinecap="round"
               size={325}
               progress={0.7}
               showsText={true}
@@ -72,7 +85,7 @@ const Dashboard = props => {
             <Image source={Images.splash} style={dashboardImg} />
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
-            <View style={[mediumTMargin,center]}>
+            <View style={[mediumTMargin, center]}>
               <Text text="Smile seconds" color="riverbed" medium />
               <View style={mediumTMargin}>
                 <DataAvailability
@@ -87,8 +100,8 @@ const Dashboard = props => {
                     color={Colors.riverbed}
                     formatText={() =>
                       `${
-                        data && data.dashboard.length>0
-                          ? data.dashboard[0].total_second
+                        data
+                          ? data.dashboard.total_second
                           : 0
                       }s`
                     }
@@ -97,9 +110,9 @@ const Dashboard = props => {
                 </DataAvailability>
               </View>
             </View>
-            <View style={[mediumTMargin,center]}>
+            <View style={[mediumTMargin, center]}>
               <Text text="Smile count" color="riverbed" medium />
-              <View style={[mediumTMargin,center]}>
+              <View style={[mediumTMargin, center]}>
                 <DataAvailability
                   requesting={requesting}
                   hasData={Boolean(data)}
@@ -111,8 +124,8 @@ const Dashboard = props => {
                     thickness={5}
                     formatText={() =>
                       `${
-                        data && data.dashboard.count>0
-                          ? data.dashboard[0].total_count
+                        data
+                          ? data.dashboard.total_count
                           : 0
                       }s`
                     }
@@ -123,11 +136,11 @@ const Dashboard = props => {
               </View>
             </View>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('CameraScreen')}>
             <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
-              colors={['#56D3FB','#53F4EB']}
+              colors={['#56D3FB', '#53F4EB']}
               style={[
                 fill,
                 row,
@@ -150,7 +163,7 @@ const Dashboard = props => {
               bottomButtonWrapper,
               mediumTMargin,
             ]}>
-            <Image style={{marginHorizontal:5}} source={Images.streak} />
+            <Image style={{marginHorizontal: 5}} source={Images.streak} />
             <Text
               style={textMedium}
               text="You’re on a 5 day smile streak"
@@ -158,7 +171,7 @@ const Dashboard = props => {
             />
           </TouchableOpacity>
         </Content>
-        <Footer activeRoute='Home' navigation={props.navigation} />
+        <Footer activeRoute="Home" navigation={props.navigation} />
       </ImageBackground>
     </>
   );

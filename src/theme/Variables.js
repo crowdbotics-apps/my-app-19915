@@ -53,7 +53,8 @@ export const Colors = {
   shuttlegray: "#546775",
   easternblue: "#24A4C0",
   loblolly: "#C5CACE",
-  loblolly1:"#C3CDD2"
+  loblolly1:"#C3CDD2",
+  malibu: "#55E1F5"
 }
 
 /**
