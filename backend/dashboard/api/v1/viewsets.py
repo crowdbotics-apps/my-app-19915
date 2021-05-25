@@ -84,7 +84,7 @@ class SmileDashboard(ModelViewSet):
             dashboard = queryset_dashboard.values('user').annotate(total_second=Sum('second')).annotate(total_count=Count('second'))
             try:
                 output = {
-                    'dashboard': dashboard,
+                    'dashboard': dashboard.first(),
                     'best_day': b,
                 }
             except:
