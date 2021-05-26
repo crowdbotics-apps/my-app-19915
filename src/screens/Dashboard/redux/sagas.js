@@ -9,13 +9,17 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_DASHBOARD_DATA,UPDATE_SMILE_DATA} from './types';
+import {GET_DASHBOARD_DATA, UPDATE_SMILE_DATA} from './types';
 
 // actions
-import {getDashBoardDataSuccess, getDashBoardDataFailure,resetSmileData} from './actions';
+import {
+  getDashBoardDataSuccess,
+  getDashBoardDataFailure,
+  resetSmileData,
+} from './actions';
 
 // state
-const getDashboard = state => state.dashboard.data
+const getDashboard = state => state.dashboard.data;
 
 async function getDashboardDataAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/`;
@@ -34,7 +38,7 @@ async function getDashboardDataAPI() {
 function* getDashboardData() {
   try {
     const response = yield call(getDashboardDataAPI);
-    const { data }= response;
+    const {data} = response;
 
     yield put(getDashBoardDataSuccess(data));
   } catch (e) {
@@ -57,22 +61,23 @@ async function updateSmileDataAPI(data) {
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    data
-  }
+    data,
+  };
 
   return XHR(URL, options);
 }
 
-
 function* updateSmileData({data}) {
   try {
     const dashboardData = yield select(getDashboard);
-  
-    let clonedData = { ...dashboardData }
-    const updatedSeconds = clonedData.dashboard.total_second + data.second
-    clonedData.dashboard.total_second = updatedSeconds
 
-    yield call(updateSmileDataAPI,data);
+    yield call(updateSmileDataAPI, data);
+
+    let clonedData = {...dashboardData};
+    const updatedSeconds = clonedData.dashboard.total_second + data.second;
+    const counts = clonedData.dashboard.total_count;
+    clonedData.dashboard.total_second = updatedSeconds;
+    clonedData.dashboard.total_count = counts + 1;
     yield put(getDashBoardDataSuccess(clonedData));
     yield put(resetSmileData());
   } catch (e) {
@@ -87,5 +92,5 @@ function* updateSmileData({data}) {
 
 export default all([
   takeLatest(GET_DASHBOARD_DATA, getDashboardData),
-  takeLatest(UPDATE_SMILE_DATA, updateSmileData)
+  takeLatest(UPDATE_SMILE_DATA, updateSmileData),
 ]);
