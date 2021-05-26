@@ -112,7 +112,7 @@ const CameraScreen = props => {
     const {faces} = data;
     if (faces.length < 1) return;
     await faces.map(face => {
-      if (face.smilingProbability > 0.04) {
+      if (face.smilingProbability > 0.3) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {

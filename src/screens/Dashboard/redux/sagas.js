@@ -1,4 +1,4 @@
-import {all, call, put, takeLatest} from 'redux-saga/effects';
+import {all, call, put, takeLatest, select} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import {showMessage} from 'react-native-flash-message';
 
@@ -13,6 +13,9 @@ import {GET_DASHBOARD_DATA,UPDATE_SMILE_DATA} from './types';
 
 // actions
 import {getDashBoardDataSuccess, getDashBoardDataFailure,resetSmileData} from './actions';
+
+// state
+const getDashboard = state => state.dashboard.data
 
 async function getDashboardDataAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/`;
@@ -55,19 +58,24 @@ async function updateSmileDataAPI(data) {
     },
     method: 'POST',
     data
-  };
-  console.log('data',data);
+  }
+
   return XHR(URL, options);
 }
 
+
 function* updateSmileData({data}) {
   try {
-    console.log('updateSmileData',data);
-    const response = yield call(updateSmileDataAPI,data);
-    console.log('response',response);
+    const dashboardData = yield select(getDashboard);
+  
+    let clonedData = { ...dashboardData }
+    const updatedSeconds = clonedData.dashboard.total_second + data.second
+    clonedData.dashboard.total_second = updatedSeconds
+
+    yield call(updateSmileDataAPI,data);
+    yield put(getDashBoardDataSuccess(clonedData));
     yield put(resetSmileData());
   } catch (e) {
-    console.log('ERROR', e.response);
     yield put(resetSmileData());
 
     showMessage({
