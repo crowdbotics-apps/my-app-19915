@@ -15,26 +15,28 @@ import {Layout, Images, Gutters, Fonts} from 'src/theme';
 //actions
 import {updateSmileData} from '../Dashboard/redux/actions';
 
-const CameraScreen = props => {
-  const { data: { dashboard } } = props;
+const CameraScreen = (props) => {
+  const {
+    data: {dashboard},
+  } = props;
   const [active, setActive] = useState(0);
   const [selectedstyles, setSelectedstyles] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
 
-  const onGetSeconds = () =>{
+  const onGetSeconds = () => {
     props.updateSmileData({
       second: totalSeconds,
-      user:dashboard.user
+      user: dashboard.user,
     });
-    props.navigation.goBack()
-  }
+    props.navigation.goBack();
+  };
 
-  const onSelectStyle = value => {
+  const onSelectStyle = (value) => {
     let array = [...selectedstyles];
     if (array.includes(value)) {
-      setSelectedstyles(array.filter(item => item !== value));
+      setSelectedstyles(array.filter((item) => item !== value));
     } else {
       array.push(value);
       setSelectedstyles(array);
@@ -101,17 +103,19 @@ const CameraScreen = props => {
   const images = [Images.camerabg, Images.camerabg, Images.camerabg];
   const filterImages = ['filterimg1', 'filterimg2', 'filterimg3', 'filterimg4'];
 
-  const takePicture = async function(camera) {
+  const takePicture = async function (camera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     //  eslint-disable-next-line
     console.log(data.uri);
   };
 
-  const onFacesDetected = async data => {
+  const onFacesDetected = async (data) => {
     const {faces} = data;
-    if (faces.length < 1) return;
-    await faces.map(face => {
+    if (faces.length < 1) {
+      return;
+    }
+    await faces.map((face) => {
       if (face.smilingProbability > 0.3) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
@@ -147,10 +151,10 @@ const CameraScreen = props => {
           buttonNegative: 'Cancel',
         }}
         faceDetectionClassifications={
-          RNCamera.Constants.FaceDetection.Classifications.all
+          RNCamera.Constants.FaceDetection.Classifications
         }
-        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
-        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
+        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks}
+        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode}
         onFacesDetected={onFacesDetected}>
         <View style={[small2xTMargin, small2xLMargin]}>
           <View>
@@ -220,15 +224,12 @@ const CameraScreen = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  data: state.dashboard.data
+const mapStateToProps = (state) => ({
+  data: state.dashboard.data,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   updateSmileData: (data) => dispatch(updateSmileData(data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CameraScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
