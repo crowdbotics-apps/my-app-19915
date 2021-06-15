@@ -20,7 +20,7 @@ const CameraScreen = (props) => {
     data: {dashboard},
   } = props;
   const [active, setActive] = useState(0);
-  const [selectedstyles, setSelectedstyles] = useState([]);
+  const [selectedStyles, setSelectedStyles] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
@@ -34,12 +34,12 @@ const CameraScreen = (props) => {
   };
 
   const onSelectStyle = (value) => {
-    let array = [...selectedstyles];
+    let array = [...selectedStyles];
     if (array.includes(value)) {
-      setSelectedstyles(array.filter((item) => item !== value));
+      setSelectedStyles(array.filter((item) => item !== value));
     } else {
       array.push(value);
-      setSelectedstyles(array);
+      setSelectedStyles(array);
     }
   };
 
@@ -106,8 +106,6 @@ const CameraScreen = (props) => {
   const takePicture = async function (camera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
-    //  eslint-disable-next-line
-    console.log(data.uri);
   };
 
   const onFacesDetected = async (data) => {
@@ -151,10 +149,10 @@ const CameraScreen = (props) => {
           buttonNegative: 'Cancel',
         }}
         faceDetectionClassifications={
-          RNCamera.Constants.FaceDetection.Classifications
+          RNCamera.Constants.FaceDetection.Classifications.all
         }
-        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks}
-        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode}
+        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
+        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
         onFacesDetected={onFacesDetected}>
         <View style={[small2xTMargin, small2xLMargin]}>
           <View>
@@ -185,7 +183,7 @@ const CameraScreen = (props) => {
                     style={[smallBMargin, mediaImage]}
                     source={
                       Images[
-                        selectedstyles.includes(i)
+                        selectedStyles.includes(i)
                           ? screen.imagedark
                           : screen.imagelight
                       ]
