@@ -69,16 +69,20 @@ async function updateSmileDataAPI(data) {
 
 function* updateSmileData({data}) {
   try {
-    const dashboardData = yield select(getDashboard);
+    const { second } = data;
+    if (second > 0) {
+      yield call(updateSmileDataAPI, data);
 
-    yield call(updateSmileDataAPI, data);
+      const dashboardData = yield select(getDashboard);
 
-    let clonedData = {...dashboardData};
-    const updatedSeconds = clonedData.dashboard.total_second + data.second;
-    const counts = clonedData.dashboard.total_count;
-    clonedData.dashboard.total_second = updatedSeconds;
-    clonedData.dashboard.total_count = counts + 1;
-    yield put(getDashBoardDataSuccess(clonedData));
+      let clonedData = {...dashboardData};
+      const updatedSeconds = clonedData.dashboard.total_second + second;
+      const counts = clonedData.dashboard.total_count;
+      clonedData.dashboard.total_second = updatedSeconds;
+      clonedData.dashboard.total_count = counts + 1;
+
+      yield put(getDashBoardDataSuccess(clonedData));
+    }
     yield put(resetSmileData());
   } catch (e) {
     yield put(resetSmileData());

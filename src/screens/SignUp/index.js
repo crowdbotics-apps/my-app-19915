@@ -26,17 +26,16 @@ import validator from 'src/utils/validation';
 //action
 import {resetServerError} from 'src/screens/SignUp/redux/actions';
 import {facebookLogin as facebookLoginAction} from 'src/screens/App/redux/actions';
+import {signUp} from './redux/actions';
 
 // styles
 import styles from './styles';
-import {signUp} from './redux/actions';
 
 const SignUp = props => {
   const {
     navigation: {navigate},
     requesting,
     serverErrors,
-    requestingFacebook,
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());

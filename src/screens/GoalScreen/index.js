@@ -71,13 +71,13 @@ const GoalScreen = props => {
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
-        <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={
               <MenuIcon grey action={() => props.navigation.openDrawer()} />
             }
             right={<Avatar size="regular" />}
           />
+        <Content contentContainerStyle={mediumBPadding}>
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
               {weeks.map((week, i) => (

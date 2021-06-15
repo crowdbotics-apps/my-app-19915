@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {connect} from 'react-redux';
@@ -23,7 +23,7 @@ const CameraScreen = props => {
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
 
-  const onGetSeconds = () =>{
+  const onUpdateSeconds = () =>{
     props.updateSmileData({
       second: totalSeconds,
       user:dashboard.user
@@ -98,7 +98,7 @@ const CameraScreen = props => {
     filtersWrapper,
     subTextWrapper,
   } = styles;
-  const images = [Images.camerabg, Images.camerabg, Images.camerabg];
+
   const filterImages = ['filterimg1', 'filterimg2', 'filterimg3', 'filterimg4'];
 
   const takePicture = async function(camera) {
@@ -154,7 +154,7 @@ const CameraScreen = props => {
         onFacesDetected={onFacesDetected}>
         <View style={[small2xTMargin, small2xLMargin]}>
           <View>
-            <TouchableOpacity onPress={onGetSeconds}>
+            <TouchableOpacity onPress={onUpdateSeconds}>
               <Image source={Images.camarrowback} />
             </TouchableOpacity>
           </View>

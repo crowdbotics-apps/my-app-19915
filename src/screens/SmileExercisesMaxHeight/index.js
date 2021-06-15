@@ -69,7 +69,10 @@ const SmileExercisesMaxHeight = props => {
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
-        <Header left={<MenuIcon action={()=>props.navigation.openDrawer()}/>} right={<Avatar size="regular" />} />
+        <Header
+          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
+          right={<Avatar size="regular" />}
+        />
         <DataAvailability
           requesting={requesting}
           hasData={sciences && sciences.length > 0}
@@ -85,7 +88,7 @@ const SmileExercisesMaxHeight = props => {
               style={[titleSmall, resource]}
             />
           </View>
-          <Content contentContainerStyle={[regularHPadding,mediumBPadding]}>
+          <Content contentContainerStyle={[regularHPadding, mediumBPadding]}>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal>
               {sciences &&
                 sciences.map((item, i) => (
@@ -141,11 +144,11 @@ const SmileExercisesMaxHeight = props => {
                   </View>
                 ))}
             </ScrollView>
-              <View style={[center, mediumVMargin, addSpace]}>
-                <Text color="river" style={[titleSmall]} text="Add space" />
-              </View>
+            <View style={[center, mediumVMargin, addSpace]}>
+              <Text color="river" style={[titleSmall]} text="Add space" />
+            </View>
           </Content>
-          <Footer activeRoute='Dashboard' navigation={props.navigation} />
+          <Footer activeRoute="Dashboard" navigation={props.navigation} />
         </DataAvailability>
       </ImageBackground>
     </>

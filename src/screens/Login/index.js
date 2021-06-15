@@ -151,7 +151,7 @@ const Login = props => {
                 style={regularHMargin}
               />
               <Input
-                placeholderTextColor={serverErrors ? 'red' : null}
+                placeholderTextColor={serverErrors ? 'red' : '#495A66'}
                 placeholder="EMAIL"
                 onChangeText={value => assignValues('email', 'email', value)}
               />
@@ -173,7 +173,7 @@ const Login = props => {
               />
               <Input
                 secureTextEntry
-                placeholderTextColor={serverErrors ? 'red' : null}
+                placeholderTextColor={serverErrors ? 'red' : '#495A66'}
                 placeholder="PASSWORD"
                 onChangeText={value =>
                   assignValues('password', 'password', value)

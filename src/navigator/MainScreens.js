@@ -90,6 +90,7 @@ const MainStackScreen = () => (
         initialRouteName="Dashboard"
     >
         {/* <mainStack.Screen name="Dashboard" component={BottomNavigator} /> */}
+        <mainStack.Screen name="CameraScreen" component={CameraScreen} />
         <mainStack.Screen name="ActivitiesScreen" component={ActivitiesScreen} />
         <mainStack.Screen name="MyAccount" component={MyAccount} />
         <mainStack.Screen name="Dashboard" component={Dashboard} />
@@ -106,7 +107,6 @@ const MainStackScreen = () => (
         <mainStack.Screen name="GoalScreen" component={GoalScreen} />
         <mainStack.Screen name="StatScreen" component={StatScreen} />
         <mainStack.Screen name="GameScreen" component={GameScreen} />
-        <mainStack.Screen name="CameraScreen" component={CameraScreen} />
         <mainStack.Screen name="LevelScreen" component={LevelScreen} />
         <mainStack.Screen name="MoreScreen" component={MoreScreen} />
         <mainStack.Screen name="NotificationScreen" component={NotificationScreen} />

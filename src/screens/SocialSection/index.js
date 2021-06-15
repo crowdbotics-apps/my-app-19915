@@ -10,37 +10,15 @@ import styles from './styles';
 import { Text, Header, MenuIcon, Avatar, Footer } from 'src/components';
 import { Gutters, Images, Layout, Fonts } from 'src/theme';
 const {
-  mediumTMargin,
-  mediumBPadding,
-  largeHMargin,
-  mediumVMargin,
-  smallBMargin,
-  regularTMargin,
-  smallTMargin,
-  mediumHMargin,
   smallVMargin,
   largeTMargin,
-  mediumLMargin,
-  mediumBMargin,
-  smallLMargin,
-  small2xVMargin,
-  smallHMargin,
   largeLMargin,
 } = Gutters;
 
-const { backImage, resource, star, text } = styles;
-
 const {
-  border,
-  row,
   fill,
-  center,
-  selfCenter,
   alignItemsCenter,
-  positionA,
   justifyContentCenter,
-  justifyContentBetween,
-  justifyContentEnd,
 } = Layout;
 
 const { titleSmall, titleRegular, textMedium } = Fonts;

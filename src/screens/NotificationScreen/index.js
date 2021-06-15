@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import {View, ImageBackground, Image, Switch} from 'react-native';
 import {Content} from 'native-base';
-//import {Switch} from 'react-native-switch';
 //styles
 import styles from './styles';
 

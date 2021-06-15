@@ -54,13 +54,11 @@ const Dashboard = props => {
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
+        <Header
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={<Avatar size="regular" />}
+        />
         <Content contentContainerStyle={mediumBPadding}>
-          <Header
-            left={
-              <MenuIcon grey action={() => props.navigation.openDrawer()} />
-            }
-            right={<Avatar size="regular" />}
-          />
           <View style={[fill, center, smallVMargin]}>
             <ProgressCircle
               outerStrokeLinecap="round"
@@ -99,11 +97,7 @@ const Dashboard = props => {
                     showsText={true}
                     color={Colors.riverbed}
                     formatText={() =>
-                      `${
-                        data
-                          ? data.dashboard.total_second
-                          : 0
-                      }s`
+                      `${data ? data.dashboard.total_second : 0}s`
                     }
                     unfilledColor={Colors.loblolly}
                   />
@@ -123,11 +117,7 @@ const Dashboard = props => {
                     showsText={true}
                     thickness={5}
                     formatText={() =>
-                      `${
-                        data
-                          ? data.dashboard.total_count
-                          : 0
-                      }s`
+                      `${data ? data.dashboard.total_count : 0}`
                     }
                     color={Colors.riverbed}
                     unfilledColor={Colors.loblolly}
