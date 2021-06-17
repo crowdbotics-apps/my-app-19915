@@ -107,7 +107,7 @@ console.log(data.dashboard);
                   style={dataWrapper}>
                   <ProgressCircle
                     size={100}
-                    progress={0.4}
+                    progress={getTotalSeconds() / 500}
                     thickness={5}
                     showsText={true}
                     color={Colors.riverbed}
@@ -128,7 +128,7 @@ console.log(data.dashboard);
                   style={dataWrapper}>
                   <ProgressCircle
                     size={100}
-                    progress={0.4}
+                    progress={getTotalCount() / 500}
                     showsText={true}
                     thickness={5}
                     formatText={() =>

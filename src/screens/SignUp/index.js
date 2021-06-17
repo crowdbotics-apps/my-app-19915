@@ -82,8 +82,7 @@ const SignUp = props => {
   const submitForm = () => {
     const data = {
       email: state.email.value,
-      password: state.password.value,
-      goals: [],
+      password: state.password.value
     };
     props.onSubmit(data);
   };
@@ -181,7 +180,7 @@ const SignUp = props => {
               <Image source={Images.pass} style={regularHMargin} />
               <Input
                 secureTextEntry
-                placeholder="SELECT PASSWORD"
+                placeholder="ENTER PASSWORD"
                 onChangeText={value =>
                   assignValues('password', 'password', value)
                 }

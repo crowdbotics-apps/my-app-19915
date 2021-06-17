@@ -16,9 +16,7 @@ import {Layout, Images, Gutters, Fonts} from 'src/theme';
 import {updateSmileData} from '../Dashboard/redux/actions';
 
 const CameraScreen = (props) => {
-  const {
-    data: {dashboard},
-  } = props;
+  const { user } = props;
   const [active, setActive] = useState(0);
   const [selectedStyles, setSelectedStyles] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
@@ -28,7 +26,7 @@ const CameraScreen = (props) => {
   const onUpdateSeconds = () =>{
     props.updateSmileData({
       second: totalSeconds,
-      user: dashboard.user,
+      user: user.id
     });
     props.navigation.goBack();
   };
@@ -88,10 +86,11 @@ const CameraScreen = (props) => {
     fill,
     center,
     justifyContentAround,
+    justifyContentBetween,
     justifyContentEvenly,
     justifyContentEnd,
   } = Layout;
-  const {small2xTMargin, small2xLMargin, smallBMargin} = Gutters;
+  const {small2xTMargin,smallHPadding, smallBMargin} = Gutters;
   const {
     textWrapper,
     camButtonsWrapper,
@@ -154,12 +153,11 @@ const CameraScreen = (props) => {
         faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
         faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
         onFacesDetected={onFacesDetected}>
-        <View style={[small2xTMargin, small2xLMargin]}>
-          <View>
-            <TouchableOpacity onPress={onUpdateSeconds}>
-              <Image source={Images.camarrowback} />
-            </TouchableOpacity>
-          </View>
+        <View style={[row,small2xTMargin, smallHPadding, justifyContentBetween]}>
+          <TouchableOpacity onPress={onUpdateSeconds}>
+            <Image source={Images.camarrowback} />
+          </TouchableOpacity>
+         {isSmiling && <Text text='Smiling' />}
         </View>
         <View style={[fill, justifyContentEnd]}>
           {active === 0 && (
@@ -224,6 +222,7 @@ const CameraScreen = (props) => {
 
 const mapStateToProps = (state) => ({
   data: state.dashboard.data,
+  user: state.app.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
