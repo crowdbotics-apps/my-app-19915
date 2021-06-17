@@ -34,6 +34,21 @@ const Dashboard = props => {
   useEffect(() => {
     props.getDashboard();
   }, []);
+console.log(data.dashboard);
+  const getTotalSeconds = () => {
+    if (data && data.dashboard && data.dashboard && data.dashboard.total_second) {
+      return  data.dashboard.total_second
+    }
+    return 0
+  };
+
+  const getTotalCount = () => {
+    if (data && data.dashboard && data.dashboard && data.dashboard.total_count) {
+      return  data.dashboard.total_count
+    }
+    return 0
+  }
+
   const {titleSmall, textMedium} = Fonts;
   const {row, fill, center, justifyContentBetween} = Layout;
   const {
@@ -97,7 +112,7 @@ const Dashboard = props => {
                     showsText={true}
                     color={Colors.riverbed}
                     formatText={() =>
-                      `${data ? data.dashboard.total_second : 0}s`
+                      `${getTotalSeconds()}s`
                     }
                     unfilledColor={Colors.loblolly}
                   />
@@ -117,7 +132,7 @@ const Dashboard = props => {
                     showsText={true}
                     thickness={5}
                     formatText={() =>
-                      `${data ? data.dashboard.total_count : 0}`
+                      `${getTotalCount()}`
                     }
                     color={Colors.riverbed}
                     unfilledColor={Colors.loblolly}

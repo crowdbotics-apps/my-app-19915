@@ -151,10 +151,10 @@ const CameraScreen = (props) => {
           buttonNegative: 'Cancel',
         }}
         faceDetectionClassifications={
-          RNCamera.Constants.FaceDetection.Classifications
+          RNCamera.Constants.FaceDetection.Classifications.all
         }
-        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks}
-        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode}
+        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
+        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
         onFacesDetected={onFacesDetected}>
         <View style={[small2xTMargin, small2xLMargin]}>
           <View>
@@ -168,7 +168,7 @@ const CameraScreen = (props) => {
             <View style={[center, justifyContentAround, row, filtersWrapper]}>
               {filterImages.map((image, i) => (
                 <TouchableOpacity key={i}>
-                  <Image source={Images[image]} />
+                  <Image source={Images[image]}/>
                 </TouchableOpacity>
               ))}
             </View>
