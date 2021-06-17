@@ -13,24 +13,23 @@ target 'my_app_19915' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-camera', path: '../node_modules/react-native-camera', subspecs: ['FaceDetectorMLKit']
+
   target 'my_app_19915Tests' do
     inherit! :complete
-    # Pods for testing
   end
 
   post_install do |installer|
-#    ## Fix for XCode 12.5
+    # Fix for XCode 12.5
     find_and_replace("../node_modules/react native/React/CxxBridge/RCTCxxBridge.mm", "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules", "_initializeModules:(NSArray<Class> *)modules")
     find_and_replace("../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm", "RCTBridgeModuleNameForClass(strongModule))", "RCTBridgeModuleNameForClass(Class(strongModule)))")
   end
 end
 
 target 'my_app_19915-tvOS' do
-  # Pods for my_app_19915-tvOS
 
   target 'my_app_19915-tvOSTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 end
 
