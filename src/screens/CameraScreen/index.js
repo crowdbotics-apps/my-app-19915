@@ -112,7 +112,7 @@ const CameraScreen = (props) => {
       return;
     }
     await faces.map((face) => {
-      if (face.smilingProbability > 0.1) {
+      if (face.smilingProbability > 0.3) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {
@@ -153,10 +153,16 @@ const CameraScreen = (props) => {
         faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
         onFacesDetected={onFacesDetected}>
         <View style={[row,small2xTMargin, smallHPadding, justifyContentBetween]}>
-          <TouchableOpacity onPress={onUpdateSeconds}>
-            <Image source={Images.camarrowback} />
-          </TouchableOpacity>
-         {isSmiling && <Text text='Smiling' />}
+          <View style={fill}>
+            {!isSmiling && 
+              <TouchableOpacity onPress={onUpdateSeconds}>
+                <Image source={Images.camarrowback} />
+              </TouchableOpacity>
+            }
+          </View>
+          <View style={[fill, { alignItems: 'flex-end' }]}>
+            {isSmiling && <Text text='Smiling' />}
+          </View>
         </View>
         <View style={[fill, justifyContentEnd]}>
           {active === 0 && (
