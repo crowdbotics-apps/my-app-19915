@@ -23,12 +23,11 @@ const CameraScreen = (props) => {
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
 
-  const onUpdateSeconds = () =>{
-    props.updateSmileData({
-      second: totalSeconds,
-      user: user.id
-    });
-    props.navigation.goBack();
+  const onUpdateSeconds = () => {
+    props.updateSmileData(
+      { second: totalSeconds, user: user.id },
+      props.navigation
+    );
   };
 
   const onSelectStyle = (value) => {
@@ -113,7 +112,7 @@ const CameraScreen = (props) => {
       return;
     }
     await faces.map((face) => {
-      if (face.smilingProbability > 0.3) {
+      if (face.smilingProbability > 0.1) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {
@@ -151,7 +150,7 @@ const CameraScreen = (props) => {
           RNCamera.Constants.FaceDetection.Classifications.all
         }
         faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
-        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.accurate}
+        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
         onFacesDetected={onFacesDetected}>
         <View style={[row,small2xTMargin, smallHPadding, justifyContentBetween]}>
           <TouchableOpacity onPress={onUpdateSeconds}>
@@ -226,7 +225,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateSmileData: (data) => dispatch(updateSmileData(data)),
+  updateSmileData: (data, navigation) => dispatch(updateSmileData(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

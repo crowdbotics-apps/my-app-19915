@@ -18,6 +18,11 @@ import {
   resetSmileData,
 } from './actions';
 
+// const data = {
+//   "best_day": {"created__date": "2021-05-26", "total": 110},
+//   "dashboard": {"total_count": 162, "total_second": 315, "user": 3}
+// }
+
 // state
 const getDashboard = state => state.dashboard.data;
 
@@ -67,7 +72,7 @@ async function updateSmileDataAPI(data) {
   return XHR(URL, options);
 }
 
-function* updateSmileData({data}) {
+ function* updateSmileData({data, navigation}) {
   try {
     const { second } = data;
     if (second > 0) {
@@ -75,13 +80,18 @@ function* updateSmileData({data}) {
 
       const dashboardData = yield select(getDashboard);
 
-      let clonedData = {...dashboardData};
-      const updatedSeconds = clonedData.dashboard.total_second + second;
-      const counts = clonedData.dashboard.total_count;
-      clonedData.dashboard.total_second = updatedSeconds;
-      clonedData.dashboard.total_count = counts + 1;
+      let clonedData = {
+        ...dashboardData,
+        best_day: { ...dashboardData.best_day },
+        dashboard: {
+          ...dashboardData.dashboard,
+          total_second: dashboardData.dashboard.total_second + second,
+          total_count: dashboardData.dashboard.total_count + 1
+        }
+      };
 
       yield put(getDashBoardDataSuccess(clonedData));
+      navigation.goBack()
     }
     yield put(resetSmileData());
   } catch (e) {

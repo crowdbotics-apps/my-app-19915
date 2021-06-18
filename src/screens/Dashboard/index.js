@@ -34,7 +34,6 @@ const Dashboard = props => {
   useEffect(() => {
     props.getDashboard();
   }, []);
-console.log(data.dashboard);
   const getTotalSeconds = () => {
     if (data && data.dashboard && data.dashboard && data.dashboard.total_second) {
       return  data.dashboard.total_second
