@@ -8,7 +8,6 @@ import LinearGradient from 'react-native-linear-gradient';
 // components
 import {
   Text,
-  Header,
   ProgressCircle,
   Avatar,
   MenuIcon,
@@ -52,31 +51,33 @@ const Dashboard = props => {
   const {row, fill, center, justifyContentBetween} = Layout;
   const {
     mediumTMargin,
-    mediumBPadding,
+    smallTMargin,
     largeHMargin,
-    largeXTMargin,
-    smallVMargin,
+    smallBPadding,
   } = Gutters;
   const {
     dashboardImg,
+    progressWrapper,
     progressBarWrapper,
     buttonWrapper,
     dataWrapper,
+    headerWrapper,
+    smallCircleWrapper,
     bottomButtonWrapper,
   } = styles;
 
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
-        <Header
-          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
-        />
-        <Content contentContainerStyle={mediumBPadding}>
-          <View style={[fill, center, smallVMargin]}>
+        <View style={[row ,justifyContentBetween, headerWrapper]}>
+          <MenuIcon grey action={() => props.navigation.openDrawer()} />
+          <Avatar size="regular" />
+        </View>
+        <Content contentContainerStyle={smallBPadding}>
+          <View style={[ center,progressWrapper]}>
             <ProgressCircle
               outerStrokeLinecap="round"
-              size={325}
+              size={295}
               progress={0.7}
               showsText={true}
               color={Colors.riverbed}
@@ -85,7 +86,7 @@ const Dashboard = props => {
               unfilledColor={Colors.loblolly}
             />
             <ProgressCircle
-              size={285}
+              size={260}
               progress={0.4}
               showsText={true}
               color={Colors.riverbed}
@@ -97,17 +98,17 @@ const Dashboard = props => {
             <Image source={Images.splash} style={dashboardImg} />
           </View>
           <View style={[fill, row, justifyContentBetween, progressBarWrapper]}>
-            <View style={[mediumTMargin, center]}>
+            <View style={[smallCircleWrapper, center]}>
               <Text text="Smile seconds" color="riverbed" medium />
-              <View style={mediumTMargin}>
+              <View style={smallTMargin}>
                 <DataAvailability
                   requesting={requesting}
                   hasData={Boolean(data)}
                   style={dataWrapper}>
                   <ProgressCircle
-                    size={100}
+                    size={90}
                     progress={getTotalSeconds() / 500}
-                    thickness={5}
+                    thickness={3}
                     showsText={true}
                     color={Colors.riverbed}
                     formatText={() =>
@@ -118,18 +119,18 @@ const Dashboard = props => {
                 </DataAvailability>
               </View>
             </View>
-            <View style={[mediumTMargin, center]}>
+            <View style={[smallCircleWrapper, center]}>
               <Text text="Smile count" color="riverbed" medium />
-              <View style={[mediumTMargin, center]}>
+              <View style={[smallTMargin, center]}>
                 <DataAvailability
                   requesting={requesting}
                   hasData={Boolean(data)}
                   style={dataWrapper}>
                   <ProgressCircle
-                    size={100}
+                    size={90}
                     progress={getTotalCount() / 500}
                     showsText={true}
-                    thickness={5}
+                    thickness={3}
                     formatText={() =>
                       `${getTotalCount()}`
                     }
@@ -151,7 +152,7 @@ const Dashboard = props => {
                 center,
                 largeHMargin,
                 buttonWrapper,
-                largeXTMargin,
+                mediumTMargin,
               ]}>
               <Text style={titleSmall} text="Start smiling" color="river" />
             </LinearGradient>
@@ -165,7 +166,6 @@ const Dashboard = props => {
               center,
               largeHMargin,
               bottomButtonWrapper,
-              mediumTMargin,
             ]}>
             <Image style={{marginHorizontal: 5}} source={Images.streak} />
             <Text
@@ -174,7 +174,7 @@ const Dashboard = props => {
               color="golden"
             />
           </TouchableOpacity>
-        </Content>
+          </Content>
         <Footer activeRoute="Home" navigation={props.navigation} />
       </ImageBackground>
     </>

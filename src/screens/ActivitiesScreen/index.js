@@ -27,13 +27,8 @@ const {
   largeXTMargin,
 } = Gutters;
 
-const {
-  backImage,
-  midWrapper,
-  progressWrapper,
-  buttonWrapper,
-  upgradeNow,
-} = styles;
+const {backImage, midWrapper, progressWrapper, buttonWrapper, upgradeNow} =
+  styles;
 
 const {
   row,
@@ -47,7 +42,7 @@ const {
 
 const {titleSmall, textLarge, textMedium} = Fonts;
 
-const ActivitiesScreen = props => {
+const ActivitiesScreen = (props) => {
   const Activities = [
     {title: 'Smile Activity 1', text: 'Recommened for you', favourity: true},
     {title: 'Smile Activity 2', text: 'Recommened for you'},
@@ -68,12 +63,8 @@ const ActivitiesScreen = props => {
           left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
           right={<Avatar size="regular" />}
         />
-        <View style={[row, center,alignItemsCenter, smallBMargin]}>
-          <Text
-            text="Activities"
-            color="river"
-            style={titleSmall}
-          />
+        <View style={[row, center, alignItemsCenter, smallBMargin]}>
+          <Text text="Activities" color="river" style={titleSmall} />
         </View>
         <Content contentContainerStyle={mediumHPadding}>
           <View
@@ -88,7 +79,7 @@ const ActivitiesScreen = props => {
             <View style={[progressWrapper]}>
               <View style={[center]}>
                 <ProgressCircle
-                  size={106}
+                  size={100}
                   strokeCap="round"
                   progress={0.6}
                   thickness={5}

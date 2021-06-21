@@ -156,9 +156,9 @@ const Login = props => {
                 onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
-            <View style={errorBoxStyle}>
+           {state.email.error ? <View style={errorBoxStyle}>
               <ErrorBox errorText={state.email.error} />
-            </View>
+            </View>:null}
             <View
               style={[
                 row,
@@ -180,9 +180,9 @@ const Login = props => {
                 }
               />
             </View>
-            <View style={errorBoxStyle}>
+            {state.password.error ? <View style={errorBoxStyle}>
               <ErrorBox errorText={state.password.error} />
-            </View>
+            </View>:null}
           </View>
           <View style={[mediumXHMargin, alignItemsCenter, row]}>
             <CheckBox

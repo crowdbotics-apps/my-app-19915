@@ -10,6 +10,7 @@ export default StyleSheet.create({
     lineHeight: 50,
     marginTop: 20,
     textAlign: 'center',
+    color:'#495A66'
   },
   backImage: {
     width: 40,
@@ -18,8 +19,8 @@ export default StyleSheet.create({
   },
 
   logo: {
-    width: 160,
-    height: 160,
+    width: 180,
+    height: 180,
     right: 15,
   },
   title: {
@@ -32,15 +33,17 @@ export default StyleSheet.create({
     height: 55,
     fontSize: 14,
     borderRadius: 30,
+    marginBottom:20,
     color: Colors.nileblue,
     backgroundColor: Colors.white,
   },
   buttonWrapper: {
     height: 55,
     borderRadius: 80,
+    marginTop:50
   },
   activityIndicatorWrapper: {
-    paddingTop: 70,
+    paddingTop: 65,
   },
   modalWrapper: {
     backgroundColor: Colors.nileblue,
@@ -60,5 +63,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  errorStyle: {paddingTop: 10, paddingLeft: 25,marginBottom:5},
+  errorBoxStyle: {marginTop:-10, paddingLeft: 25,marginBottom:8},
+  errorStyle:{borderColor:'red',borderWidth:1}
 });

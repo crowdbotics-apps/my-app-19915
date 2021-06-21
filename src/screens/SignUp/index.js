@@ -124,6 +124,7 @@ const SignUp = props => {
     mediumXHMargin,
     regularHPadding,
     mediumTMargin,
+    largeTMargin,
     smallVPadding,
     regularVPadding,
     smallBPadding,
@@ -135,6 +136,7 @@ const SignUp = props => {
     social,
     backImage,
     heading,
+    errorBoxStyle,
     errorStyle,
     fieldWrapper,
     buttonWrapper,
@@ -172,9 +174,9 @@ const SignUp = props => {
                 onChangeText={value => assignValues('email', 'email', value)}
               />
             </View>
-            <View style={errorStyle}>
+           {state.email.error? <View style={errorBoxStyle}>
               <ErrorBox errorText={state.email.error} />
-            </View>
+            </View>:null}
 
             <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.pass} style={regularHMargin} />
@@ -186,9 +188,9 @@ const SignUp = props => {
                 }
               />
             </View>
-            <View style={errorStyle}>
+           {state.password.error? <View style={errorBoxStyle}>
               <ErrorBox errorText={state.password.error} />
-            </View>
+            </View>:null}
             <TouchableOpacity onPress={() => submitForm()}>
               {requesting ? (
                 <View style={[center, activityIndicatorWrapper]}>
@@ -199,7 +201,7 @@ const SignUp = props => {
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 0}}
                   colors={['#56D3FB', '#53F4EB']}
-                  style={[fill, row, center, buttonWrapper, mediumTMargin]}>
+                  style={[fill, row, center, buttonWrapper]}>
                   <Text style={titleSmall} text="Sign up" color="river" />
                 </LinearGradient>
               )}
