@@ -16,17 +16,18 @@ import {Layout, Images, Gutters, Fonts} from 'src/theme';
 import {updateSmileData} from '../Dashboard/redux/actions';
 
 const CameraScreen = (props) => {
-  const { user } = props;
+  const {user} = props;
   const [active, setActive] = useState(0);
   const [selectedStyles, setSelectedStyles] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
+  const [totalCounts, setTotalCounts] = useState(0);
 
   const onUpdateSeconds = () => {
     props.updateSmileData(
-      { second: totalSeconds, user: user.id },
-      props.navigation
+      {second: totalSeconds, user: user.id, count: totalCounts},
+      props.navigation,
     );
   };
 
@@ -89,7 +90,7 @@ const CameraScreen = (props) => {
     justifyContentEvenly,
     justifyContentEnd,
   } = Layout;
-  const {small2xTMargin,smallHPadding, smallBMargin} = Gutters;
+  const {small2xTMargin, smallHPadding, smallBMargin} = Gutters;
   const {
     textWrapper,
     camButtonsWrapper,
@@ -108,11 +109,11 @@ const CameraScreen = (props) => {
 
   const onFacesDetected = async (data) => {
     const {faces} = data;
-    if (faces.length < 1) {
+    if (faces.length[0]) {
       return;
     }
     await faces.map((face) => {
-      if (face.smilingProbability > 0.3) {
+      if (face.smilingProbability > 0.299) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {
@@ -121,6 +122,7 @@ const CameraScreen = (props) => {
           const end = timeArray.pop();
           const seconds = getTimeDifference(start, end);
           setTotalSeconds(totalSeconds + seconds);
+          setTotalCounts(totalCounts + 1);
           setTimeArray([]);
           setIsSmiling(false);
         }
@@ -152,16 +154,17 @@ const CameraScreen = (props) => {
         faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
         faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
         onFacesDetected={onFacesDetected}>
-        <View style={[row,small2xTMargin, smallHPadding, justifyContentBetween]}>
+        <View
+          style={[row, small2xTMargin, smallHPadding, justifyContentBetween]}>
           <View style={fill}>
-            {!isSmiling && 
+            {!isSmiling && (
               <TouchableOpacity onPress={onUpdateSeconds}>
                 <Image source={Images.camarrowback} />
               </TouchableOpacity>
-            }
+            )}
           </View>
-          <View style={[fill, { alignItems: 'flex-end' }]}>
-            {isSmiling && <Text text='Smiling' />}
+          <View style={[fill, {alignItems: 'flex-end'}]}>
+            {isSmiling && <Text text="Smiling" />}
           </View>
         </View>
         <View style={[fill, justifyContentEnd]}>
@@ -169,7 +172,7 @@ const CameraScreen = (props) => {
             <View style={[center, justifyContentAround, row, filtersWrapper]}>
               {filterImages.map((image, i) => (
                 <TouchableOpacity key={i}>
-                  <Image source={Images[image]}/>
+                  <Image source={Images[image]} />
                 </TouchableOpacity>
               ))}
             </View>
@@ -227,11 +230,12 @@ const CameraScreen = (props) => {
 
 const mapStateToProps = (state) => ({
   data: state.dashboard.data,
-  user: state.app.user
+  user: state.app.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateSmileData: (data, navigation) => dispatch(updateSmileData(data, navigation)),
+  updateSmileData: (data, navigation) =>
+    dispatch(updateSmileData(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

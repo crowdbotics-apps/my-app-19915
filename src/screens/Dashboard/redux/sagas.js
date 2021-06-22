@@ -18,11 +18,6 @@ import {
   resetSmileData,
 } from './actions';
 
-// const data = {
-//   "best_day": {"created__date": "2021-05-26", "total": 110},
-//   "dashboard": {"total_count": 162, "total_second": 315, "user": 3}
-// }
-
 // state
 const getDashboard = state => state.dashboard.data;
 
@@ -74,8 +69,8 @@ async function updateSmileDataAPI(data) {
 
  function* updateSmileData({data, navigation}) {
   try {
-    const { second } = data;
-    if (second > 0) {
+    const { second,count } = data;
+    if (second && count > 0) {
       yield call(updateSmileDataAPI, data);
 
       const dashboardData = yield select(getDashboard);
@@ -86,7 +81,7 @@ async function updateSmileDataAPI(data) {
         dashboard: {
           ...dashboardData.dashboard,
           total_second: dashboardData.dashboard.total_second + second,
-          total_count: dashboardData.dashboard.total_count + 1
+          total_count: dashboardData.dashboard.total_count + count
         }
       };
 
