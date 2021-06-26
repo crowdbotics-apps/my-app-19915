@@ -2,17 +2,17 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {Content} from 'native-base';
-import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 // components
-import {
-  Text,
-  ProgressCircle,
-  Avatar,
-  MenuIcon,
-  Footer,
-} from 'src/components';
+import {Text, ProgressCircle, Avatar, MenuIcon, Footer} from 'src/components';
 import {DataAvailability} from 'src/components';
 // theme
 import {Layout, Images, Gutters, Colors, Fonts} from 'src/theme';
@@ -23,7 +23,7 @@ import styles from './styles';
 //actions
 import {getDashboard} from './redux/actions';
 
-const Dashboard = props => {
+const Dashboard = (props) => {
   const {
     data,
     requesting,
@@ -34,27 +34,32 @@ const Dashboard = props => {
     props.getDashboard();
   }, []);
   const getTotalSeconds = () => {
-    if (data && data.dashboard && data.dashboard && data.dashboard.total_second) {
-      return  data.dashboard.total_second
+    if (
+      data &&
+      data.dashboard &&
+      data.dashboard &&
+      data.dashboard.total_second
+    ) {
+      return data.dashboard.total_second;
     }
-    return 0
+    return 0;
   };
 
   const getTotalCount = () => {
-    if (data && data.dashboard && data.dashboard && data.dashboard.total_count) {
-      return  data.dashboard.total_count
+    if (
+      data &&
+      data.dashboard &&
+      data.dashboard &&
+      data.dashboard.total_count
+    ) {
+      return data.dashboard.total_count;
     }
-    return 0
-  }
+    return 0;
+  };
 
   const {titleSmall, textMedium} = Fonts;
   const {row, fill, center, justifyContentBetween} = Layout;
-  const {
-    mediumTMargin,
-    smallTMargin,
-    largeHMargin,
-    smallBPadding,
-  } = Gutters;
+  const {mediumTMargin, smallTMargin, largeHMargin, smallBPadding} = Gutters;
   const {
     dashboardImg,
     progressWrapper,
@@ -69,12 +74,12 @@ const Dashboard = props => {
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
-        <View style={[row ,justifyContentBetween, headerWrapper]}>
+        <SafeAreaView style={[row, justifyContentBetween, headerWrapper]}>
           <MenuIcon grey action={() => props.navigation.openDrawer()} />
           <Avatar size="regular" />
-        </View>
+        </SafeAreaView>
         <Content contentContainerStyle={smallBPadding}>
-          <View style={[ center,progressWrapper]}>
+          <View style={[center, progressWrapper]}>
             <ProgressCircle
               outerStrokeLinecap="round"
               size={295}
@@ -111,9 +116,7 @@ const Dashboard = props => {
                     thickness={3}
                     showsText={true}
                     color={Colors.riverbed}
-                    formatText={() =>
-                      `${getTotalSeconds()}s`
-                    }
+                    formatText={() => `${getTotalSeconds()}s`}
                     unfilledColor={Colors.loblolly}
                   />
                 </DataAvailability>
@@ -131,9 +134,7 @@ const Dashboard = props => {
                     progress={getTotalCount() / 500}
                     showsText={true}
                     thickness={3}
-                    formatText={() =>
-                      `${getTotalCount()}`
-                    }
+                    formatText={() => `${getTotalCount()}`}
                     color={Colors.riverbed}
                     unfilledColor={Colors.loblolly}
                   />
@@ -174,23 +175,21 @@ const Dashboard = props => {
               color="golden"
             />
           </TouchableOpacity>
-          </Content>
+        </Content>
+
         <Footer activeRoute="Home" navigation={props.navigation} />
       </ImageBackground>
     </>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.dashboard.data,
   requesting: state.dashboard.requesting,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getDashboard: () => dispatch(getDashboard()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
