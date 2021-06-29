@@ -9,13 +9,13 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_SCIENCE} from './types';
+import {POST_STEP_THREE} from './types';
 
 // actions
-import {getSciencesSuccess, getSciencesFailure} from './actions';
+import {postStepThreeSuccess, postStepThreeFailure} from './actions';
 
-async function getSciencesAPI() {
-  const URL = `${appConfig.backendServerURL}/api/v1/smile_exercise/`;
+async function postStepThirdDataAPI(id) {
+  const URL = `${appConfig.backendServerURL}/api/v1/user_profile/${id}/`;
   const authToken = await AsyncStorage.getItem('authToken');
 
   const options = {
@@ -28,13 +28,13 @@ async function getSciencesAPI() {
   return XHR(URL, options);
 }
 
-function* getSciences() {
+function* postStepThirdData({id}) {
   try {
-    const response = yield call(getSciencesAPI);
-    const {data} = response;
-    yield put(getSciencesSuccess(data));
+    const response = yield call(postStepThirdDataAPI,id);
+    const { data } = response;
+    yield put(postStepThreeSuccess(data));
   } catch (e) {
-    yield put(getSciencesFailure());
+    yield put(postStepThreeFailure());
 
     showMessage({
       message: 'Unable to load data, something went wrong.',
@@ -43,4 +43,4 @@ function* getSciences() {
   }
 }
 
-export default all([takeLatest(GET_SCIENCE, getSciences)]);
+export default all([takeLatest(POST_STEP_THREE, postStepThirdData)]);

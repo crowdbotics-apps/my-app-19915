@@ -6,20 +6,20 @@ export default StyleSheet.create({
     height: 354,
     backgroundColor: '#FFFFFF',
     alignSelf: 'center',
-    marginVertical: 50,
+    marginVertical: 40,
   },
   topDoubleQuotesWrapper: {
-    height: 20,
+    height: 50,
   },
   topDoubleQuotes: {
-    marginTop: 25,
+    marginTop: 20,
     marginLeft: 20,
     fontSize: 120,
     lineHeight: 120,
   },
   centerTextWrapper: {
     justifyContent: 'center',
-    marginTop: 60,
+    marginTop: 30,
     height: 200,
   },
   centerText: {

@@ -59,6 +59,7 @@ function* login({data}) {
     yield put(setAuthToken(res.key));
     yield put(setUserInfo(resp.user_detail));
   } catch (e) {
+    console.log(e.response);
     yield put(loginFailure('EMAIL OR PASSWORD IS INVALID'));
   }
 }

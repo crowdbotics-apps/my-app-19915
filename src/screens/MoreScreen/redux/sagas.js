@@ -9,13 +9,13 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_SCIENCE} from './types';
+import {GET_MORE_RESOURCES} from './types';
 
 // actions
-import {getSciencesSuccess, getSciencesFailure} from './actions';
+import {getMoreResourcesSuccess, getMoreResourcesFailure} from './actions';
 
-async function getSciencesAPI() {
-  const URL = `${appConfig.backendServerURL}/api/v1/smile_exercise/`;
+async function getResourcesAPI() {
+  const URL = `${appConfig.backendServerURL}/api/v1/smile_resource/`;
   const authToken = await AsyncStorage.getItem('authToken');
 
   const options = {
@@ -28,13 +28,13 @@ async function getSciencesAPI() {
   return XHR(URL, options);
 }
 
-function* getSciences() {
+function* getResources() {
   try {
-    const response = yield call(getSciencesAPI);
+    const response = yield call(getResourcesAPI);
     const {data} = response;
-    yield put(getSciencesSuccess(data));
+    yield put(getMoreResourcesSuccess(data));
   } catch (e) {
-    yield put(getSciencesFailure());
+    yield put(getMoreResourcesFailure());
 
     showMessage({
       message: 'Unable to load data, something went wrong.',
@@ -43,4 +43,4 @@ function* getSciences() {
   }
 }
 
-export default all([takeLatest(GET_SCIENCE, getSciences)]);
+export default all([takeLatest(GET_MORE_RESOURCES, getResources)]);

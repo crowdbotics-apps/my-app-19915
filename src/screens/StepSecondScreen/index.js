@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
 import { Content, Icon, Input } from 'native-base';
 import {
@@ -14,17 +15,17 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Text, Button } from 'src/components';
 import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
 
-// hooks
-import useForm from 'src/hooks/useForm';
-
-// utils
-import validator from 'src/utils/validation';
+//actions
+import {postStepTwo} from './redux/actions'
 
 // styles
 import styles from './styles';
 
 const StepSecondScreen = props => {
   const {
+    requesting,
+    stepOneData,
+    stepTwoData,
     navigation: { navigate },
   } = props;
   const [checked, setChecked] = useState('');
@@ -32,7 +33,7 @@ const StepSecondScreen = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRelation, setSelectedRelation] = useState('');
   const [selectedProfession, setSelectedProfession] = useState('');
-
+console.log('stepOneData',stepOneData);
   const relationshipStatus = [
     "YES",
     "NO"
@@ -47,37 +48,15 @@ const StepSecondScreen = props => {
     setDOB(date);
     setDateText(date);
   };
-  const stateSchema = {
-    email: {
-      value: '',
-      error: '',
-    },
-    password: {
-      value: '',
-      error: '',
-    },
-  };
-  const validationStateSchema = {
-    email: {
-      required: true,
-      validator: validator.email,
-    },
-    password: {
-      required: true,
-      validator: validator.password,
-    },
-  };
 
-  const assignValues = (fieldName, backendName, value) => {
-    handleOnChange(fieldName, value);
-  };
 
   const submitForm = () => {
     const data = {
-      password: state.password.value,
-      username: state.email.value,
+      relationship_status: selectedRelation,
+      profession_status: selectedProfession,
     };
-    // onSubmit(data);
+    postStepTwo(data);
+    navigate('StepThirdScreen');
   };
 
   const onPress = val => {
@@ -91,11 +70,6 @@ const StepSecondScreen = props => {
     setSelectedProfession(profession), setChecked('');
   };
 
-  const { state, handleOnChange, disable } = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
-
   const {
     row,
     fill,
@@ -105,7 +79,9 @@ const StepSecondScreen = props => {
     alignItemsCenter,
     fullSize,
   } = Layout;
+  
   const { primaryBg, secondaryBg, borderB, borderColor } = Global;
+  
   const {
     largeHMargin,
     regularHMargin,
@@ -118,6 +94,7 @@ const StepSecondScreen = props => {
     regularVPadding,
     smallVPadding
   } = Gutters;
+  
   const {
     fieldWrapper,
     buttonWrapper,
@@ -127,6 +104,7 @@ const StepSecondScreen = props => {
     textWrapper,
     paragraphWrapper,
   } = styles;
+  
   const { titleSmall } = Fonts;
 
   return (
@@ -228,7 +206,7 @@ const StepSecondScreen = props => {
             )}
 
             <TouchableOpacity
-              onPress={() => navigate('Step3')}
+              onPress={() => submitForm()}
               style={buttonTMargin}>
               <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -266,4 +244,13 @@ const StepSecondScreen = props => {
   );
 };
 
-export default StepSecondScreen;
+const mapStateToProps = (state) => ({
+  requesting: state.stepTwoData.requesting,
+  stepOneData: state.stepOneData.stepOneData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postStepTwo: (data) => dispatch(postStepTwo(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepSecondScreen);

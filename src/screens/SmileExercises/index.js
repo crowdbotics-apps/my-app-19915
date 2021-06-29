@@ -28,6 +28,9 @@ const {titleSmall, titleRegular, textMedium} = Fonts;
 
 const SmileExercises = props => {
   const {
+    route: {
+      params: {selectedActivity},
+    },
     navigation: {openDrawer},
     exercises,
     requesting,
@@ -37,6 +40,8 @@ const SmileExercises = props => {
     
     props.getExercises();
   }, []);
+
+  console.log('selectedActivity',selectedActivity);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -46,7 +51,7 @@ const SmileExercises = props => {
         />
         <DataAvailability
           requesting={requesting}
-          hasData={exercises}
+          hasData={selectedActivity}
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -54,26 +59,26 @@ const SmileExercises = props => {
             </TouchableOpacity>
             <Text
               bold
-              text={exercises.title}
+              text={selectedActivity.exercise_name}
               color="river"
               style={[titleSmall, resource]}
             />
           </View>
           <Content contentContainerStyle={mediumBPadding}>
             <View style={smallTMargin}>
-              <Image source={{uri: exercises.image}} style={image} />
+              <Image source={{uri: selectedActivity.image_or_video}} style={image} />
               <Image source={Images.star} style={[positionA, star]} />
             </View>
             <View style={[mediumHMargin]}>
               <Text
                 color="river"
-                text={exercises.title}
+                text={selectedActivity.title}
                 style={[titleRegular, mediumVMargin]}
               />
               <Text
                 color="river"
                 style={[textMedium, text]}
-                text={exercises.description}
+                text={selectedActivity.description}
               />
             </View>
           </Content>
@@ -85,7 +90,6 @@ const SmileExercises = props => {
 };
 
 const mapStateToProps = state => ({
-  exercises: state.exercises.data,
   requesting: state.exercises.requesting,
 });
 

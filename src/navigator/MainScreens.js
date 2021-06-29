@@ -87,7 +87,7 @@ const mainStack = createStackNavigator();
 const MainStackScreen = () => (
     <mainStack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Dashboard"
+        initialRouteName="ActivitiesScreen"
     >
         {/* <mainStack.Screen name="Dashboard" component={BottomNavigator} /> */}
         <mainStack.Screen name="CameraScreen" component={CameraScreen} />

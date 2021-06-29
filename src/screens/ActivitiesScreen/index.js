@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Content} from 'native-base';
+import {connect} from 'react-redux';
+
+//actions
+import {getExercisesActivities, selectActivities} from './redux/actions';
 
 //styles
 import styles from './styles';
@@ -43,6 +47,11 @@ const {
 const {titleSmall, textLarge, textMedium} = Fonts;
 
 const ActivitiesScreen = (props) => {
+  const {
+    requesting,
+    activitiesExercises,
+    navigation: {openDrawer},
+  } = props;
   const Activities = [
     {title: 'Smile Activity 1', text: 'Recommened for you', favourity: true},
     {title: 'Smile Activity 2', text: 'Recommened for you'},
@@ -56,6 +65,16 @@ const ActivitiesScreen = (props) => {
     {title: 'Smile Activity 3', text: 'Recommened for you'},
     {title: 'Smile Activity 4', text: 'Recommened for you'},
   ];
+
+  useEffect(() => {
+    props.getExercisesActivities();
+  }, []);
+  console.log('activitiesExercises', activitiesExercises);
+
+  const onSelectActivity = (item) => {
+    props.selectActivities(item);
+    console.log('selectedItem',item);
+  };
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -107,11 +126,18 @@ const ActivitiesScreen = (props) => {
             </View>
           </View>
           <View>
-            {Activities.map((data, i) => (
-              <ActivityCard key={i} data={data} />
-            ))}
+            {activitiesExercises &&
+              activitiesExercises.map((item, i) => (
+                <TouchableOpacity onPress={() => onSelectActivity(item)}>
+                  <ActivityCard
+                    key={i}
+                    title={item.exercise_name}
+                    text={item.title}
+                  />
+                </TouchableOpacity>
+              ))}
           </View>
-          <View>
+          {/* <View>
             <TouchableOpacity>
               <LinearGradient
                 start={{x: 0, y: 0}}
@@ -134,10 +160,10 @@ const ActivitiesScreen = (props) => {
             </TouchableOpacity>
           </View>
           <View style={upgradeNow}>
-            {Activity.map((data, i) => (
-              <ActivityCard key={i} data={data} />
+            {activitiesExercises && activitiesExercises.map((item, i) => (
+              <ActivityCard key={i} />
             ))}
-          </View>
+          </View> */}
         </Content>
         <Footer activeRoute="Activity" navigation={props.navigation} />
       </ImageBackground>
@@ -145,4 +171,14 @@ const ActivitiesScreen = (props) => {
   );
 };
 
-export default ActivitiesScreen;
+const mapStateToProps = (state) => ({
+  requesting: state.activitiesExercises.requesting,
+  activitiesExercises: state.activitiesExercises.activitiesExercises,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getExercisesActivities: () => dispatch(getExercisesActivities()),
+  selectActivities: (item) => dispatch(selectActivities(item)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivitiesScreen);

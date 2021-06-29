@@ -24,7 +24,7 @@ const getDashboard = state => state.dashboard.data;
 async function getDashboardDataAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/`;
   const authToken = await AsyncStorage.getItem('authToken');
-
+  console.log('Token',authToken);
   const options = {
     headers: {
       Authorization: 'Token ' + authToken,

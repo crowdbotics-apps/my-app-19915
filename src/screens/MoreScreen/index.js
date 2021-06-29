@@ -1,7 +1,10 @@
-import React from 'react';
-
+import React,{useEffect} from 'react';
+import {connect} from 'react-redux';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content, Item} from 'native-base';
+
+//actions
+import {getMoreResources} from './redux/actions';
 
 //styles
 import styles from './styles';
@@ -26,6 +29,22 @@ const {row, fill,center} = Layout;
 const {titleSmall} = Fonts;
 
 const MoreScreen = props => {
+
+  const {
+    navigation: {openDrawer},
+    resources,
+    requesting,
+  } = props;
+
+  useEffect(() => {
+    props.getMoreResources();
+  }, []);
+
+  const onSelectResource = (item) => {
+    //props.selectResource(item);
+    console.log('selectedItem',item);
+  };
+
   const cardData = [
     {
       title: 'Smile Science',
@@ -45,7 +64,7 @@ const MoreScreen = props => {
     {title: 'Level', count: '53',
   image:'level'},
   ];
-
+console.log('resources',resources);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -71,4 +90,16 @@ const MoreScreen = props => {
   );
 };
 
-export default MoreScreen;
+const mapStateToProps = state => ({
+  requesting: state.exercises.requesting,
+  resources:state.resources.resources
+});
+
+const mapDispatchToProps = dispatch => ({
+  getMoreResources: (item) => dispatch(getMoreResources()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MoreScreen);

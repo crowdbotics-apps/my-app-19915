@@ -20,7 +20,7 @@ async function getExercisesAPI() {
 
   const options = {
     headers: {
-      Authorization: 'Bearer ' + authToken,
+      Authorization: 'Token ' + authToken,
       'Content-Type': 'application/json',
     },
     method: 'GET',

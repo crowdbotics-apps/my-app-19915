@@ -7,8 +7,12 @@ import signUp from 'src/screens/SignUp/redux/reducer';
 import dashboard from 'src/screens/Dashboard/redux/reducer';
 import quote from 'src/screens/DailyQuote/redux/reducer';
 import exercises from 'src/screens/SmileExercises/redux/reducer';
-import community from 'src/screens/Community/redux/reducer';
+import resources from 'src/screens/MoreScreen/redux/reducer';
+import activitiesExercises from 'src/screens/ActivitiesScreen/redux/reducer';
 import sciences from 'src/screens/SmileExercisesMaxHeight/redux/reducer';
+import stepOneData from 'src/screens/StepFirstScreen/redux/reducer';
+import stepTwoData from 'src/screens/StepSecondScreen/redux/reducer';
+import stepThreeData from 'src/screens/StepThirdScreen/redux/reducer';
 
 
 const appPersistConfig = {
@@ -22,7 +26,11 @@ export default {
   signUp,
   dashboard,
   quote,
+  resources,
   exercises,
-  community,
-  sciences
+  sciences,
+  stepOneData,
+  stepTwoData,
+  stepThreeData,
+  activitiesExercises,
 };

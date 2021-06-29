@@ -10,13 +10,12 @@ import styles from './styles';
 const {mediumBPadding, smallLMargin, regularHMargin} = Gutters;
 const {textMedium,titleSmall} = Fonts;
 const {imageWrapper, card, textWrapper, icon, favouriteicon} = styles;
-const ActivityCard = ({data}) => {
-  const {title, text, favourity} = data;
+const ActivityCard = ({title, text ,icon ,source, isFavourite}) => {
   return (
     <>
       <View style={card}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image style={icon} source={Images.activityicon} />
+          <Image style={icon} source={source?source:Images.activityicon} />
           <View style={[smallLMargin, textWrapper]}>
             <View
               style={{
@@ -24,8 +23,8 @@ const ActivityCard = ({data}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              {favourity && (
-                <Image style={favouriteicon} source={Images.starfav} />
+              {isFavourite && (
+                <Image style={favouriteicon} source={icon ? icon:Images.starfav} />
               )}
               <Text style={titleSmall} text={title} />
             </View>

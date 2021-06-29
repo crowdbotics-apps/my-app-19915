@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
 import { Content, Icon, Input } from 'native-base';
 import {
@@ -14,11 +15,8 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Text, Button, Test } from 'src/components';
 import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
 
-// hooks
-import useForm from 'src/hooks/useForm';
-
-// utils
-import validator from 'src/utils/validation';
+//actions
+import {postStepOne} from './redux/actions'
 
 // styles
 import styles from './styles';
@@ -26,59 +24,37 @@ import styles from './styles';
 const StepFirstScreen = props => {
   const {
     navigation: { navigate },
+    postStepOne,
+    stepOneData
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAge, setSelectedAge] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedGender, setSelectedGender] = useState(0);
   const [selectedChildren, setSelectedChildren] = useState('');
-
+console.log('stepOneData',stepOneData);
+console.log('selectedGender',selectedGender);
+console.log('selectedAge',selectedAge);
   const onDateChange = date => {
     setDOB(date);
     setDateText(date);
   };
-  const stateSchema = {
-    email: {
-      value: '',
-      error: '',
-    },
-    password: {
-      value: '',
-      error: '',
-    },
-  };
-  const validationStateSchema = {
-    email: {
-      required: true,
-      validator: validator.email,
-    },
-    password: {
-      required: true,
-      validator: validator.password,
-    },
-  };
-
-  const assignValues = (fieldName, backendName, value) => {
-    handleOnChange(fieldName, value);
-  };
-
+ 
   const submitForm = () => {
     const data = {
-      password: state.password.value,
-      username: state.email.value,
+      age: selectedAge,
+      gender: selectedGender,
+      children: selectedChildren
     };
-    // onSubmit(data);
+    postStepOne(data);
+    navigate('StepSecondScreen');
   };
 
   const onPress = val => {
-    val === checked ? setChecked() : setChecked(val);
+    (val) === checked ? setChecked() : setChecked(val);
   };
 
-  const { state, handleOnChange, disable } = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
 
   const {
     row,
@@ -128,24 +104,31 @@ const StepFirstScreen = props => {
     '55-64',
     '64 AND OLDER',
   ];
+
   const Gender = [
     "MALE",
     "FEMALE",
     "OTHER"
   ];
+
   const Children = [
     "YES",
     "NO"
   ]
 
   const onSelectAge = age => {
-    setSelectedAge(age), setChecked('');
+    setSelectedAge(age);
+    setChecked('');
   };
-  const onSelectGender = gender => {
-    setSelectedGender(gender), setChecked('');
+
+  const onSelectGender = i => {
+    setSelectedGender(i);
+    setChecked('');
   };
+
   const onSelectChildren = child => {
-    setSelectedChildren(child), setChecked('');
+    setSelectedChildren(child);
+    setChecked('');
   };
 
   return (
@@ -205,6 +188,7 @@ const StepFirstScreen = props => {
             {checked === 0 &&
               ageRange.map((age, i) => (
                 <View
+                  key={i}
                   style={[
                     primaryBg,
                     regularHPadding,
@@ -230,25 +214,24 @@ const StepFirstScreen = props => {
                 regularHPadding,
               ]}>
               <Image source={Images.gender} style={regularHMargin} />
-              <Text text={selectedGender ? selectedGender : "GENDER"} category="p1" style={[fill, borderColor]} />
+              <Text text={Gender[selectedGender]} category="p1" style={[fill, borderColor]} />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
-            {checked === 1 && Gender.map((gender) =>
+            {checked === 1 && Gender.map((gender, i) =>
               <View
                 style={[
                   primaryBg,
                   regularHPadding,
                   categoryWrapper,
                 ]}>
-                <TouchableOpacity onPress={() => onSelectGender(gender)}>
+                <TouchableOpacity onPress={() => onSelectGender(i)}>
                   <Text
-                    text={gender}
+                    text={Gender[i]}
                     color="secondary"
                     category="p1"
                     style={[borderB, borderColor, smallVPadding]}
                   />
                 </TouchableOpacity>
-
               </View>
             )}
 
@@ -262,7 +245,7 @@ const StepFirstScreen = props => {
                 regularHPadding,
               ]}>
               <Image source={Images.child} style={regularHMargin} />
-              <Text text={selectedChildren ? selectedChildren : "CHILDREN"} category="p1" style={[fill, borderColor]} />
+              <Text text={selectedChildren ? 'YES' : 'NO'} category="p1" style={[fill, borderColor]} />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
             {checked === 2 && Children.map((child) =>
@@ -272,7 +255,7 @@ const StepFirstScreen = props => {
                   regularHPadding,
                   categoryWrapper,
                 ]}>
-                <TouchableOpacity onPress={() => onSelectChildren(child)}>
+                <TouchableOpacity onPress={() => onSelectChildren(child === 'YES')}>
                   <Text
                     text={child}
                     color="secondary"
@@ -284,7 +267,7 @@ const StepFirstScreen = props => {
             )}
 
             <TouchableOpacity
-              onPress={() => navigate('Step2')}
+              onPress={() => submitForm()}
               style={buttonTMargin}>
               <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -329,4 +312,13 @@ const StepFirstScreen = props => {
   );
 };
 
-export default StepFirstScreen;
+const mapStateToProps = (state) => ({
+  stepOneData:state.stepOneData.stepOneData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postStepOne: (data) => dispatch(postStepOne(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepFirstScreen);
+

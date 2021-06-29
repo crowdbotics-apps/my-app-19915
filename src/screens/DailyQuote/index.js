@@ -17,7 +17,7 @@ const DailyQuote = props => {
   useEffect(() => {
     props.getQuote();
   }, []);
-
+  
   const {rotate180Inverse, fill, center, alignItemsEnd} = Layout;
   const {largeXTMargin} = Gutters;
   const {
