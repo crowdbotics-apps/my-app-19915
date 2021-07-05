@@ -1,3 +1,5 @@
+import binascii
+import os
 from django.contrib.auth import get_user_model, authenticate
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
@@ -7,6 +9,11 @@ from allauth.utils import email_address_exists, generate_unique_username
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from rest_auth.models import TokenModel
+from rest_framework.authtoken.models import Token
+# from base64.fields import Base64ImageField
+from drf_extra_fields.fields import Base64ImageField
+
+from rest_framework.response import Response
 from rest_framework import serializers, exceptions, fields
 from rest_auth.serializers import PasswordResetSerializer
 from rest_framework.exceptions import ValidationError
@@ -23,7 +30,7 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-        'id', 'name', 'email', 'password', 'age', 'sex', 'relationship_status', 'children', 'profession_status',
+        'id', 'name', 'email', 'password', 'age', 'gender', 'relationship_status', 'children', 'profession_status',
         'goals')
         extra_kwargs = {
             'password': {
@@ -52,12 +59,18 @@ class SignupSerializer(serializers.ModelSerializer):
                     _("A user is already registered with this e-mail address."))
         return email
 
+    def get_token(self, validated_data):
+        # where we populate the 'token' field above
+        user = User.objects.filter(email=validated_data.email)
+        token = Token.objects.get(user=user)
+        return token.key
+
     def create(self, validated_data):
         user = User(
             email=validated_data.get('email'),
             name=validated_data.get('name'),
             age=validated_data.get('age'),
-            sex=validated_data.get('sex'),
+            gender=validated_data.get('gender'),
             relationship_status=validated_data.get('relationship_status'),
             children=validated_data.get('children'),
             profession_status=validated_data.get('profession_status'),
@@ -73,7 +86,14 @@ class SignupSerializer(serializers.ModelSerializer):
         user.save()
         request = self._get_request()
         setup_user_email(request, user, [])
+        token_key = Token.objects.get_or_create(user=user)
+
         return user
+
+    def to_representation(self, instance):
+        data = super(SignupSerializer, self).to_representation(instance)
+
+        return {'key': instance.auth_token.key, 'user': data}
 
     def save(self, request=None):
         """rest_auth passes request so we must override to accept it"""
@@ -147,10 +167,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class UserProfileSerializers(serializers.ModelSerializer):
     goals = fields.MultipleChoiceField(choices=User.GOALS)
+    image = Base64ImageField()
 
     class Meta:
         model = User
-        fields = ['name', 'age', 'sex', 'relationship_status', 'children', 'profession_status', 'goals']
+        fields = ['name', 'age', 'image', 'gender', 'relationship_status', 'children', 'profession_status', 'goals']
 
 
 class CustomAuthTokenSerializer(serializers.Serializer):
@@ -162,12 +183,12 @@ class CustomAuthTokenSerializer(serializers.Serializer):
     )
 
     def validate(self, attrs):
-        username = attrs.get('username')
+        email = attrs.get('email')
         password = attrs.get('password')
 
-        if username and password:
+        if email and password:
             user = authenticate(request=self.context.get('request'),
-                                email=username, password=password)
+                                email=email, password=password)
 
             # The authenticate call simply returns None for is_active=False
             # users. (Assuming the default ModelBackend authentication
@@ -176,7 +197,7 @@ class CustomAuthTokenSerializer(serializers.Serializer):
                 msg = _('Unable to log in with provided credentials.')
                 raise serializers.ValidationError(msg, code='authorization')
         else:
-            msg = _('Must include "username" and "password".')
+            msg = _('Must include "email" and "password".')
             raise serializers.ValidationError(msg, code='authorization')
 
         attrs['user'] = user

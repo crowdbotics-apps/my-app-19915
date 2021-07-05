@@ -47,7 +47,7 @@ class HomePageViewSet(ModelViewSet):
 
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializers
-    http_method_names = ["get", "put"]
+    http_method_names = ["get", "patch"]
 
     def get_queryset(self):
         user = self.request.user
