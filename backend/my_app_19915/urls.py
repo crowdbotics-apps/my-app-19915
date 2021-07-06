@@ -15,6 +15,7 @@ Including another URLconf
 """
 import debug_toolbar
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from allauth.account.views import confirm_email
@@ -37,7 +38,7 @@ urlpatterns = [
         path("", include("users.api.v1.urls")),
         path("", include("dashboard.api.v1.urls")),
     ]))
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Smile App"
 admin.site.site_title = "Smile App Admin Portal"

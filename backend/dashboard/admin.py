@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dashboard.models import Quote, Smile, SmileExercise, SmileCommunity, SmileScience, FavoriteExercise
+from dashboard.models import Quote, Smile, SmileExercise, Resource, ResourceItem, FavoriteExercise, Goal, Streak
 
 # Register your models here.
 
@@ -13,24 +13,34 @@ class SmileAdmin(admin.ModelAdmin):
 
 
 class SmileExerciseAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image', 'description', 'is_active', 'created']
+    list_display = ["exercise_name", 'title', 'image_or_video', 'description', 'is_active', 'created']
 
 
-class SmileCommunityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description', 'image', 'created']
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ["title", "description", "created"]
 
 
-class SmileScienceAdmin(admin.ModelAdmin):
-    list_display = ['article_name', 'description', 'image', 'created']
+class ResourceItemAdmin(admin.ModelAdmin):
+    list_display = ["resource", 'title', 'description', 'created']
 
 
 class FavoriteExerciseAdmin(admin.ModelAdmin):
     list_display = ['user', 'favorite_exercise',  'created']
 
 
+class GoalAdmin(admin.ModelAdmin):
+    list_display = ["user", "goal_second", "created"]
+
+
+class StreakAdmin(admin.ModelAdmin):
+    list_display = ["user", "max_streak", "latest_streak", "created"]
+
+
 admin.site.register(Quote, QuoteAdmin)
 admin.site.register(Smile, SmileAdmin)
 admin.site.register(SmileExercise, SmileExerciseAdmin)
-admin.site.register(SmileCommunity, SmileCommunityAdmin)
-admin.site.register(SmileScience, SmileScienceAdmin)
+admin.site.register(Resource, ResourceAdmin)
+admin.site.register(ResourceItem, ResourceItemAdmin)
 admin.site.register(FavoriteExercise, FavoriteExerciseAdmin)
+admin.site.register(Goal, GoalAdmin)
+admin.site.register(Streak, StreakAdmin)
