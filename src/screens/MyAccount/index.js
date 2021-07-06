@@ -1,101 +1,105 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
 import {Content, Input} from 'native-base';
 import {View, TouchableOpacity, Modal, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as ImagePicker from 'react-native-image-picker';
 // components
 import {Text, Button, Header, Footer, MenuIcon} from 'src/components';
 import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
-// hooks
-import useForm from 'src/hooks/useForm';
-
-// utils
-import validator from 'src/utils/validation';
+//actions
+import {getProfile, updateProfile} from './redux/actions';
 
 // styles
 import styles from './styles';
 
-const MyAccount = props => {
+const MyAccount = (props) => {
   const {
     navigation: {navigate},
     user,
+    profileData,
   } = props;
+
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRelation, setSelectedRelation] = useState('');
-  const [selectedProfession, setSelectedProfession] = useState('');
+  const [selectedRelation, setSelectedRelation] = useState(0);
+  const [selectedProfession, setSelectedProfession] = useState(0);
+  const [selectedChild, setSelectedChild] = useState(0);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
 
-  const relationshipStatus = ['YES', 'NO'];
+  useEffect(() => {
+    props.getProfile();
+  }, []);
 
-  const childrenStatus = ['YES', 'NO'];
+  useEffect(() => {
+    if (profileData) {
+      const relationData = profileData.relationship_status;
+      const professionData = profileData.profession_status;
+      const childrenData = profileData.children;
+      setSelectedRelation(relationData);
+      setSelectedProfession(professionData);
+      setSelectedChild(childrenData);
+    }
+  }, [profileData]);
 
-  const professionalStatus = ['PROFESSIONAL', 'NON-PROFESSIONAL'];
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const onDateChange = date => {
+  const relationshipStatus = ['Married', 'Unmarried'];
+  const childrenStatus = ['Yes', 'No'];
+  const professionalStatus = ['Professional', 'Non-Professional', 'Business'];
+
+  const onDateChange = (date) => {
     setDOB(date);
     setDateText(date);
   };
-  const stateSchema = {
-    email: {
-      value: '',
-      error: '',
-    },
-    password: {
-      value: '',
-      error: '',
-    },
-  };
-  const validationStateSchema = {
-    email: {
-      required: true,
-      validator: validator.email,
-    },
-    password: {
-      required: true,
-      validator: validator.password,
-    },
-  };
 
-  const assignValues = (fieldName, backendName, value) => {
-    handleOnChange(fieldName, value);
-  };
+  // const submitForm = () => {
+  //   const data = {
+  //     children: selectedChild,
+  //     relationship_status: selectedRelation,
+  //     profession_status: selectedProfession,
+  //   };
+  //   props.updateProfile(data, user);
+  // };
 
   const submitForm = () => {
     const data = {
-      password: state.password.value,
-      username: state.email.value,
-    };
-    // onSubmit(data);
+      children: selectedChild,
+      relationship_status: selectedRelation,
+      profession_status: selectedProfession
+    }
+    if(profileImage) {
+      data.image =  `data:${profileImage.type};base64,${profileImage.base64}`
+    }
+
+    props.updateProfile(data, user);
   };
 
-  const onPress = val => {
+  const onPress = (val) => {
     val === checked ? setChecked(0) : setChecked(val);
   };
 
-  const onSelectRelation = relation => {
-    setSelectedRelation(relation), setChecked('');
+  const onSelectRelation = (i) => {
+    setSelectedRelation(i);
+    setChecked('');
   };
-  const onSelectProfession = profession => {
-    setSelectedProfession(profession), setChecked('');
+  const onSelectProfession = (i) => {
+    setSelectedProfession(i);
+    setChecked('');
   };
 
-  const {state, handleOnChange, disable} = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
+  const onSelectChildren = (i) => {
+    setSelectedChild(i);
+    setChecked('');
+  };
 
-  const {
-    row,
-    fill,
-    center,
-    justifyContentCenter,
-    alignItemsCenter,
-    fullSize,
-  } = Layout;
+  const {row, fill, center, justifyContentCenter, alignItemsCenter, fullSize} =
+    Layout;
   const {primaryBg, secondaryBg, borderB, borderColor} = Global;
   const {
     largeHMargin,
@@ -121,8 +125,25 @@ const MyAccount = props => {
     profilecam,
   } = styles;
   const {titleSmall, textMedium} = Fonts;
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  console.log('user', user);
+
+  const selectImage = () => {
+    ImagePicker.launchImageLibrary({includeBase64: true}, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        setProfileImage(response.assets[0]);
+        
+        // console.log('response', response.assets[0]);
+      }
+    });
+  };
+  console.log('profileData',profileData);
+ // console.log('Base64 Image', `data:${profileImage.type};base64,${profileImage.base64}`)
   return (
     <>
       <Header
@@ -140,10 +161,17 @@ const MyAccount = props => {
       </View>
       <Content showsVerticalScrollIndicator={false}>
         <View style={[mediumXHMargin, mediumBMargin]}>
-          <View style={userProfile}>
-            <Image style={image} source={Images.userprofile} />
-            <Image style={profilecam} source={Images.profilecam} />
-          </View>
+          <TouchableOpacity onPress={() => selectImage()}>
+            <View style={userProfile}>
+              <Image
+                style={image}
+                source={
+                  profileImage ? {uri: profileImage.uri} : {uri: profileData.image}
+                }
+              />
+              <Image style={profilecam} source={Images.profilecam} />
+            </View>
+          </TouchableOpacity>
 
           <View style={justifyContentCenter}>
             <View
@@ -158,7 +186,7 @@ const MyAccount = props => {
               <Input
                 value={user.email}
                 placeholder="EMAIL"
-                onChangeText={value => assignValues('email', 'email', value)}
+                onChangeText={(value) => assignValues('email', 'email', value)}
               />
             </View>
           </View>
@@ -173,11 +201,15 @@ const MyAccount = props => {
             <Image source={Images.pass} style={regularHMargin} />
             <Input
               value={user.password}
-              secureTextEntry={isEnabled}
+              secureTextEntry={!isEnabled}
               placeholder="PASSWORD"
             />
             <TouchableOpacity onPress={() => setIsEnabled(!isEnabled)}>
-              <Icon style={{marginHorizontal: 15}} name={isEnabled ? "eye" : "eye-slash"} size={20} />
+              <Icon
+                style={{marginHorizontal: 15}}
+                name={isEnabled ? 'eye' : 'eye-slash'}
+                size={20}
+              />
             </TouchableOpacity>
             <TouchableOpacity>
               <Text style={[textMedium, smallRMargin]} text="Reset" />
@@ -195,17 +227,17 @@ const MyAccount = props => {
             ]}>
             <Image source={Images.relation} style={regularHMargin} />
             <Text
-              text={selectedRelation ? selectedRelation : 'RELATIONSHIP STATUS'}
+              text={relationshipStatus[selectedRelation]}
               category="p1"
               style={[fill, borderColor]}
             />
           </TouchableOpacity>
           {checked === 2 &&
-            relationshipStatus.map(relation => (
+            relationshipStatus.map((relation, i) => (
               <View style={[primaryBg, regularHPadding]}>
-                <TouchableOpacity onPress={() => onSelectRelation(relation)}>
+                <TouchableOpacity onPress={() => onSelectRelation(i)}>
                   <Text
-                    text={relation}
+                    text={relationshipStatus[i]}
                     color="secondary"
                     category="p1"
                     style={[borderB, borderColor, smallVPadding]}
@@ -225,20 +257,17 @@ const MyAccount = props => {
             ]}>
             <Image source={Images.profession} style={regularHMargin} />
             <Text
-              text={
-                selectedProfession ? selectedProfession : 'PROFESSIONAL STATUS'
-              }
+              text={professionalStatus[selectedProfession]}
               category="p1"
               style={[fill, borderColor]}
             />
           </TouchableOpacity>
           {checked === 4 &&
-            professionalStatus.map(profession => (
+            professionalStatus.map((profession, i) => (
               <View style={[primaryBg, regularHPadding]}>
-                <TouchableOpacity
-                  onPress={() => onSelectProfession(profession)}>
+                <TouchableOpacity onPress={() => onSelectProfession(i)}>
                   <Text
-                    text={profession}
+                    text={professionalStatus[i]}
                     color="secondary"
                     category="p1"
                     style={[borderB, borderColor, smallVPadding]}
@@ -258,17 +287,18 @@ const MyAccount = props => {
             ]}>
             <Image source={Images.child} style={regularHMargin} />
             <Text
-              text={selectedRelation ? selectedRelation : 'CHILDREN'}
+              text={selectedChild ? 'Yes' : 'No'}
               category="p1"
               style={[fill, borderColor]}
             />
           </TouchableOpacity>
           {checked === 3 &&
-            childrenStatus.map(relation => (
+            childrenStatus.map((child) => (
               <View style={[primaryBg, regularHPadding]}>
-                <TouchableOpacity onPress={() => onSelectRelation(relation)}>
+                <TouchableOpacity
+                  onPress={() => onSelectChildren(child === 'Yes')}>
                   <Text
-                    text={relation}
+                    text={child}
                     color="secondary"
                     category="p1"
                     style={[borderB, borderColor, smallVPadding]}
@@ -276,9 +306,7 @@ const MyAccount = props => {
                 </TouchableOpacity>
               </View>
             ))}
-          <TouchableOpacity
-            onPress={() => navigate('StepThirdScreen')}
-            style={buttonTMargin}>
+          <TouchableOpacity onPress={() => submitForm()} style={buttonTMargin}>
             <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
@@ -296,7 +324,7 @@ const MyAccount = props => {
               date={dob}
               mode="date"
               style={secondaryBg}
-              onDateChange={date => onDateChange(date)}
+              onDateChange={(date) => onDateChange(date)}
             />
 
             <Button
@@ -315,11 +343,16 @@ const MyAccount = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.app.user,
+  profileData: state.profileData.profileData,
+  requestingImage: state.profileData.requestingImage,
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(MyAccount);
+const mapDispatchToProps = (dispatch) => ({
+  getProfile: () => dispatch(getProfile()),
+  updateProfile: (data, user) => dispatch(updateProfile(data, user)),
+  // updateImage: (data) => dispatch(updateImage(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyAccount);

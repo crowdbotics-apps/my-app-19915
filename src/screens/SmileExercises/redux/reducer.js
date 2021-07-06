@@ -2,11 +2,13 @@ import {
   GET_EXERCISES,
   GET_EXERCISES_SUCCESS,
   GET_EXERCISES_FAILURE,
+  MARK_FAVOURITE,
 } from './types';
 
 const initialState = {
-  requesting: false,
   data: false,
+  favourite: false,
+  requesting: false,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +23,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requesting: false,
+      };
+
+    case MARK_FAVOURITE:
+      return {
+        ...state,
+        requesting: false,
+        favourite: action.data,
       };
 
     default:

@@ -9,19 +9,25 @@ export default StyleSheet.create({
   },
   heading: {
     fontSize: 60,
-    lineHeight: 60},
-    title: {
-        fontSize: 20,
-        lineHeight: 20
-      },
-      fieldWrapper: {
-        height: 60,
-        fontSize: 14,
-        borderRadius: 30,
-        color: Colors.nileblue,
-        backgroundColor: Colors.white
-      },
-  image: {width: 210, height: 210},
+    lineHeight: 60,
+  },
+  title: {
+    fontSize: 20,
+    lineHeight: 20,
+  },
+  fieldWrapper: {
+    height: 60,
+    fontSize: 14,
+    borderRadius: 30,
+    color: Colors.nileblue,
+    backgroundColor: Colors.white,
+  },
+  image: {
+    width: 210,
+    height: 210,
+    borderRadius: 110,
+    overflow: 'hidden',
+  },
   userProfile: {
     alignSelf: 'center',
     flex: 1,

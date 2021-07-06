@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import {Content} from 'native-base';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 
@@ -16,7 +17,12 @@ import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 // styles
 import styles from './styles';
 
-const StatScreen = props => {
+const StatScreen = (props) => {
+  const {
+    navigation: {navigate},
+    profileData,
+  } = props;
+
   const [active, setActive] = useState(6);
   const {row, fill, center, wrap, alignItemsCenter} = Layout;
   const {regularVMargin, mediumHMargin, mediumBPadding} = Gutters;
@@ -30,7 +36,13 @@ const StatScreen = props => {
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
           left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <Content contentContainerStyle={mediumBPadding}>
           <View style={[mediumHMargin, alignItemsCenter]}>
@@ -119,4 +131,10 @@ const StatScreen = props => {
   );
 };
 
-export default StatScreen;
+const mapStateToProps = (state) => ({
+  profileData: state.profileData.profileData,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, null)(StatScreen);

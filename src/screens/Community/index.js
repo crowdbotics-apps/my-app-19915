@@ -4,7 +4,7 @@ import {Content} from 'native-base';
 import {connect} from 'react-redux';
 
 //actions
-import {getCommunity} from './redux/actions';
+import {getSelectedResources} from '../MoreScreen/redux/actions';
 
 // components
 import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
@@ -29,13 +29,19 @@ const {row, fill, center, alignItemsCenter, justifyContentBetween} = Layout;
 
 const {titleSmall, textMedium} = Fonts;
 
-const Community = props => {
-  const {data, requesting} = props;
+const Community = (props) => {
+  const {
+    selectedResource,
+    requesting,
+    route: {
+      params: {item},
+    },
+  } = props;
 
   useEffect(() => {
-    props.getCommunity();
+    props.getSelectedResources(item);
   }, []);
-
+  console.log('selectedResource', selectedResource);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -44,7 +50,7 @@ const Community = props => {
           right={<Avatar size="regular" />}
         />
         <View style={[row, alignItemsCenter, smallBMargin]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <Image source={Images.camarrowback} style={backImage} />
           </TouchableOpacity>
           <Text
@@ -68,10 +74,18 @@ const Community = props => {
           <Content contentContainerStyle={[mediumBPadding]}>
             <DataAvailability
               requesting={requesting}
-              hasData={data && data.length > 0}
+              hasData={selectedResource.length && selectedResource.length > 0}
               style={dataWrapper}>
-              {data &&
-                data.map((card, i) => <CommunityCard key={i} card={card} />)}
+              {selectedResource.length &&
+                selectedResource.map((item, i) => (
+                  <CommunityCard
+                    key={i}
+                    name={item.title}
+                    description={item.description}
+                    imageUrl={item.image}
+                    members="489 members"
+                  />
+                ))}
             </DataAvailability>
           </Content>
         </View>
@@ -80,16 +94,13 @@ const Community = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  data: state.community.data,
-  requesting: state.community.requesting,
+const mapStateToProps = (state) => ({
+  selectedResource: state.selectedResource.selectedResource,
+  requesting: state.selectedResource.requesting,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getCommunity: () => dispatch(getCommunity()),
+const mapDispatchToProps = (dispatch) => ({
+  getSelectedResources: (item) => dispatch(getSelectedResources(item)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Community);
+export default connect(mapStateToProps, mapDispatchToProps)(Community);

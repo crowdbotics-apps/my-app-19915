@@ -8,14 +8,17 @@ import {Fonts, Gutters, Images} from 'src/theme';
 import styles from './styles';
 
 const {mediumBPadding, smallLMargin, regularHMargin} = Gutters;
-const {textMedium,titleSmall} = Fonts;
-const {imageWrapper, card, textWrapper, icon, favouriteicon} = styles;
-const ActivityCard = ({title, text ,icon ,source, isFavourite}) => {
+const {textMedium, titleSmall} = Fonts;
+const {imageWrapper, card, textWrapper, iconStyle, favouriteicon} = styles;
+const ActivityCard = ({title, text, icon, source, isFavourite}) => {
   return (
     <>
       <View style={card}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image style={icon} source={source?source:Images.activityicon} />
+          <Image
+            style={iconStyle}
+            source={source ? source : Images.activityicon}
+          />
           <View style={[smallLMargin, textWrapper]}>
             <View
               style={{
@@ -24,7 +27,10 @@ const ActivityCard = ({title, text ,icon ,source, isFavourite}) => {
                 alignItems: 'center',
               }}>
               {isFavourite && (
-                <Image style={favouriteicon} source={icon ? icon:Images.starfav} />
+                <Image
+                  style={favouriteicon}
+                  source={icon ? icon : Images.smallstar}
+                />
               )}
               <Text style={titleSmall} text={title} />
             </View>

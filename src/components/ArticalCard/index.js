@@ -1,27 +1,29 @@
 import React from 'react';
 
-import {View, Image} from 'react-native';
+import {View, Image, ImageStore} from 'react-native';
 import {Content} from 'native-base';
 // components
 import {Text} from 'src/components';
-import {Fonts, Gutters} from 'src/theme';
+import {Fonts, Gutters, Images} from 'src/theme';
 import styles from './styles';
 
 const {mediumBPadding, smallVMargin, regularHMargin} = Gutters;
 const {textMedium} = Fonts;
 const {imageWrapper, card, textWrapper} = styles;
-const ArticalCard = ({item, items}) => {
-  const {image, article_name, description} = item;
+const ArticalCard = ({imageUrl, name, description}) => {
   return (
     <>
       <View style={card}>
-        <Image source={{uri: image}} style={imageWrapper} />
+        <Image
+          source={imageUrl ? {uri: imageUrl} : Images.communityimage1}
+          style={imageWrapper}
+        />
 
         <View style={textWrapper}>
           <Text
             bold
             color="river"
-            text={article_name}
+            text={name}
             style={[textMedium, smallVMargin]}
           />
           <Text

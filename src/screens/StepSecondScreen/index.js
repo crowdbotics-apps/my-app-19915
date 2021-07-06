@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
-import { Content, Icon, Input } from 'native-base';
+import {Content, Icon, Input} from 'native-base';
 import {
   View,
   ImageBackground,
@@ -10,45 +10,39 @@ import {
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 // components
-import { Text, Button } from 'src/components';
-import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
+import {Text, Button} from 'src/components';
+import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 //actions
-import {postStepTwo} from './redux/actions'
+import {postStepTwo} from './redux/actions';
 
 // styles
 import styles from './styles';
 
-const StepSecondScreen = props => {
+const StepSecondScreen = (props) => {
   const {
     requesting,
     stepOneData,
     stepTwoData,
-    navigation: { navigate },
+    postStepTwo,
+    navigation: {navigate},
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRelation, setSelectedRelation] = useState('');
-  const [selectedProfession, setSelectedProfession] = useState('');
-console.log('stepOneData',stepOneData);
-  const relationshipStatus = [
-    "YES",
-    "NO"
-  ];
+  const [selectedRelation, setSelectedRelation] = useState(0);
+  const [selectedProfession, setSelectedProfession] = useState(0);
+  console.log('stepOneData', stepOneData);
+  const relationshipStatus = ['Married', 'Unmarried'];
 
-  const professionalStatus = [
-    "PROFESSIONAL",
-    "NON-PROFESSIONAL"
-  ]
+  const professionalStatus = ['Employee', 'Unemployee', 'Business'];
 
-  const onDateChange = date => {
+  const onDateChange = (date) => {
     setDOB(date);
     setDateText(date);
   };
-
 
   const submitForm = () => {
     const data = {
@@ -59,15 +53,17 @@ console.log('stepOneData',stepOneData);
     navigate('StepThirdScreen');
   };
 
-  const onPress = val => {
+  const onPress = (val) => {
     val === checked ? setChecked(0) : setChecked(val);
   };
 
-  const onSelectRelation = relation => {
-    setSelectedRelation(relation), setChecked('');
+  const onSelectRelation = (i) => {
+    setSelectedRelation(i);
+    setChecked('');
   };
-  const onSelectProfession = profession => {
-    setSelectedProfession(profession), setChecked('');
+  const onSelectProfession = (i) => {
+    setSelectedProfession(i);
+    setChecked('');
   };
 
   const {
@@ -79,9 +75,9 @@ console.log('stepOneData',stepOneData);
     alignItemsCenter,
     fullSize,
   } = Layout;
-  
-  const { primaryBg, secondaryBg, borderB, borderColor } = Global;
-  
+
+  const {primaryBg, secondaryBg, borderB, borderColor} = Global;
+
   const {
     largeHMargin,
     regularHMargin,
@@ -92,9 +88,9 @@ console.log('stepOneData',stepOneData);
     regularTMargin,
     largeXTMargin,
     regularVPadding,
-    smallVPadding
+    smallVPadding,
   } = Gutters;
-  
+
   const {
     fieldWrapper,
     buttonWrapper,
@@ -104,8 +100,9 @@ console.log('stepOneData',stepOneData);
     textWrapper,
     paragraphWrapper,
   } = styles;
-  
-  const { titleSmall } = Fonts;
+
+  const {titleSmall} = Fonts;
+  console.log('stepTwoData',stepTwoData);
 
   return (
     <>
@@ -127,7 +124,7 @@ console.log('stepOneData',stepOneData);
               />
             </View>
 
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
               <ProgressSteps
                 marginBottom={30}
                 activeStep={1}
@@ -139,13 +136,13 @@ console.log('stepOneData',stepOneData);
                 completedProgressBarColor="#FFFFFF"
                 progressBarColor="#FFFFFF">
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
               </ProgressSteps>
             </View>
@@ -155,25 +152,27 @@ console.log('stepOneData',stepOneData);
               style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.relation} style={regularHMargin} />
               <Text
-                text={selectedRelation ? selectedRelation : "RELATIONSHIP STATUS"}
+                text={
+                  relationshipStatus[selectedRelation]
+                }
                 category="p1"
                 style={[fill, borderColor]}
               />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
-            {checked === 2 && relationshipStatus.map((relation) =>
-              <View style={[primaryBg, regularHPadding]}>
-                <TouchableOpacity onPress={() => onSelectRelation(relation)}>
-                  <Text
-                    text={relation}
-                    color="secondary"
-                    category="p1"
-                    style={[borderB, borderColor, smallVPadding]}
-                  />
-                </TouchableOpacity>
-
-              </View>
-            )}
+            {checked === 2 &&
+              relationshipStatus.map((text, i) => (
+                <View style={[primaryBg, regularHPadding]}>
+                  <TouchableOpacity onPress={() => onSelectRelation(i)}>
+                    <Text
+                      text={relationshipStatus[i]}
+                      color="secondary"
+                      category="p1"
+                      style={[borderB, borderColor, smallVPadding]}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
 
             <TouchableOpacity
               onPress={() => onPress(4)}
@@ -186,32 +185,36 @@ console.log('stepOneData',stepOneData);
               ]}>
               <Image source={Images.profession} style={regularHMargin} />
               <Text
-                text={selectedProfession ? selectedProfession : "PROFESSIONAL STATUS"}
+                text={
+                  professionalStatus[selectedProfession]
+                }
                 category="p1"
                 style={[fill, borderColor]}
               />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
-            {checked === 4 && professionalStatus.map((profession) =>
-              <View style={[primaryBg, regularHPadding]}>
-                <TouchableOpacity onPress={() => onSelectProfession(profession)}>
-                  <Text
-                    text={profession}
-                    color="secondary"
-                    category="p1"
-                    style={[borderB, borderColor, smallVPadding]}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
+            {checked === 4 &&
+              professionalStatus.map((text,i) => (
+                <View style={[primaryBg, regularHPadding]}>
+                  <TouchableOpacity
+                    onPress={() => onSelectProfession(i)}>
+                    <Text
+                      text={professionalStatus[i]}
+                      color="secondary"
+                      category="p1"
+                      style={[borderB, borderColor, smallVPadding]}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
 
             <TouchableOpacity
               onPress={() => submitForm()}
               style={buttonTMargin}>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={['#56D3FB','#53F4EB']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#56D3FB', '#53F4EB']}
                 style={[fill, row, center, buttonWrapper, largeXTMargin]}>
                 <Text style={titleSmall} text="Continue" color="river" />
               </LinearGradient>
@@ -225,7 +228,7 @@ console.log('stepOneData',stepOneData);
                 date={dob}
                 mode="date"
                 style={secondaryBg}
-                onDateChange={date => onDateChange(date)}
+                onDateChange={(date) => onDateChange(date)}
               />
 
               <Button
@@ -246,7 +249,8 @@ console.log('stepOneData',stepOneData);
 
 const mapStateToProps = (state) => ({
   requesting: state.stepTwoData.requesting,
-  stepOneData: state.stepOneData.stepOneData
+  stepOneData: state.stepOneData.stepOneData,
+  stepTwoData: state.stepTwoData.stepTwoData
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -25,7 +25,10 @@ import {getDashboard} from './redux/actions';
 
 const Dashboard = (props) => {
   const {
+    user,
     data,
+    stepThreeData,
+    profileData,
     requesting,
     navigation: {navigate},
   } = props;
@@ -70,13 +73,17 @@ const Dashboard = (props) => {
     smallCircleWrapper,
     bottomButtonWrapper,
   } = styles;
-
+  console.log('stepThreeData', stepThreeData);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <SafeAreaView style={[row, justifyContentBetween, headerWrapper]}>
           <MenuIcon grey action={() => props.navigation.openDrawer()} />
-          <Avatar size="regular" />
+          <Avatar
+            size="regular"
+            imageUrl={profileData.image}
+            action={() => navigate('MyAccount')}
+          />
         </SafeAreaView>
         <Content contentContainerStyle={smallBPadding}>
           <View style={[center, progressWrapper]}>
@@ -185,7 +192,10 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => ({
   data: state.dashboard.data,
+  user: state.app.user,
   requesting: state.dashboard.requesting,
+  stepThreeData: state.stepThreeData.stepThreeData,
+  profileData: state.profileData.profileData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

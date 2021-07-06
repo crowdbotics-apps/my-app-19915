@@ -9,16 +9,9 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: Colors.secondary,
     zIndex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: 10,
   },
-  titleWrapper: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+  
   container: {
     width:'100%',
     position: 'relative',

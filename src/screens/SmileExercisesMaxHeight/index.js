@@ -9,6 +9,10 @@ import {
 } from 'react-native';
 import {Content} from 'native-base';
 import {connect} from 'react-redux';
+
+//actions
+import {getSelectedResources} from '../MoreScreen/redux/actions';
+
 //styles
 import styles from './styles';
 
@@ -23,9 +27,6 @@ import {
   ProgressCircle,
   DataAvailability,
 } from 'src/components';
-
-//action
-import {getSciences} from './redux/actions';
 
 import {Gutters, Images, Layout, Fonts, Colors} from 'src/theme';
 const {
@@ -59,13 +60,20 @@ const {
 
 const {titleSmall, textMedium} = Fonts;
 
-const SmileExercisesMaxHeight = props => {
-  const {sciences, requesting} = props;
+const SmileExercisesMaxHeight = (props) => {
+  const {
+    selectedResource,
+    requesting,
+    route: {
+      params: {item},
+    },
+  } = props;
 
   useEffect(() => {
-    props.getSciences();
+    props.getSelectedResources(item);
   }, []);
-
+  console.log('item', item);
+  console.log('selectedResource', selectedResource);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -75,7 +83,7 @@ const SmileExercisesMaxHeight = props => {
         />
         <DataAvailability
           requesting={requesting}
-          hasData={sciences && sciences.length > 0}
+          hasData={selectedResource && selectedResource.length > 0}
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
@@ -90,12 +98,16 @@ const SmileExercisesMaxHeight = props => {
           </View>
           <Content contentContainerStyle={[regularHPadding, mediumBPadding]}>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-              {sciences &&
-                sciences.map((item, i) => (
+              {selectedResource.length &&
+                selectedResource.map((item, i) => (
                   <View
                     key={i}
                     style={[row, smallRMargin, justifyContentBetween]}>
-                    <ArticalCard item={item} />
+                    <ArticalCard
+                      name={item.title}
+                      imageUrl={item.image}
+                      description={item.description}
+                    />
                   </View>
                 ))}
             </ScrollView>
@@ -111,36 +123,44 @@ const SmileExercisesMaxHeight = props => {
               <View style={[progressWrapper]}>
                 <View style={[center]}>
                   <ProgressCircle
-                    size={107}
+                    size={100}
                     strokeCap="round"
-                    progress={0.5}
+                    progress={0.6}
+                    thickness={5}
                     showsText={false}
-                    color="white"
-                    unfilledColor={Colors.hawkesblue}
+                    color={Colors.golden}
+                    unfilledColor={Colors.lightgolden}
                   />
-                  <Image style={[positionA]} source={Images.progressimage} />
+                  <Image
+                    style={[positionA]}
+                    source={Images.progressimagegolden}
+                  />
                 </View>
               </View>
               <View>
                 <Text
-                  color="river"
+                  color="lightgolden"
                   style={[smallLMargin, smallBMargin, textMedium]}
                   text={'Smile to continue\nyour 24 day streak'}
                 />
                 <Text
-                  color="river"
+                  color="lightgolden"
                   style={[smallLMargin, smallBMargin, textMedium]}
                   text={'Your longest smile\nstreak has been 38 days'}
                 />
               </View>
             </View>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-              {sciences &&
-                sciences.map((item, i) => (
+              {selectedResource.length &&
+                selectedResource.map((item, i) => (
                   <View
                     key={i}
                     style={[row, smallRMargin, justifyContentBetween]}>
-                    <ArticalCard item={item} />
+                    <ArticalCard
+                      name={item.title}
+                      imageUrl={item.image}
+                      description={item.description}
+                    />
                   </View>
                 ))}
             </ScrollView>
@@ -155,13 +175,13 @@ const SmileExercisesMaxHeight = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  sciences: state.sciences.data,
-  requesting: state.sciences.requesting,
+const mapStateToProps = (state) => ({
+  selectedResource: state.selectedResource.selectedResource,
+  requesting: state.selectedResource.requesting,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getSciences: () => dispatch(getSciences()),
+const mapDispatchToProps = (dispatch) => ({
+  getSelectedResources: (item) => dispatch(getSelectedResources(item)),
 });
 
 export default connect(

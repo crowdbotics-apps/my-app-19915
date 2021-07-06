@@ -3,20 +3,20 @@ import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   backImage:{
-      width:50,
-      height:50,
+      width:40,
+      height:40,
       marginHorizontal:20
   },
-  resource:{marginLeft:20},
-  star:{top:-10,left:290},
+  star:{top:-8,right:20,
+  position:'absolute',zIndex:1},
   text:{
       lineHeight:20
   },
   image:{
     marginTop: 15,
-    width:414,
     height:400,
-    paddingHorizontal:50
+    width:414,
+    resizeMode:'contain',
   },
   dataWrapper:{
     paddingVertical:250

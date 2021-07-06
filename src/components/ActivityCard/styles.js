@@ -16,9 +16,10 @@ export default StyleSheet.create({
     marginBottom:10
   },
   textWrapper: {height: 46, justifyContent: 'space-evenly'},
-  icon: {
+  iconStyle: {
     width: 48,
     height: 48,
+    resizeMode:'contain'
   },
   favouriteicon: {
     width: 16,
