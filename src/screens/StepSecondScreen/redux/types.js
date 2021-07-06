@@ -1,0 +1,1 @@
+export const POST_STEP_TWO = 'SMILEAPP/STEPS/POST_STEP_TWO';

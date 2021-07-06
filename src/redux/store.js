@@ -1,8 +1,9 @@
-import { combinedReducers } from "./mainReducer";
-import { createStore, applyMiddleware, compose } from "redux";
-import createSagaMiddleware from "redux-saga";
-import { mainSaga } from "./mainSaga";
-
+import combinedReducers from './mainReducer';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { persistCombineReducers } from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
+import { mainSaga } from './mainSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 /**
@@ -12,9 +13,20 @@ const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = [sagaMiddleware /** more middlewares if any goes here */];
 
-const store = createStore(
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['login'],
+};
+
+const persistedReducer = persistCombineReducers(
+  persistConfig,
   combinedReducers,
-  composeEnhancers(applyMiddleware(...middlewares))
+);
+
+const store = createStore(
+  persistedReducer,
+  composeEnhancers(applyMiddleware(...middlewares)),
 );
 
 sagaMiddleware.run(mainSaga);

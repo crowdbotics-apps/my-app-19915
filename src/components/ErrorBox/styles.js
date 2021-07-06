@@ -1,15 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+import { Colors } from 'src/theme';
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderColor: "#e3e3e3",
-    padding: 10,
-    margin: 10,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
-  errorText: { textAlign: "center" }
 });
 
 export default styles;

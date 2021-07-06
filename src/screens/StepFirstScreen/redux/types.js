@@ -1,0 +1,1 @@
+export const POST_STEP_ONE = 'SMILEAPP/QUOTE/POST_STEP_ONE';
