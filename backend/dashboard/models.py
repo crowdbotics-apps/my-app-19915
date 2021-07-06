@@ -85,3 +85,13 @@ class Goal(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class Streak(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_streak")
+    max_streak = models.IntegerField()
+    latest_streak = models.IntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user)

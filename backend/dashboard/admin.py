@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dashboard.models import Quote, Smile, SmileExercise, Resource, ResourceItem, FavoriteExercise, Goal
+from dashboard.models import Quote, Smile, SmileExercise, Resource, ResourceItem, FavoriteExercise, Goal, Streak
 
 # Register your models here.
 
@@ -32,6 +32,10 @@ class GoalAdmin(admin.ModelAdmin):
     list_display = ["user", "goal_second", "created"]
 
 
+class StreakAdmin(admin.ModelAdmin):
+    list_display = ["user", "max_streak", "latest_streak", "created"]
+
+
 admin.site.register(Quote, QuoteAdmin)
 admin.site.register(Smile, SmileAdmin)
 admin.site.register(SmileExercise, SmileExerciseAdmin)
@@ -39,3 +43,4 @@ admin.site.register(Resource, ResourceAdmin)
 admin.site.register(ResourceItem, ResourceItemAdmin)
 admin.site.register(FavoriteExercise, FavoriteExerciseAdmin)
 admin.site.register(Goal, GoalAdmin)
+admin.site.register(Streak, StreakAdmin)

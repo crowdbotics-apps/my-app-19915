@@ -18,7 +18,7 @@ from rest_auth.registration.views import SocialLoginView
 
 from dashboard.api.v1.serializers import QuoteSerializer, SmileSerializer, SmileExerciseSerializer, \
     SmileResourceItemSerializer, FavoriteExerciseSerializer, ResourceSerializer, GoalSerializer
-from dashboard.models import Quote, Smile, SmileExercise, ResourceItem, FavoriteExercise, Resource, Goal
+from dashboard.models import Quote, Smile, SmileExercise, ResourceItem, FavoriteExercise, Resource, Goal, Streak
 
 
 class QuoteViewSet(ModelViewSet):
@@ -70,13 +70,30 @@ class SmileDashboard(ModelViewSet):
                 previous_date = today - timedelta(days=count)
             streak_list.append(streak)
             latest_streak = streak
+            s = Streak.objects.filter(user=self.request.user).values("max_streak", "latest_streak")
+            m = 0
+            l = 0
+            if s:
+                m = s[0]["max_streak"]
+                l = s[0]["latest_streak"]
             max_streak = max(streak_list)
+            if max_streak >= m:
+                if m == 0:
+                    st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
+                else:
+                    if latest_streak > l:
+                        st = Streak.objects.update(latest_streak=latest_streak)
+                    st = Streak.objects.update(max_streak=max_streak)
+            # else:
+            #     if latest_streak > l:
+            #         st = Streak.objects.update(latest_streak=latest_streak)
+
             try:
                 output = {
                     'dashboard': day_dashboard_query,
                     'best_day': b,
                     'latest_Streak': latest_streak,
-                    'max_streak': max_streak,
+                    'max_streak': max_streak if max_streak > m else m,
                 }
             except:
                 output = {"avg_smile": 0.0, "min_smile": 0.0, "max_smile": 0.0,
@@ -100,7 +117,6 @@ class SmileDashboard(ModelViewSet):
 class SmileExerciseViewSet(ModelViewSet):
     serializer_class = SmileExerciseSerializer
     queryset = SmileExercise.objects.all()
-        # SmileExercise.objects.filter(is_active=True).prefetch_related("favorite")
 
     def get_queryset(self):
         queryset = self.queryset
@@ -146,7 +162,8 @@ class SmileLevelViewSet(ModelViewSet):
         queryset_dashboard = queryset.filter(created__date__lte=today, user=self.request.user).values('user')\
             .annotate(total_second=Sum('second'))
         total_second = 0
-        total_second = queryset_dashboard[0]['total_second']
+        if queryset_dashboard:
+            total_second = queryset_dashboard[0]['total_second']
         level = 0
         if total_second <= 1800:
             l = {10: 1, 60: 2, 120: 3, 300: 4, 420: 5, 600: 6, 900: 7, 1200: 8, 1500: 9, 1800: 10}
@@ -175,7 +192,10 @@ class SmileLevelViewSet(ModelViewSet):
                         i = False
             else:
                 level = 10
-        return Response(level, status=status.HTTP_200_OK)
+        output = {
+            "level": level
+        }
+        return Response(output, status=status.HTTP_200_OK)
 
 
 class GoalViewSet(ModelViewSet):
@@ -191,23 +211,35 @@ class GoalViewSet(ModelViewSet):
         queryset = queryset.filter(created__gte=date.today()).values("goal_second")
         b = Smile.objects.filter(user=self.request.user, created__gte=date.today())\
             .values('created__date').annotate(total=Sum('second')).annotate(total_count=Count('second'))
-        total = b[0]["total"]
-        smile_count = b[0]["total_count"]
-        goal = queryset[0]["goal_second"]
+        total = 0
+        smile_count = 0
+        goal = 0
+        average = 0
+        if queryset:
+            goal = queryset[0]["goal_second"]
+
+        if b:
+            total = b[0]["total"]
+            smile_count = b[0]["total_count"]
+            goal = queryset[0]["goal_second"]
+            average = total / goal * 100
         message = ""
-        average = total / goal * 100
+        remaining_second = 0
         if total == goal:
-            message = "congratulation you complete this goal"
+            if goal == 0:
+                message = "you have not define your goal"
+            else:
+                message = "congratulation you complete this goal"
         else:
             if total < goal:
                 a = goal - total
-                message = a
-                print(a, "more times for your smile count goal")
+                remaining_second = a
             else:
                 average = (total / goal * 100) - ((total - goal) / goal * 100)
                 message = "congratulation you complete this goal"
         output = {
             "message": message,
+            "remaining_second": round(remaining_second, 2),
             "average": int(average),
             "smile_count": smile_count,
             "smile_second": total
