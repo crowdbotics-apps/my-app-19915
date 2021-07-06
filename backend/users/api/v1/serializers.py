@@ -18,7 +18,7 @@ User = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
-    goals = fields.MultipleChoiceField(choices=User.GOALS)
+    # goals = fields.MultipleChoiceField(choices=User.GOALS)
 
     class Meta:
         model = User
