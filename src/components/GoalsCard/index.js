@@ -1,17 +1,67 @@
 import React from 'react';
-import {View, Image} from 'react-native';
-import {
-  Text
-} from 'src/components';
+import {View, Image, ImageStore} from 'react-native';
+import {Text} from 'src/components';
+import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
+import style from './style';
+const {CompletedStyle, unCompletedStyle} = style;
 
-const GoalsCard = ({text1,text2,text3,text4,text1Style,text2Style,text3Style,text4Style,text1Color,text2Color,text3Color,text4Color,containerStyle,checked}) =>{
-    return(
-    <View style={[containerStyle]}>
-        <Text color='riverbed' text={text1} style={text1Style}/>
-        <Text color='golden' text={text2} style={text2Style}/>
-        <Text color='riverbed' text={text3} style={text3Style}/>
-        <Text color={text4Color} text={text4} style={text4Style}/>
-    </View>
-)}
+const GoalsCard = ({
+  title,
+  count,
+  isCompleted,
+  description,
+  descriptionColor,
+  descriptionStyle,
+  otherText,
+  otherTextColor,
+}) => {
+  return (
+    <>
+      {isCompleted ? (
+        <Image
+          source={Images.checked}
+          style={{position: 'absolute', top: 70, left: 50, zIndex: 1}}
+        />
+      ) : null}
+      <View style={[isCompleted ? CompletedStyle : unCompletedStyle]}>
+        <Text
+          color={isCompleted ? '#54704E' : 'riverbed'}
+          text={title}
+          style={{fontSize: 20, lineHeight: 24}}
+        />
+        <View
+          style={{
+            height: 45,
+            width: 134,
+            borderWidth: 1,
+            borderRadius: 15,
+            marginVertical: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            color={isCompleted ? '#54704E' : 'golden'}
+            text={count}
+            bold
+            style={{fontSize: 30, lineHeight: 36}}
+          />
+        </View>
+        <Text
+          color={descriptionColor}
+          text={description}
+          style={[
+            {fontSize: 20, lineHeight: 24, color: '#495A66'},
+            descriptionStyle,
+          ]}
+        />
+        <Text
+          color={isCompleted ? '#54704E' : 'riverbed'}
+          text={otherText}
+          style={[{fontSize: 20, lineHeight: 24}]}
+        />
+      </View>
+    </>
+  );
+};
 
 export default GoalsCard;

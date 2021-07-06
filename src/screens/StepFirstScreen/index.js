@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
-import { Content, Icon, Input } from 'native-base';
+import {Content, Icon, Input} from 'native-base';
 import {
   View,
   ImageBackground,
@@ -10,51 +10,50 @@ import {
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 // components
-import { Text, Button, Test } from 'src/components';
-import { Global, Layout, Images, Gutters, Fonts } from 'src/theme';
+import {Text, Button, Test} from 'src/components';
+import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 //actions
-import {postStepOne} from './redux/actions'
+import {postStepOne} from './redux/actions';
 
 // styles
 import styles from './styles';
 
-const StepFirstScreen = props => {
+const StepFirstScreen = (props) => {
   const {
-    navigation: { navigate },
+    navigation: {navigate},
     postStepOne,
-    stepOneData
+    stepOneData,
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedAge, setSelectedAge] = useState('');
+  const [selectedAge, setSelectedAge] = useState(0);
   const [selectedGender, setSelectedGender] = useState(0);
-  const [selectedChildren, setSelectedChildren] = useState('');
-console.log('stepOneData',stepOneData);
-console.log('selectedGender',selectedGender);
-console.log('selectedAge',selectedAge);
-  const onDateChange = date => {
+  const [selectedChildren, setSelectedChildren] = useState(0);
+  console.log('stepOneData', stepOneData);
+  console.log('selectedGender', selectedGender);
+  console.log('selectedAge', selectedAge);
+  const onDateChange = (date) => {
     setDOB(date);
     setDateText(date);
   };
- 
+
   const submitForm = () => {
     const data = {
       age: selectedAge,
       gender: selectedGender,
-      children: selectedChildren
+      children: selectedChildren,
     };
     postStepOne(data);
     navigate('StepSecondScreen');
   };
 
-  const onPress = val => {
-    (val) === checked ? setChecked() : setChecked(val);
+  const onPress = (val) => {
+    val === checked ? setChecked() : setChecked(val);
   };
-
 
   const {
     row,
@@ -65,7 +64,7 @@ console.log('selectedAge',selectedAge);
     alignItemsCenter,
     fullSize,
   } = Layout;
-  const { primaryBg, secondaryBg, borderB, borderColor } = Global;
+  const {primaryBg, secondaryBg, borderB, borderColor} = Global;
   const {
     largeHMargin,
     regularHMargin,
@@ -94,7 +93,7 @@ console.log('selectedAge',selectedAge);
     headingWrapper,
     paraGraphWrapper,
   } = styles;
-  const { titleSmall } = Fonts;
+  const {titleSmall} = Fonts;
 
   const ageRange = [
     '18-24',
@@ -102,32 +101,25 @@ console.log('selectedAge',selectedAge);
     '35-44',
     '45-54',
     '55-64',
-    '64 AND OLDER',
+    '64 and older',
   ];
 
-  const Gender = [
-    "MALE",
-    "FEMALE",
-    "OTHER"
-  ];
+  const Gender = ['Male', 'Female', 'Other'];
 
-  const Children = [
-    "YES",
-    "NO"
-  ]
+  const Children = ['Yes', 'No'];
 
-  const onSelectAge = age => {
-    setSelectedAge(age);
+  const onSelectAge = (i) => {
+    setSelectedAge(i);
     setChecked('');
   };
 
-  const onSelectGender = i => {
+  const onSelectGender = (i) => {
     setSelectedGender(i);
     setChecked('');
   };
 
-  const onSelectChildren = child => {
-    setSelectedChildren(child);
+  const onSelectChildren = (i) => {
+    setSelectedChildren(i);
     setChecked('');
   };
 
@@ -151,7 +143,7 @@ console.log('selectedAge',selectedAge);
               />
             </View>
 
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
               <ProgressSteps
                 marginBottom={30}
                 activeStepNumColor="#DF647A"
@@ -162,13 +154,13 @@ console.log('selectedAge',selectedAge);
                 completedProgressBarColor="#FFFFFF"
                 progressBarColor="#FFFFFF">
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
               </ProgressSteps>
             </View>
@@ -179,24 +171,19 @@ console.log('selectedAge',selectedAge);
               <Image source={Images.age} style={regularHMargin} />
               <Text
                 style={[fill, borderColor]}
-                text={selectedAge ? selectedAge : 'AGE'}
-                color="quaternary"
-                category="h6"
+                text={ageRange[selectedAge]}
+                category="p1"
               />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
             {checked === 0 &&
-              ageRange.map((age, i) => (
+              ageRange.map((text, i) => (
                 <View
                   key={i}
-                  style={[
-                    primaryBg,
-                    regularHPadding,
-                    categoryWrapper,
-                  ]}>
-                  <TouchableOpacity onPress={() => onSelectAge(age)}>
+                  style={[primaryBg, regularHPadding, categoryWrapper]}>
+                  <TouchableOpacity onPress={() => onSelectAge(i)}>
                     <Text
-                      text={age}
+                      text={ageRange[i]}
                       color="secondary"
                       category="p1"
                       style={[borderB, borderColor, smallVPadding]}
@@ -214,26 +201,26 @@ console.log('selectedAge',selectedAge);
                 regularHPadding,
               ]}>
               <Image source={Images.gender} style={regularHMargin} />
-              <Text text={Gender[selectedGender]} category="p1" style={[fill, borderColor]} />
+              <Text
+                text={Gender[selectedGender]}
+                category="p1"
+                style={[fill, borderColor]}
+              />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
-            {checked === 1 && Gender.map((gender, i) =>
-              <View
-                style={[
-                  primaryBg,
-                  regularHPadding,
-                  categoryWrapper,
-                ]}>
-                <TouchableOpacity onPress={() => onSelectGender(i)}>
-                  <Text
-                    text={Gender[i]}
-                    color="secondary"
-                    category="p1"
-                    style={[borderB, borderColor, smallVPadding]}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
+            {checked === 1 &&
+              Gender.map((text, i) => (
+                <View style={[primaryBg, regularHPadding, categoryWrapper]}>
+                  <TouchableOpacity onPress={() => onSelectGender(i)}>
+                    <Text
+                      text={Gender[i]}
+                      color="secondary"
+                      category="p1"
+                      style={[borderB, borderColor, smallVPadding]}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
 
             <TouchableOpacity
               onPress={() => onPress(2)}
@@ -245,34 +232,35 @@ console.log('selectedAge',selectedAge);
                 regularHPadding,
               ]}>
               <Image source={Images.child} style={regularHMargin} />
-              <Text text={selectedChildren ? 'YES' : 'NO'} category="p1" style={[fill, borderColor]} />
+              <Text
+                text={Children[selectedChildren]}
+                category="p1"
+                style={[fill, borderColor]}
+              />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
-            {checked === 2 && Children.map((child) =>
-              <View
-                style={[
-                  primaryBg,
-                  regularHPadding,
-                  categoryWrapper,
-                ]}>
-                <TouchableOpacity onPress={() => onSelectChildren(child === 'YES')}>
-                  <Text
-                    text={child}
-                    color="secondary"
-                    category="p1"
-                    style={[borderB, borderColor, smallVPadding]}
-                  />
-                </TouchableOpacity>
-              </View>
-            )}
+            {checked === 2 &&
+              Children.map((text,i) => (
+                <View style={[primaryBg, regularHPadding, categoryWrapper]}>
+                  <TouchableOpacity
+                    onPress={() => onSelectChildren(i)}>
+                    <Text
+                      text={Children[i]}
+                      color="secondary"
+                      category="p1"
+                      style={[borderB, borderColor, smallVPadding]}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
 
             <TouchableOpacity
               onPress={() => submitForm()}
               style={buttonTMargin}>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={['#56D3FB','#53F4EB']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#56D3FB', '#53F4EB']}
                 style={[
                   fill,
                   row,
@@ -313,7 +301,7 @@ console.log('selectedAge',selectedAge);
 };
 
 const mapStateToProps = (state) => ({
-  stepOneData:state.stepOneData.stepOneData
+  stepOneData: state.stepOneData.stepOneData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -321,4 +309,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepFirstScreen);
-

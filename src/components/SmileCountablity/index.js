@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   secondText: {
     fontSize: 30,
-    lineHeight: 30
+    lineHeight: 30,
   },
   icon: {
     color: Colors.cinnamon

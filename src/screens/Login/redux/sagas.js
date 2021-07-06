@@ -59,6 +59,7 @@ function* login({data}) {
     AsyncStorage.setItem('authToken', res.key);
     yield put(setAuthToken(res.key));
     yield put(setUserInfo(resp.user_detail));
+    console.log('resp.user_detail', resp.user_detail);
   } catch (e) {
     console.log(e.response);
     yield put(loginFailure('EMAIL OR PASSWORD IS INVALID'));
@@ -69,7 +70,7 @@ function* facebookLogin({accessToken}) {
   try {
     const res = yield call(facebookLoginAPI, accessToken);
     console.log('res from saga', res.data);
-    AsyncStorage.setItem('authToken', res.data.key);
+    //AsyncStorage.setItem('authToken', res.data.key);
     //AsyncStorage.setItem('user', JSON.stringify(res.data.user_detail));
     //yield put(setUserInfo(res.data.user_detail));
     yield put(setAuthToken(res.data.key));

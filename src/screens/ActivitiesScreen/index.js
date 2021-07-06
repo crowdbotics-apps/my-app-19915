@@ -48,9 +48,10 @@ const {titleSmall, textLarge, textMedium} = Fonts;
 
 const ActivitiesScreen = (props) => {
   const {
+    profileData,
     requesting,
     activitiesExercises,
-    navigation: {openDrawer},
+    navigation: {navigate},
   } = props;
   const Activities = [
     {title: 'Smile Activity 1', text: 'Recommened for you', favourity: true},
@@ -73,14 +74,20 @@ const ActivitiesScreen = (props) => {
 
   const onSelectActivity = (item) => {
     props.selectActivities(item);
-    console.log('selectedItem',item);
+    console.log('selectedItem', item);
   };
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
           left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <View style={[row, center, alignItemsCenter, smallBMargin]}>
           <Text text="Activities" color="river" style={titleSmall} />
@@ -133,6 +140,9 @@ const ActivitiesScreen = (props) => {
                     key={i}
                     title={item.exercise_name}
                     text={item.title}
+                    item={item}
+                    source={{uri: item.image_or_video}}
+                    isFavourite={item.is_favorite}
                   />
                 </TouchableOpacity>
               ))}
@@ -173,6 +183,7 @@ const ActivitiesScreen = (props) => {
 
 const mapStateToProps = (state) => ({
   requesting: state.activitiesExercises.requesting,
+  profileData: state.profileData.profileData,
   activitiesExercises: state.activitiesExercises.activitiesExercises,
 });
 

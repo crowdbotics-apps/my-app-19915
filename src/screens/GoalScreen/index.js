@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Content} from 'native-base';
+import {connect} from 'react-redux';
 import {View, Image, TouchableOpacity, ImageBackground} from 'react-native';
 
 // components
@@ -9,16 +10,43 @@ import {
   Footer,
   Avatar,
   MenuIcon,
+  DataAvailability,
   ProgressCircle,
   SmileStone,
   GoalsCard,
 } from 'src/components';
 import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 
+//actions
+import {getGoals, getLevels, getStreaks} from './redux/actions';
+
 // styles
 import styles from './styles';
+import {useEffect} from 'react/cjs/react.development';
 
-const GoalScreen = props => {
+const GoalScreen = (props) => {
+  const {
+    navigation: {navigate},
+    streaks,
+    smileGoals,
+    requesting,
+    profileData,
+    smileLevel,
+  } = props;
+
+  useEffect(() => {
+    props.getStreaks();
+    props.getGoals();
+    props.getLevels();
+  }, []);
+
+  const getAverage = () => {
+    if (smileGoals && smileGoals.average) {
+      return smileGoals.average;
+    }
+    return 0;
+  };
+
   const [active, setActive] = useState(6);
   const {
     row,
@@ -30,27 +58,17 @@ const GoalScreen = props => {
     alignItemsCenter,
   } = Layout;
 
-  const {
-    textCenter,
-    bold,
-    titleSmall,
-    textLarge,
-    textMediumX,
-    titleRegular,
-  } = Fonts;
+  const {bold, textCenter, titleSmall, titleRegular} = Fonts;
 
   const {
     mediumTMargin,
     mediumHMargin,
     mediumBPadding,
     smallTMargin,
-    small2xRMargin,
     mediumVMargin,
     small2xHMargin,
     smallVMargin,
-    mediumTPadding,
     smallTPadding,
-    smallVPadding,
   } = Gutters;
   const {
     dayWrapper,
@@ -59,24 +77,29 @@ const GoalScreen = props => {
     textWrapper,
     text2Wrapper,
     card,
+    dataWrapper,
     cardsContainer,
     centerCard,
-    checkedStyle,
-    bottomCardContainer,
   } = styles;
 
   const weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const days = ['24', '25', '26', '27', '28', '29', '30'];
-
+  console.log('smileGoals', smileGoals);
+  console.log('smileLevel', smileLevel);
+  console.log('streaks', streaks);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
-          <Header
-            left={
-              <MenuIcon grey action={() => props.navigation.openDrawer()} />
-            }
-            right={<Avatar size="regular" />}
-          />
+        <Header
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
+        />
         <Content contentContainerStyle={mediumBPadding}>
           <View style={[mediumHMargin, alignItemsCenter]}>
             <View style={row}>
@@ -109,29 +132,29 @@ const GoalScreen = props => {
           </View>
 
           <View style={[center, row, wrap, mediumVMargin]}>
-            <Text text="Smile activity" style={textMediumX} />
-            <Text bold text=" today" color="golden" style={textMediumX} />
+            <Text text="Smile activity" style={titleRegular} />
+            <Text bold text=" today" color="golden" style={titleRegular} />
             <Image source={Images.polygongolden} />
           </View>
 
           <View style={[fill, center]}>
-            <View style={[center, mediumTMargin]}>
+            <View style={[center, smallTMargin]}>
               <ProgressCircle
-                size={264}
-                progress={0.6}
+                size={258}
+                progress={(1 * getAverage()) / 100}
                 showsText={false}
                 color={Colors.riverbed}
                 unfilledColor={Colors.loblolly}
               />
               <View style={[center, positionA, {top: 30}]}>
-                <Text bold text="62%" color="riverbed" style={textWrapper} />
                 <Text
+                  bold
+                  text={`${smileGoals.average} %`}
                   color="riverbed"
-                  text="of goals"
-                  style={text2Wrapper}
+                  style={textWrapper}
                 />
+                <Text color="riverbed" text="of goals" style={text2Wrapper} />
                 <Text
-
                   style={text2Wrapper}
                   color="riverbed"
                   text="completed today"
@@ -152,30 +175,23 @@ const GoalScreen = props => {
               justifyContentBetween,
               alignItemsCenter,
             ]}>
-            <Text text="Goals" color='riverbed' style={titleSmall} />
+            <Text text="Goals" color="riverbed" style={titleSmall} />
           </View>
-          <View style={smallVMargin}>
-            <View style={row}>
+          <View style={[smallVMargin, small2xHMargin]}>
+            <View style={[row, justifyContentBetween]}>
               <GoalsCard
-                containerStyle={[fill, bottomCardContainer, small2xHMargin]}
-                text1="smile seconds"
-                text1Style={titleSmall}
-                text2="180s"
-                text2Style={[smallVPadding, bold, smallVMargin, textMediumX]}
-                text3="Congratulations You completed this smilestone"
-                text3Style={[textLarge, smallTMargin]}
+                title="Smile seconds"
+                count={`${smileGoals.smile_second}s`}
+                description="Congratulations"
+                otherText={`You completed\nthis goal`}
+                isCompleted={smileGoals.average == 100 ? true : false}
               />
               <GoalsCard
-                containerStyle={[fill, bottomCardContainer, small2xRMargin]}
-                text1="smile count"
-                text1Style={titleSmall}
-                text2="24"
-                text2Style={[bold, smallVMargin, textMediumX]}
-                text2Color="golden"
-                text3="2 more times"
-                text3Style={[textLarge, bold]}
-                text4="for your smile count goal"
-                text4Style={textLarge}
+                title="Smile count"
+                count={`${smileGoals.smile_count}`}
+                description={`${smileGoals.remaining_second} more times`}
+                descriptionStyle={{fontWeight: 'bold'}}
+                otherText={`for your smile\ncount goal`}
               />
             </View>
           </View>
@@ -186,7 +202,7 @@ const GoalScreen = props => {
               imageSource={Images.levelboxgolden}
               textStyle={[textCenter, smallVMargin, titleSmall]}
               text="Level"
-              subText="53"
+              subText={`${smileLevel.level}`}
               subTextStyle={[smallTPadding, titleRegular, bold]}
             />
             <SmileStone
@@ -194,15 +210,16 @@ const GoalScreen = props => {
               imageSource={Images.lateststreakgolden}
               textStyle={[textCenter, titleSmall, smallVMargin]}
               text="Latest Streak"
-              subText="18d"
+              subText={`${streaks.latest_Streak}d`}
               subTextStyle={[titleRegular, bold]}
             />
+
             <SmileStone
               containerStyle={[center, card]}
               imageSource={Images.maxstreakgolden}
               textStyle={[textCenter, titleSmall, smallVMargin]}
               text="Max Streak"
-              subText="38d"
+              subText={`${streaks.max_streak}d`}
               subTextStyle={[titleRegular, bold]}
             />
           </View>
@@ -213,4 +230,18 @@ const GoalScreen = props => {
   );
 };
 
-export default GoalScreen;
+const mapStateToProps = (state) => ({
+  requesting: state.Goals.requesting,
+  profileData: state.profileData.profileData,
+  smileGoals: state.Goals.smileGoals,
+  smileLevel: state.Goals.smileLevel,
+  streaks: state.Goals.streaks,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getGoals: () => dispatch(getGoals()),
+  getLevels: () => dispatch(getLevels()),
+  getStreaks: () => dispatch(getStreaks()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoalScreen);

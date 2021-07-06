@@ -3,15 +3,15 @@ import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   backImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     marginHorizontal: 20,
   },
   midWrapper: {
     paddingTop: 8,
     borderWidth: 2,
     borderRadius: 70,
-    height: 130,
+    height: 150,
     borderColor: Colors.lightgolden,
     alignItems: 'center',
   },

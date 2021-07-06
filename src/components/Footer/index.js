@@ -11,6 +11,7 @@ import { Global, Gutters, Images } from 'src/theme';
 
 // styles
 import styles from './styles';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, light }) => {
   const { touch, footer } = styles;

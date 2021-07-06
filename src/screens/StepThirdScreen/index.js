@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import DatePicker from 'react-native-date-picker';
-import { Content, Icon, Input } from 'native-base';
-import { showMessage } from 'react-native-flash-message';
+import {Content, Icon, Input} from 'native-base';
+import {connect} from 'react-redux';
 import {
   View,
   ImageBackground,
@@ -10,35 +10,37 @@ import {
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 
 // components
-import { Text, Button, Test } from 'src/components';
-import { Global, Layout, Images, Gutters, Fonts, Colors } from 'src/theme';
+import {Text, Button, Test} from 'src/components';
 
-// hooks
-import useForm from 'src/hooks/useForm';
+//theme
+import {Global, Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 
-// utils
-import validator from 'src/utils/validation';
+//actions
+import {postStepThree} from './redux/actions';
 
 // styles
 import styles from './styles';
 
-const StepThirdScreen = props => {
+const StepThirdScreen = (props) => {
   const {
-    navigation: { navigate },
+    user,
+    stepOneData,
+    stepTwoData,
+    stepThreeData,
+    navigation: {navigate},
   } = props;
   const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dateText, setDateText] = useState('');
   const [selectedstyles, setSelectedstyles] = useState([]);
-
-  const onSelectStyle = value => {
+  const onSelectStyle = (i) => {
     let array = [...selectedstyles];
-    if (array.includes(value)) {
-      setSelectedstyles(array.filter(item => item !== value));
+    if (array.includes(i)) {
+      array = selectedstyles.filter((index) => index !== i);
     }
     // else {
     //   if (selectedstyles.length === 9) {
@@ -46,59 +48,34 @@ const StepThirdScreen = props => {
     //       message: "Selected style can't be more than nine",
     //       type: 'danger',
     //     });
-    //   } 
+    //   }
     else {
-      array.push(value);
-      setSelectedstyles(array);
+      array.push(i);
     }
+    setSelectedstyles(array);
     //}
   };
 
-  const onDateChange = date => {
+  const onDateChange = (date) => {
     setDOB(date);
     setDateText(date);
-  };
-  const stateSchema = {
-    email: {
-      value: '',
-      error: '',
-    },
-    password: {
-      value: '',
-      error: '',
-    },
-  };
-  const validationStateSchema = {
-    email: {
-      required: true,
-      validator: validator.email,
-    },
-    password: {
-      required: true,
-      validator: validator.password,
-    },
-  };
-
-  const assignValues = (fieldName, backendName, value) => {
-    handleOnChange(fieldName, value);
   };
 
   const submitForm = () => {
     const data = {
-      password: state.password.value,
-      username: state.email.value,
+      age: stepOneData.age,
+      gender: stepOneData.gender,
+      children: stepOneData.children,
+      relationship_status: stepTwoData.relationship_status,
+      profession_status: stepTwoData.profession_status,
+      goals: selectedstyles,
     };
-    // onSubmit(data);
+    props.postStepThree(data, user);
   };
 
-  const onPress = val => {
+  const onPress = (val) => {
     val === checked ? setChecked(0) : setChecked(val);
   };
-
-  const { state, handleOnChange, disable } = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
 
   const {
     row,
@@ -107,31 +84,23 @@ const StepThirdScreen = props => {
     selfCenter,
     justifyContentBetween,
     alignItemsCenter,
-    fullSize,
   } = Layout;
-  const { primaryBg, secondaryBg, border, borderB, borderColor } = Global;
   const {
     smallBMargin,
-    largeHMargin,
     mediumXHMargin,
     regularHPadding,
     mediumBMargin,
-    regularTMargin,
     largXBMArgin,
   } = Gutters;
   const {
-    icon,
-    title,
     text,
     heading,
     fieldWrapper,
-    backArrowWrapper,
     buttonWrapper,
-    modalWrapper,
     textWrapper,
     buttonTMargin,
   } = styles;
-  const { titleSmall } = Fonts;
+  const {titleSmall} = Fonts;
 
   const category = [
     'I want to increase happiness',
@@ -144,7 +113,7 @@ const StepThirdScreen = props => {
     'I want to calm anxiety',
     'I want to lower my blood pressure and heart rate',
   ];
-
+  console.log('stepThreeData', stepThreeData);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -177,13 +146,13 @@ const StepThirdScreen = props => {
                 completedProgressBarColor="#FFFFFF"
                 progressBarColor="#FFFFFF">
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{ alignItems: 'center' }} />
+                  <View style={{alignItems: 'center'}} />
                 </ProgressStep>
               </ProgressSteps>
             </View>
@@ -199,24 +168,22 @@ const StepThirdScreen = props => {
                   fieldWrapper,
                   smallBMargin,
                   regularHPadding,
-                  { backgroundColor: selectedstyles.includes(i) ? Colors.white : Colors.botticelli }
+                  {
+                    backgroundColor: selectedstyles.includes(i)
+                      ? Colors.white
+                      : Colors.botticelli,
+                  },
                 ]}>
                 <Text text={text} />
               </TouchableOpacity>
             ))}
 
-            <TouchableOpacity onPress={() => navigate('Dashboard')} style={largXBMArgin}>
+            <TouchableOpacity onPress={() => submitForm()} style={largXBMArgin}>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                colors={['#56D3FB','#53F4EB']}
-                style={[
-                  fill,
-                  row,
-                  center,
-                  buttonWrapper,
-                  buttonTMargin,
-                ]}>
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#56D3FB', '#53F4EB']}
+                style={[fill, row, center, buttonWrapper, buttonTMargin]}>
                 <Text style={titleSmall} text="Continue" color="river" />
               </LinearGradient>
             </TouchableOpacity>
@@ -227,4 +194,16 @@ const StepThirdScreen = props => {
   );
 };
 
-export default StepThirdScreen;
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+  requesting: state.stepThreeData.requesting,
+  stepOneData: state.stepOneData.stepOneData,
+  stepTwoData: state.stepTwoData.stepTwoData,
+  stepThreeData: state.stepThreeData.stepThreeData,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postStepThree: (data, user) => dispatch(postStepThree(data, user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepThirdScreen);

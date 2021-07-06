@@ -28,8 +28,8 @@ export default StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#50ADBA',
   },
-  textWrapper: {fontSize: 60, lineHeight: 60},
-  text2Wrapper: {fontSize: 16, lineHeight: 30},
+  textWrapper: {fontSize: 50, lineHeight: 60},
+  text2Wrapper: {fontSize: 16, lineHeight: 20},
   bottomCardContainer: {
     backgroundColor: '#fff',
     borderRadius: 12,
@@ -37,8 +37,14 @@ export default StyleSheet.create({
     padding: 10,
     justifyContent: 'space-between',
   },
-  checkedStyle:{
-    backgroundColor:Colors.carrotorange,
-    opacity:0.9
-  }
+  checkedStyle: {
+    backgroundColor: Colors.carrotorange,
+    opacity: 0.9,
+  },
+  fonts: {
+    fontSize: 30,
+  },
+  dataWrapper: {
+    paddingVertical: 20,
+  },
 });

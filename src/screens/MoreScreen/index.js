@@ -1,10 +1,10 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content, Item} from 'native-base';
 
 //actions
-import {getMoreResources} from './redux/actions';
+import {getMoreResources, getSelectedResources} from './redux/actions';
 
 //styles
 import styles from './styles';
@@ -24,15 +24,16 @@ const {backImage} = styles;
 
 import {MoreResource} from 'src/components';
 
-const {row, fill,center} = Layout;
+const {row, fill, center} = Layout;
 
 const {titleSmall} = Fonts;
 
-const MoreScreen = props => {
-
+const MoreScreen = (props) => {
   const {
-    navigation: {openDrawer},
+    navigation: {navigate},
+    profileData,
     resources,
+    selectedResource,
     requesting,
   } = props;
 
@@ -41,48 +42,46 @@ const MoreScreen = props => {
   }, []);
 
   const onSelectResource = (item) => {
-    //props.selectResource(item);
-    console.log('selectedItem',item);
+    console.log('SelectedResource', item);
+    if (item.resource_type === 'Community') {
+      navigate('Community', {item});
+    } else if (item.resource_type === 'Smile Science') {
+      navigate('SmileExercisesMaxHeight', {item});
+    } else if (item.resource_type === 'Notification') {
+      navigate('NotificationScreen', {item});
+    } else if (item.resource_type === 'Level') {
+      navigate('LevelScreen', {item});
+    }
   };
 
-  const cardData = [
-    {
-      title: 'Smile Science',
-      description: 'Articles, videos and ideas to help you smile more',
-      image:'smilescience'
-    },
-
-    {
-      title: 'Community',
-      description: 'Connect to people who love smiling',
-      image:'community'
-    },
-
-    {title: 'Notifictions', count: '2',
-  image:'notification'},
-
-    {title: 'Level', count: '53',
-  image:'level'},
-  ];
-console.log('resources',resources);
+  console.log('resources', resources);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
           left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <View style={[row, center, mediumBMargin]}>
-          <Text
-            text="More Resources"
-            color="river"
-            style={titleSmall}
-          />
+          <Text text="More Resources" color="river" style={titleSmall} />
         </View>
         <Content contentContainerStyle={mediumHPadding}>
-          {
-            cardData.map((data,i)=>  <MoreResource key={i} data={data}/>)
-          }
+          {resources &&
+            resources.map((item, i) => (
+              <MoreResource
+                key={i}
+                title={item.title}
+                imageUrl={item.image}
+                description={item.description}
+                onPress={() => onSelectResource(item)}
+              />
+            ))}
         </Content>
         <Footer activeRoute="More" navigation={props.navigation} />
       </ImageBackground>
@@ -90,16 +89,15 @@ console.log('resources',resources);
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
+  profileData: state.profileData.profileData,
   requesting: state.exercises.requesting,
-  resources:state.resources.resources
+  resources: state.resources.resources,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getMoreResources: (item) => dispatch(getMoreResources()),
+  //getSelectedResources: (item) => dispatch(getSelectedResources(item)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MoreScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MoreScreen);

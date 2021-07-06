@@ -10,24 +10,27 @@ import {Fonts, Layout, Gutters, Images} from 'src/theme';
 import styles from './styles';
 
 const {smallVMargin} = Gutters;
-const {positionA, positionR, justifyContentEnd, justifyContentCenter} = Layout;
+const {fill, positionA, positionR, justifyContentEnd, justifyContentCenter} =
+  Layout;
 const {textMedium, titleRegular} = Fonts;
-const {textWrapper, image, icon} = styles;
+const {textWrapper, image, cardWrapper, icon} = styles;
 
-const CommunityCard = ({withUser, card}) => {
-  const {name, description} = card;
-
+const CommunityCard = ({name, members, withUser, imageUrl, description}) => {
   return (
     <>
-      {withUser && <Image style={icon} source={Images.user} />}
-      <View
-        style={[
-          justifyContentEnd,
-          positionR,
-          {overflow: 'hidden', marginBottom: 20},
-        ]}>
-        <Image source={ card.image ? {uri: card.image} : Images.communityimage1} style={image} />
-        <View style={[textWrapper, positionA, justifyContentCenter]}>
+      {withUser ? <Image style={icon} source={Images.user} /> : null}
+      <View style={[justifyContentEnd, positionR, cardWrapper]}>
+        <Image
+          source={imageUrl ? {uri: imageUrl} : Images.communityimage1}
+          style={image}
+        />
+        <View
+          style={[
+            textWrapper,
+            positionA,
+            justifyContentCenter,
+            {overflow: 'hidden'},
+          ]}>
           <Text
             bold
             color="secondary"
@@ -39,7 +42,7 @@ const CommunityCard = ({withUser, card}) => {
             text={description}
             style={[textMedium, smallVMargin]}
           />
-          <Text color="secondary" text={'485 members'} style={textMedium} />
+          <Text color="secondary" text={members} style={textMedium} />
         </View>
       </View>
     </>

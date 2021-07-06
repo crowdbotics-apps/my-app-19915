@@ -48,7 +48,7 @@ const Text = ({
     <UIKText
       category={category ? category : 'p1'}
       onPress={onPress}
-      style={[
+      style={[{fontFamily:'Barlow-Medium'},
         !category && textRegular,
         underlined && textUnderline,
         start && textLeft,

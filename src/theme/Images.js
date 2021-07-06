@@ -6,6 +6,7 @@ export default {
   instagram: require('src/assets/images/instagram.png'),
   pass: require('src/assets/images/pass.png'),
   age: require('src/assets/images/age.png'),
+  checked: require('src/assets/images/checked.png'),
   gender: require('src/assets/images/gender.png'),
   relation: require('src/assets/images/relation.png'),
   child: require('src/assets/images/child.png'),
@@ -74,7 +75,7 @@ export default {
   more3: require('src/assets/images/moreimg3.png'),
   more2: require('src/assets/images/moreimg2.png'),
   smilingrest: require('src/assets/images/smilingrest.png'),
-  star: require('src/assets/images/star.png'),
+
   articalimage1: require('src/assets/images/ArticalImage1.png'),
   articalimage2: require('src/assets/images/ArticalImage2.png'),
   articalimage3: require('src/assets/images/ArticalImage3.png'),
@@ -96,7 +97,9 @@ export default {
   activityicon: require('src/assets/images/activityicon.png'),
   moreoption: require('src/assets/images/moredotted.png'),
   polygon1: require('src/assets/images/Polygon1.png'),
-  starfav: require('src/assets/images/starfav.png'),
+  bigstar: require('src/assets/images/bigstar.png'),
+  smallstar: require('src/assets/images/smallstar.png'),
+  star: require('src/assets/images/star.png'),
   eye: require('src/assets/images/eye.png'),
   emailerror: require('src/assets/images/emailerror.png'),
   passworderror: require('src/assets/images/passworderror.png'),
@@ -134,4 +137,4 @@ export default {
   moredark: require('src/assets/more/more-dark.png'),
   activitiesdark: require('src/assets/more/activities-dark.png'),
   activitieslight: require('src/assets/more/activities-light.png'),
-}
+};

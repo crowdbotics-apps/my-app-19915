@@ -9,10 +9,14 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_EXERCISES} from './types';
+import {GET_EXERCISES, MARK_FAVOURITE} from './types';
 
 // actions
-import {getExercisesSuccess, getExercisesFailure} from './actions';
+import {
+  getExercisesSuccess,
+  getExercisesFailure,
+  markFavourite,
+} from './actions';
 
 async function getExercisesAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_exercise/`;
@@ -43,4 +47,35 @@ function* getExercises() {
   }
 }
 
-export default all([takeLatest(GET_EXERCISES, getExercises)]);
+async function markFavouriteAPI(data) {
+  const URL = `${appConfig.backendServerURL}/api/v1/smile_favorite/`;
+  const authToken = await AsyncStorage.getItem('authToken');
+
+  const options = {
+    headers: {
+      Authorization: 'Token ' + authToken,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    data,
+  };
+  return XHR(URL, options);
+}
+
+function* markFavourity({data}) {
+  try {
+    const response = yield call(markFavouriteAPI,data);
+    yield put(markFavourite(data));
+  } catch (e) {
+    console.log(e);
+    showMessage({
+      message: 'Unable to load data, something went wrong.',
+      type: 'danger',
+    });
+  }
+}
+
+export default all([
+  takeLatest(GET_EXERCISES, getExercises),
+  takeLatest(MARK_FAVOURITE, markFavourity),
+]);

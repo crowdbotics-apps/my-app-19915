@@ -4,15 +4,16 @@ import {Colors} from 'src/theme';
 export default StyleSheet.create({
   textWrapper: {
     height: 188,
+    width: 374,
     backgroundColor: '#BC6971',
     opacity: 0.5,
     padding: 20,
-    borderRadius:12
   },
   image: {
-    width: 353,
-    height:350,
-    borderRadius: 12
+    width: 374,
+    height: 374,
+    resizeMode: 'contain',
+    //borderRadius: 12,
   },
   icon: {
     width: 40,
@@ -21,5 +22,10 @@ export default StyleSheet.create({
     zIndex: 1,
     marginLeft: 300,
     marginTop: 15,
+  },
+  cardWrapper: {
+    overflow: 'hidden',
+    marginBottom: 20,
+    borderRadius: 12,
   },
 });
