@@ -7,35 +7,36 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django_rest_passwordreset.signals import reset_password_token_created
 from multiselectfield import MultiSelectField
+from rest_framework.authtoken.models import Token
 
 
 class User(AbstractUser):
     Male = 0
     Female = 1
+    Other = 2
 
     SEX_CHOICE = (
         (Male, 'Male'),
         (Female, 'Female'),
+        (Other, 'Other'),
     )
-    Married = 2
-    Unmarried = 3
-    In_a_relationship = 4
+    Married = 0
+    Unmarried = 1
 
     RELATIONSHIP_STATUS = (
         (Married, 'Married'),
         (Unmarried, 'Unmarried'),
-        (In_a_relationship, 'In a relationship'),
     )
 
-    I_want_to_increase_happiness = 5
-    I_want_to_express_gratitude = 6
-    I_want_an_energy_boost = 7
-    I_want_to_feel_more_confident = 8
-    I_want_to_feel_more_relaxed = 9
-    I_want_to_feel_peace = 10
-    I_want_to_reduce_stress = 11
-    I_want_to_calm_anxiety = 12
-    I_want_to_lower_my_blood_pressure_heart_rate = 13
+    I_want_to_increase_happiness = 0
+    I_want_to_express_gratitude = 1
+    I_want_an_energy_boost = 2
+    I_want_to_feel_more_confident = 3
+    I_want_to_feel_more_relaxed = 4
+    I_want_to_feel_peace = 5
+    I_want_to_reduce_stress = 6
+    I_want_to_calm_anxiety = 7
+    I_want_to_lower_my_blood_pressure_heart_rate = 8
 
     GOALS = (
         (I_want_to_increase_happiness, 'I want to increase happiness'),
@@ -49,24 +50,25 @@ class User(AbstractUser):
         (I_want_to_lower_my_blood_pressure_heart_rate, 'I want to lower my blood pressure/heart rate'),
     )
 
-    Employee = 14
-    UnEmployee = 15
-    Business = 16
+    Employee = 0
+    UnEmployee = 1
+    Business = 2
 
     PROFESSIONAL_STATUS = (
         (Employee, 'Employee'),
-        (UnEmployee, 'Unemployee'),
+        (UnEmployee, 'UnEmployee'),
         (Business, 'Business')
     )
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
-    age = models.IntegerField(null=True, blank=True)
-    sex = models.CharField(choices=SEX_CHOICE, max_length=100, null=True, blank=True)
+    age = models.CharField(max_length=10, null=True, blank=True)
+    gender = models.CharField(choices=SEX_CHOICE, max_length=100, null=True, blank=True)
     relationship_status = models.CharField(choices=RELATIONSHIP_STATUS, max_length=100, null=True, blank=True)
     children = models.BooleanField(default=False, null=True, blank=True)
     profession_status = models.CharField(choices=PROFESSIONAL_STATUS, max_length=50, null=True, blank=True)
     goals = MultiSelectField(choices=GOALS,  null=True, blank=True)
+    image = models.ImageField(upload_to="user", null=True, blank=True)
     coin_balance = models.FloatField(default=0.00)
 
     def get_absolute_url(self):

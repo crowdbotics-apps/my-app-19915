@@ -4,10 +4,12 @@ from dashboard.api.v1.viewsets import (
     QuoteViewSet,
     # SmileViewSet,
     SmileExerciseViewSet,
-    SmileCommunityViewSet,
-    SmileScienceViewSet,
+    ResourceViewSet,
+    SmileResourceItemViewSet,
     SmileDashboard,
     FavoriteExerciseViewSet,
+    SmileLevelViewSet,
+    GoalViewSet,
     FacebookLogin,
     GoogleLogin,
     InstagramLogin
@@ -18,10 +20,12 @@ router = DefaultRouter()
 router.register("quote", QuoteViewSet, basename="quote")
 # router.register("smile", SmileViewSet, basename="smile")
 router.register("smile_exercise", SmileExerciseViewSet, basename="smile_exercise")
-router.register("smile_community", SmileCommunityViewSet, basename="smile_community")
-router.register("smile_science", SmileScienceViewSet, basename="smile_science")
+router.register("smile_resource_item", SmileResourceItemViewSet, basename="smile_resource_item")
+router.register("smile_resource", ResourceViewSet, basename="smile_resource")
 router.register("smile_dashboard", SmileDashboard, basename="smile_dashboard")
 router.register("smile_favorite", FavoriteExerciseViewSet, basename="smile_favorite")
+router.register("smile_level", SmileLevelViewSet, basename="smile_level")
+router.register("goal", GoalViewSet, basename="goal")
 
 urlpatterns = [
     path("", include(router.urls)),
