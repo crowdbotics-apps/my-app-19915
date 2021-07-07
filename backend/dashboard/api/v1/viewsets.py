@@ -147,6 +147,15 @@ class FavoriteExerciseViewSet(ModelViewSet):
     serializer_class = FavoriteExerciseSerializer
     queryset = FavoriteExercise.objects.all()
 
+    def get_queryset(self):
+        queryset = FavoriteExercise.objects.all()
+        user = self.request.user
+        favorite = 1
+        queryset = queryset.filter(user=user, favorite_exercise=favorite)
+        if queryset:
+            queryset = queryset.filter(user=user, favorite_exercise=favorite)
+
+        return queryset
 
 class SmileLevelViewSet(ModelViewSet):
     serializer_class = SmileSerializer
@@ -215,17 +224,20 @@ class GoalViewSet(ModelViewSet):
         smile_count = 0
         goal = 0
         average = 0
-        if queryset:
-            goal = queryset[0]["goal_second"]
+        # if queryset:
+        #     goal = queryset[0]["goal_second"]
 
         if b:
             total = b[0]["total"]
             smile_count = b[0]["total_count"]
+            # goal = queryset[0]["goal_second"]
+            # average = total / goal * 100
+        if queryset:
             goal = queryset[0]["goal_second"]
             average = total / goal * 100
         message = ""
         remaining_second = 0
-        if total == goal:
+        if total >= goal:
             if goal == 0:
                 message = "you have not define your goal"
             else:
@@ -234,9 +246,11 @@ class GoalViewSet(ModelViewSet):
             if total < goal:
                 a = goal - total
                 remaining_second = a
+
             else:
-                average = (total / goal * 100) - ((total - goal) / goal * 100)
-                message = "congratulation you complete this goal"
+                if goal > 0:
+                    average = (total / goal * 100) - ((total - goal) / goal * 100)
+                    message = "congratulation you complete this goal"
         output = {
             "message": message,
             "remaining_second": round(remaining_second, 2),
