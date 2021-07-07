@@ -1,39 +1,30 @@
-import { NavigationActions, StackActions } from "react-navigation";
+import * as React from 'react';
+import { CommonActions } from '@react-navigation/native';
 
-const config = {};
-export function setNavigator(nav) {
-  if (nav) {
-    config.navigator = nav;
-  }
+export const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
 }
 
-/**
- * Above functions are helpers to navigate to a route without the
- * navigation prop from React Navigation, helpful in sagas or action dispatchers
- * Just include check EmailAuth saga as an example
- */
-export function navigate(routeName, params) {
-  if (config.navigator && routeName) {
-    let action = NavigationActions.navigate({ routeName, params });
-    config.navigator.dispatch(action);
-  }
+export function navigateAndReset(routes = [], index = 0) {
+  navigationRef.current?.dispatch(
+    CommonActions.reset({
+      index,
+      routes,
+    }),
+  );
 }
+
+export function navigateAndSimpleReset(name, index = 0) {
+  navigationRef.current?.dispatch(
+    CommonActions.reset({
+      index,
+      routes: [{ name }],
+    }),
+  );
+}
+
 export function goBack() {
-  if (config.navigator) {
-    let action = NavigationActions.back({});
-    config.navigator.dispatch(action);
-  }
-}
-
-export function navigateAndResetStack(routeName, params) {
-  if (config.navigator && routeName) {
-    let action = NavigationActions.navigate({ routeName, params });
-
-    config.navigator.dispatch(
-      StackActions.reset({
-        index: 0,
-        actions: [action]
-      })
-    );
-  }
+  navigationRef.current?.goBack();
 }

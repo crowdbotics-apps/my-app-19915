@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "848401145267",
+    "project_id": "smile-app-24694",
+    "storage_bucket": "smile-app-24694.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848401145267:android:7f855dceaabe1e785c3fc6",
+        "android_client_info": {
+          "package_name": "com.my_app_19915"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848401145267-tfku0ake89loklio1cr69i990nrutcuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD96zhmbFbHjZeSXIX3NHGZMbuyK9p1JDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848401145267-tfku0ake89loklio1cr69i990nrutcuv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "848401145267-ti9fjfbiqm26bkgdhj76v53vsqrago38.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.crowdbotics.Smileapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

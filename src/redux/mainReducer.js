@@ -1,23 +1,49 @@
-import { combineReducers } from "redux";
+import {persistReducer} from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
 
-/**
- * You can import more reducers here
- */
+// reducers
+import app from 'src/screens/App/redux/reducer';
+import signUp from 'src/screens/SignUp/redux/reducer';
+import dashboard from 'src/screens/Dashboard/redux/reducer';
+import quote from 'src/screens/DailyQuote/redux/reducer';
+import exercises from 'src/screens/SmileExercises/redux/reducer';
+import resources from 'src/screens/MoreScreen/redux/reducer';
+import selectedResource from 'src/screens/MoreScreen/redux/reducer';
+import activitiesExercises from 'src/screens/ActivitiesScreen/redux/reducer';
+import sciences from 'src/screens/SmileExercisesMaxHeight/redux/reducer';
+import stepOneData from 'src/screens/StepFirstScreen/redux/reducer';
+import stepTwoData from 'src/screens/StepSecondScreen/redux/reducer';
+import stepThreeData from 'src/screens/StepThirdScreen/redux/reducer';
+import profileData from 'src/screens/MyAccount/redux/reducer';
+import user from 'src/screens/SignUp/redux/reducer';
+import Goals from 'src/screens/GoalScreen/redux/reducer';
 
+const appPersistConfig = {
+  key: 'app',
+  storage: AsyncStorage,
+  timeout: null,
+};
 
-//@BlueprintReduxImportInsertion
-import SignIn11120009Reducer from '../features/SignIn11120009/redux/reducers'
-import SignUp12120008Reducer from '../features/SignUp12120008/redux/reducers'
+const profilePersistConfig = {
+  key: 'profileData',
+  storage: AsyncStorage,
+  timeout: null,
+};
 
-export const combinedReducers = combineReducers({
-  blank: (state, action) => {
-    if (state == null) state = [];
-    return state;
-  },
-
-
-  //@BlueprintReduxCombineInsertion
-SignIn11120009: SignIn11120009Reducer,
-SignUp12120008: SignUp12120008Reducer,
-
-});
+export default {
+  app: persistReducer(appPersistConfig, app),
+  profileData: persistReducer(profilePersistConfig, profileData),
+  user,
+  signUp,
+  dashboard,
+  quote,
+  resources,
+  exercises,
+  sciences,
+  selectedResource,
+  Goals,
+  stepOneData,
+  stepTwoData,
+  stepThreeData,
+  activitiesExercises,
+};
