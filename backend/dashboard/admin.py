@@ -29,7 +29,7 @@ class FavoriteExerciseAdmin(admin.ModelAdmin):
 
 
 class GoalAdmin(admin.ModelAdmin):
-    list_display = ["user", "goal_second", "created"]
+    list_display = ["user", "goal_second", "count", "created"]
 
 
 class StreakAdmin(admin.ModelAdmin):

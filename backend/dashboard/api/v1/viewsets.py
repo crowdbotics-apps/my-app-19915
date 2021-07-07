@@ -147,15 +147,18 @@ class FavoriteExerciseViewSet(ModelViewSet):
     serializer_class = FavoriteExerciseSerializer
     queryset = FavoriteExercise.objects.all()
 
-    def get_queryset(self):
-        queryset = FavoriteExercise.objects.all()
-        user = self.request.user
-        favorite = 1
-        queryset = queryset.filter(user=user, favorite_exercise=favorite)
-        if queryset:
-            queryset = queryset.filter(user=user, favorite_exercise=favorite)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        already_favorite = FavoriteExercise.objects.filter(
+            favorite_exercise=request.data.get("favorite_exercise"), user=self.request.user
+        )
+        if already_favorite:
+            already_favorite.delete()
+            return Response({"status": 0}, status=status.HTTP_200_OK)
+        self.perform_create(serializer)
+        return Response({"status": 1}, status=status.HTTP_201_CREATED)
 
-        return queryset
 
 class SmileLevelViewSet(ModelViewSet):
     serializer_class = SmileSerializer
@@ -184,7 +187,6 @@ class SmileLevelViewSet(ModelViewSet):
                         if total_second == i:
                             level = l[i]
                         else:
-
                             level = l[i] - 1
                         break
         else:
@@ -217,43 +219,53 @@ class GoalViewSet(ModelViewSet):
 
     def list(self, request):
         queryset = self.get_queryset()
-        queryset = queryset.filter(created__gte=date.today()).values("goal_second")
+        queryset = queryset.filter(created__gte=date.today()).values("goal_second", "count")
         b = Smile.objects.filter(user=self.request.user, created__gte=date.today())\
             .values('created__date').annotate(total=Sum('second')).annotate(total_count=Count('second'))
         total = 0
         smile_count = 0
-        goal = 0
+        goal_second = 0
+        goal_count = 0
         average = 0
-        # if queryset:
-        #     goal = queryset[0]["goal_second"]
 
         if b:
             total = b[0]["total"]
             smile_count = b[0]["total_count"]
-            # goal = queryset[0]["goal_second"]
-            # average = total / goal * 100
         if queryset:
-            goal = queryset[0]["goal_second"]
-            average = total / goal * 100
+            goal_second = queryset[0]["goal_second"]
+            goal_count = queryset[0]["count"]
+            average = total / goal_second * 100
         message = ""
+        goal_second_complete = False
+        goal_count_complete = False
+        remaining_count = 0
         remaining_second = 0
-        if total >= goal:
-            if goal == 0:
-                message = "you have not define your goal"
-            else:
-                message = "congratulation you complete this goal"
-        else:
-            if total < goal:
-                a = goal - total
-                remaining_second = a
 
+        if goal_second == 0:
+            message = "you have not define your goal"
+        else:
+            if total == goal_second:
+                goal_second_complete = True
             else:
-                if goal > 0:
-                    average = (total / goal * 100) - ((total - goal) / goal * 100)
-                    message = "congratulation you complete this goal"
+                if total > goal_second:
+                    goal_second_complete = True
+                    average = (total / goal_second * 100) - ((total - goal_second) / goal_second * 100)
+                else:
+                    remaining_second = goal_second - total
+        if goal_count == 0:
+            message = "you have not define your goal"
+        else:
+            if smile_count >= goal_count:
+                goal_count_complete = True
+            else:
+                remaining_count = goal_count - smile_count
+
         output = {
             "message": message,
-            "remaining_second": round(remaining_second, 2),
+            "goal_second_complete": goal_second_complete,
+            "goal_count_complete": goal_count_complete,
+            "remaining_count": remaining_count,
+            "remaining_second": remaining_second,
             "average": int(average),
             "smile_count": smile_count,
             "smile_second": total

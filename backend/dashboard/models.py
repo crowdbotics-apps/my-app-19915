@@ -78,6 +78,7 @@ class FavoriteExercise(models.Model):
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_goal")
     goal_second = models.IntegerField()
+    count = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(editable=True)
     # created = models.DateTimeField(auto_now=True)
 
