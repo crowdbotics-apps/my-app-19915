@@ -4,7 +4,8 @@ import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content, Item} from 'native-base';
 
 //actions
-import {getMoreResources, getSelectedResources} from './redux/actions';
+import {getMoreResources} from './redux/actions';
+import {getLevels} from '../GoalScreen/redux/actions';
 
 //styles
 import styles from './styles';
@@ -39,6 +40,7 @@ const MoreScreen = (props) => {
 
   useEffect(() => {
     props.getMoreResources();
+    props.getLevels();
   }, []);
 
   const onSelectResource = (item) => {
@@ -96,8 +98,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMoreResources: (item) => dispatch(getMoreResources()),
-  //getSelectedResources: (item) => dispatch(getSelectedResources(item)),
+  getMoreResources: () => dispatch(getMoreResources()),
+  getLevels: () => dispatch(getLevels()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreScreen);

@@ -20,6 +20,7 @@ import {
   Footer,
   ProgressCircle,
   ActivityCard,
+  DataAvailability,
 } from 'src/components';
 import {Gutters, Images, Layout, Fonts, Colors} from 'src/theme';
 const {
@@ -31,7 +32,7 @@ const {
   largeXTMargin,
 } = Gutters;
 
-const {backImage, midWrapper, progressWrapper, buttonWrapper, upgradeNow} =
+const {backImage, midWrapper, progressWrapper, dataWrapper, upgradeNow} =
   styles;
 
 const {
@@ -132,8 +133,13 @@ const ActivitiesScreen = (props) => {
               />
             </View>
           </View>
-          <View>
-            {activitiesExercises &&
+          <DataAvailability
+            requesting={!activitiesExercises.length > 0}
+            hasData={
+              activitiesExercises.length && activitiesExercises.length > 0
+            }
+            style={dataWrapper}>
+            {activitiesExercises.length &&
               activitiesExercises.map((item, i) => (
                 <TouchableOpacity onPress={() => onSelectActivity(item)}>
                   <ActivityCard
@@ -142,11 +148,11 @@ const ActivitiesScreen = (props) => {
                     text={item.title}
                     item={item}
                     source={{uri: item.image_or_video}}
-                    isFavourite={item.is_favorite}
+                    isFavourite={item.is_favorite && item.is_favorite}
                   />
                 </TouchableOpacity>
               ))}
-          </View>
+          </DataAvailability>
           {/* <View>
             <TouchableOpacity>
               <LinearGradient

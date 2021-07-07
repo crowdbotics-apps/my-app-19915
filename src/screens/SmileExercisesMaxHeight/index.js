@@ -28,29 +28,28 @@ import {
   DataAvailability,
 } from 'src/components';
 
-import {Gutters, Images, Layout, Fonts, Colors} from 'src/theme';
+import {Gutters, Global, Images, Layout, Fonts, Colors} from 'src/theme';
 const {
   mediumBPadding,
   mediumVMargin,
   smallBMargin,
+  regularBMargin,
   regularHPadding,
   smallLMargin,
   smallRMargin,
+  smallHPadding,
+  smallTMargin,
+  regularTMargin,
+  mediumTMargin,
 } = Gutters;
 
-const {
-  backImage,
-  resource,
-  progressWrapper,
-  midWrapper,
-  addSpace,
-  dataWrapper,
-} = styles;
+const {backImage, progressWrapper, midWrapper, addSpace, dataWrapper} = styles;
 
 const {
-  border,
   row,
   fill,
+  fill2x,
+  wrap,
   center,
   alignItemsCenter,
   positionA,
@@ -58,12 +57,15 @@ const {
   justifyContentBetween,
 } = Layout;
 
+const {border} = Global;
+
 const {titleSmall, textMedium} = Fonts;
 
 const SmileExercisesMaxHeight = (props) => {
   const {
-    selectedResource,
+    profileData,
     requesting,
+    selectedResource,
     route: {
       params: {item},
     },
@@ -78,31 +80,65 @@ const SmileExercisesMaxHeight = (props) => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <DataAvailability
-          requesting={requesting}
+          requesting={!selectedResource.length > 0}
           hasData={selectedResource && selectedResource.length > 0}
           style={dataWrapper}>
-          <View style={[row, alignItemsCenter, smallBMargin]}>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <Image source={Images.camarrowback} style={backImage} />
-            </TouchableOpacity>
-            <Text
-              bold
-              text="Smile science"
-              color="river"
-              style={[titleSmall, resource]}
-            />
+          <View
+            style={[
+              row,
+              alignItemsCenter,
+              justifyContentBetween,
+              regularBMargin,
+            ]}>
+            <View style={fill}>
+              <TouchableOpacity onPress={() => props.navigation.goBack()}>
+                <Image source={Images.camarrowback} style={backImage} />
+              </TouchableOpacity>
+            </View>
+            <View style={fill2x}>
+              <Text
+                bold
+                text="Smile science"
+                color="river"
+                style={titleSmall}
+              />
+            </View>
           </View>
-          <Content contentContainerStyle={[regularHPadding, mediumBPadding]}>
-            <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+          <View
+            style={[
+              row,
+              justifyContentBetween,
+              regularHPadding,
+              mediumVMargin,
+            ]}>
+            <Text color="river" style={[textMedium]} text="All articals" />
+            <TouchableOpacity>
+              <View style={[row, center]}>
+                <Text color="river" style={[textMedium]} text="Filter by" />
+                <Image style={[smallLMargin]} source={Images.polygon2} />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Content
+            contentContainerStyle={[
+              regularHPadding,
+              mediumBPadding,
+              justifyContentBetween,
+            ]}>
+            <View style={[row, fill, justifyContentBetween]}>
               {selectedResource.length &&
-                selectedResource.map((item, i) => (
-                  <View
-                    key={i}
-                    style={[row, smallRMargin, justifyContentBetween]}>
+                selectedResource.slice(0, 2).map((item, i) => (
+                  <View key={i} style={[row]}>
                     <ArticalCard
                       name={item.title}
                       imageUrl={item.image}
@@ -110,15 +146,15 @@ const SmileExercisesMaxHeight = (props) => {
                     />
                   </View>
                 ))}
-            </ScrollView>
+            </View>
             <View
               style={[
-                mediumVMargin,
-                border,
                 row,
-                justifyContentCenter,
-                alignItemsCenter,
+                border,
                 midWrapper,
+                mediumVMargin,
+                alignItemsCenter,
+                justifyContentCenter,
               ]}>
               <View style={[progressWrapper]}>
                 <View style={[center]}>
@@ -150,12 +186,10 @@ const SmileExercisesMaxHeight = (props) => {
                 />
               </View>
             </View>
-            <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+            <View style={[row, fill, wrap, justifyContentBetween]}>
               {selectedResource.length &&
-                selectedResource.map((item, i) => (
-                  <View
-                    key={i}
-                    style={[row, smallRMargin, justifyContentBetween]}>
+                selectedResource.slice(2).map((item, i) => (
+                  <View key={i} style={[row, regularTMargin]}>
                     <ArticalCard
                       name={item.title}
                       imageUrl={item.image}
@@ -163,7 +197,7 @@ const SmileExercisesMaxHeight = (props) => {
                     />
                   </View>
                 ))}
-            </ScrollView>
+            </View>
             <View style={[center, mediumVMargin, addSpace]}>
               <Text color="river" style={[titleSmall]} text="Add space" />
             </View>
@@ -178,6 +212,7 @@ const SmileExercisesMaxHeight = (props) => {
 const mapStateToProps = (state) => ({
   selectedResource: state.selectedResource.selectedResource,
   requesting: state.selectedResource.requesting,
+  profileData: state.profileData.profileData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

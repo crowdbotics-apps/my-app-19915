@@ -210,7 +210,7 @@ const GoalScreen = (props) => {
               imageSource={Images.lateststreakgolden}
               textStyle={[textCenter, titleSmall, smallVMargin]}
               text="Latest Streak"
-              subText={`${streaks.latest_Streak}d`}
+              subText={`${streaks.latest_Streak ? streaks.latest_Streak : 0}d`}
               subTextStyle={[titleRegular, bold]}
             />
 
@@ -219,7 +219,7 @@ const GoalScreen = (props) => {
               imageSource={Images.maxstreakgolden}
               textStyle={[textCenter, titleSmall, smallVMargin]}
               text="Max Streak"
-              subText={`${streaks.max_streak}d`}
+              subText={`${streaks.max_streak ? streaks.max_streak : 0}`}
               subTextStyle={[titleRegular, bold]}
             />
           </View>

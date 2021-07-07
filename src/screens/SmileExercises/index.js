@@ -8,6 +8,7 @@ import styles from './styles';
 
 //actions
 import {getExercises, markFavourite} from './redux/actions';
+import {getExercisesActivities} from '../ActivitiesScreen/redux/actions';
 
 // components
 import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
@@ -22,7 +23,14 @@ const {
 
 const {backImage, star, text, image, dataWrapper, title} = styles;
 
-const {row, fill, alignItemsCenter, justifyContentStart} = Layout;
+const {
+  row,
+  fill,
+  fill2x,
+  alignItemsCenter,
+  justifyContentCenter,
+  justifyContentStart,
+} = Layout;
 
 const {titleSmall, titleRegular, textMedium} = Fonts;
 const {border} = Global;
@@ -34,12 +42,19 @@ const SmileExercises = (props) => {
     },
     navigation: {openDrawer},
     user,
+    profileData,
     requesting,
   } = props;
 
   useEffect(() => {
     props.getExercises();
+    props.getExercisesActivities();
   }, []);
+
+  const onPressBack = () => {
+    props.getExercisesActivities();
+    props.navigation.goBack();
+  };
 
   const onFavourite = () => {
     const data = {
@@ -55,8 +70,14 @@ const SmileExercises = (props) => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => openDrawer()} />}
-          right={<Avatar size="regular" />}
+          left={<MenuIcon grey action={() => openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <DataAvailability
           requesting={requesting}
@@ -64,11 +85,11 @@ const SmileExercises = (props) => {
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
             <View style={fill}>
-              <TouchableOpacity onPress={() => props.navigation.goBack()}>
+              <TouchableOpacity onPress={() => onPressBack()}>
                 <Image source={Images.camarrowback} style={backImage} />
               </TouchableOpacity>
             </View>
-            <View style={[fill, justifyContentStart]}>
+            <View style={[fill2x, justifyContentCenter]}>
               <Text
                 bold
                 text={selectedActivity.exercise_name}
@@ -76,7 +97,6 @@ const SmileExercises = (props) => {
                 style={[titleSmall]}
               />
             </View>
-            <View style={fill} />
           </View>
           <Content contentContainerStyle={mediumBPadding}>
             <View style={[smallTMargin]}>
@@ -118,12 +138,14 @@ const SmileExercises = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  requesting: state.exercises.requesting,
   user: state.app.user,
+  requesting: state.exercises.requesting,
+  profileData: state.profileData.profileData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getExercises: () => dispatch(getExercises()),
+  getExercisesActivities: () => dispatch(getExercisesActivities()),
   markFavourite: (data) => dispatch(markFavourite(data)),
 });
 

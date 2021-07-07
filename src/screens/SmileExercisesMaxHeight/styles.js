@@ -8,8 +8,6 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
 
-  resource: {marginLeft: 45},
-
   text: {
     lineHeight: 20,
   },

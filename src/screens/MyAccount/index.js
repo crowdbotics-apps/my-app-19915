@@ -58,23 +58,14 @@ const MyAccount = (props) => {
     setDateText(date);
   };
 
-  // const submitForm = () => {
-  //   const data = {
-  //     children: selectedChild,
-  //     relationship_status: selectedRelation,
-  //     profession_status: selectedProfession,
-  //   };
-  //   props.updateProfile(data, user);
-  // };
-
   const submitForm = () => {
     const data = {
       children: selectedChild,
       relationship_status: selectedRelation,
-      profession_status: selectedProfession
-    }
-    if(profileImage) {
-      data.image =  `data:${profileImage.type};base64,${profileImage.base64}`
+      profession_status: selectedProfession,
+    };
+    if (profileImage) {
+      data.image = `data:${profileImage.type};base64,${profileImage.base64}`;
     }
 
     props.updateProfile(data, user);
@@ -137,13 +128,13 @@ const MyAccount = (props) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         setProfileImage(response.assets[0]);
-        
+
         // console.log('response', response.assets[0]);
       }
     });
   };
-  console.log('profileData',profileData);
- // console.log('Base64 Image', `data:${profileImage.type};base64,${profileImage.base64}`)
+  console.log('profileData', profileData);
+  // console.log('Base64 Image', `data:${profileImage.type};base64,${profileImage.base64}`)
   return (
     <>
       <Header
@@ -166,7 +157,9 @@ const MyAccount = (props) => {
               <Image
                 style={image}
                 source={
-                  profileImage ? {uri: profileImage.uri} : {uri: profileData.image}
+                  profileImage
+                    ? {uri: profileImage.uri}
+                    : {uri: profileData.image}
                 }
               />
               <Image style={profilecam} source={Images.profilecam} />
@@ -352,7 +345,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProfile: () => dispatch(getProfile()),
   updateProfile: (data, user) => dispatch(updateProfile(data, user)),
-  // updateImage: (data) => dispatch(updateImage(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAccount);

@@ -24,7 +24,7 @@ const ArticalCard = ({imageUrl, name, description}) => {
             bold
             color="river"
             text={name}
-            style={[textMedium, smallVMargin]}
+            style={[textMedium, {marginTop: 8}]}
           />
           <Text
             color="river"

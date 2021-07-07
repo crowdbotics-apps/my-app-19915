@@ -8,7 +8,7 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
 
-  resource: {marginLeft: 45},
+  community: {marginHorizontal: 20},
 
   text: {
     lineHeight: 20,

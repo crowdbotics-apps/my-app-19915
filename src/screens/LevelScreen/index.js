@@ -23,10 +23,12 @@ const {titleSmall, titleRegular} = Fonts;
 const LevelScreen = (props) => {
   const {
     smileLevel,
+    profileData,
     selectedResource,
     route: {
       params: {item},
     },
+    navigation: {navigate},
   } = props;
   console.log('selectedResource', selectedResource);
 
@@ -38,8 +40,14 @@ const LevelScreen = (props) => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <View style={[center, row, alignItemsCenter, mediumBMargin]}>
           <Text bold text="Level" color="river" style={titleRegular} />
@@ -69,9 +77,10 @@ const LevelScreen = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  selectedResource: state.selectedResource.selectedResource,
   smileLevel: state.Goals.smileLevel,
+  profileData: state.profileData.profileData,
   requesting: state.selectedResource.requesting,
+  selectedResource: state.selectedResource.selectedResource,
 });
 
 const mapDispatchToProps = (dispatch) => ({

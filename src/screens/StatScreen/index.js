@@ -21,7 +21,14 @@ const StatScreen = (props) => {
   const {
     navigation: {navigate},
     profileData,
+    streaks,
+    smileGoals,
+    smileLevel,
   } = props;
+
+  console.log('streaks', streaks);
+  console.log('smileGoals', smileGoals);
+  console.log('smileLevel', smileLevel);
 
   const [active, setActive] = useState(6);
   const {row, fill, center, wrap, alignItemsCenter} = Layout;
@@ -132,6 +139,9 @@ const StatScreen = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  streaks: state.Goals.streaks,
+  smileGoals: state.Goals.smileGoals,
+  smileLevel: state.Goals.smileLevel,
   profileData: state.profileData.profileData,
 });
 
