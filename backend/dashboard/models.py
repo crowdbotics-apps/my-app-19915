@@ -15,9 +15,7 @@ class Quote(models.Model):
 class Smile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     second = models.FloatField()
-    # created = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(editable=True)
-    # create_on = models.DateTimeField(null=True, blank=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.user)
