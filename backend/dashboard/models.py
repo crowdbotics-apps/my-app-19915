@@ -30,7 +30,7 @@ class SmileExercise(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.exercise_name
 
 
 class Resource(models.Model):

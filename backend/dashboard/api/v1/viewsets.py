@@ -70,24 +70,19 @@ class SmileDashboard(ModelViewSet):
                 previous_date = today - timedelta(days=count)
             streak_list.append(streak)
             latest_streak = streak
+            max_streak = max(streak_list)
             s = Streak.objects.filter(user=self.request.user).values("max_streak", "latest_streak")
             m = 0
             l = 0
             if s:
                 m = s[0]["max_streak"]
                 l = s[0]["latest_streak"]
-            max_streak = max(streak_list)
-            if max_streak >= m:
-                if m == 0:
-                    st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
-                else:
-                    if latest_streak > l:
-                        st = Streak.objects.update(latest_streak=latest_streak)
-                    st = Streak.objects.update(max_streak=max_streak)
-            # else:
-            #     if latest_streak > l:
-            #         st = Streak.objects.update(latest_streak=latest_streak)
-
+            else:
+                st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
+            if max_streak > m:
+                st = Streak.objects.update(max_streak=max_streak)
+            if latest_streak > l:
+                st = Streak.objects.update(latest_streak=latest_streak)
             try:
                 output = {
                     'dashboard': day_dashboard_query,
@@ -227,6 +222,13 @@ class GoalViewSet(ModelViewSet):
         goal_second = 0
         goal_count = 0
         average = 0
+        avg_second = 0
+        avg_count = 0
+        message = ""
+        goal_second_complete = False
+        goal_count_complete = False
+        remaining_count = 0
+        remaining_second = 0
 
         if b:
             total = b[0]["total"]
@@ -234,27 +236,23 @@ class GoalViewSet(ModelViewSet):
         if queryset:
             goal_second = queryset[0]["goal_second"]
             goal_count = queryset[0]["count"]
-            average = total / goal_second * 100
-        message = ""
-        goal_second_complete = False
-        goal_count_complete = False
-        remaining_count = 0
-        remaining_second = 0
+            avg_second = total / goal_second * 100
+            avg_count = smile_count / goal_count * 100
+            if int(avg_second) > 100:
+                avg_second = (total / goal_second * 100) - ((total - goal_second) / goal_second * 100)
+            if int(avg_count) > 100:
+                avg_count = (smile_count / goal_count * 100) - ((smile_count - goal_count) / goal_count * 100)
 
-        if goal_second == 0:
+            average = (avg_second + avg_count) / 2
+
+        if goal_second == 0 & goal_count == 0:
             message = "you have not define your goal"
         else:
-            if total == goal_second:
+            if total >= goal_second:
                 goal_second_complete = True
             else:
-                if total > goal_second:
-                    goal_second_complete = True
-                    average = (total / goal_second * 100) - ((total - goal_second) / goal_second * 100)
-                else:
-                    remaining_second = goal_second - total
-        if goal_count == 0:
-            message = "you have not define your goal"
-        else:
+                remaining_second = goal_second - total
+
             if smile_count >= goal_count:
                 goal_count_complete = True
             else:

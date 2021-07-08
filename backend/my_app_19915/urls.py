@@ -38,7 +38,7 @@ urlpatterns = [
         path("", include("users.api.v1.urls")),
         path("", include("dashboard.api.v1.urls")),
     ]))
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Smile App"
 admin.site.site_title = "Smile App Admin Portal"
