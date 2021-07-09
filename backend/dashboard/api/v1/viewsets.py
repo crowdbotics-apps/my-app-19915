@@ -71,6 +71,46 @@ class SmileDashboard(ModelViewSet):
             streak_list.append(streak)
             latest_streak = streak
             max_streak = max(streak_list)
+            try:
+                output = {
+                    'dashboard': day_dashboard_query,
+                    'best_day': b,
+                    'latest_Streak': latest_streak,
+                    'max_streak': max_streak,
+                }
+            except:
+                output = {"avg_smile": 0.0, "min_smile": 0.0, "max_smile": 0.0,
+                          'smile_count': day_dashboard_query.count()}
+            return Response(output, status=status.HTTP_200_OK)
+        else:
+            today = date.today()
+            queryset_dashboard = queryset.filter(created__date__lte=today)
+            b = queryset.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
+            dashboard = queryset_dashboard.values('user').annotate(total_second=Sum('second')).annotate(
+                total_count=Count('second')) \
+                .annotate(avg_smile=Round(Avg('second'), 2)).annotate(max_smile=Max('second')).annotate(
+                min_smile=Min('second'))
+            q = queryset
+            first_obj_date = queryset_dashboard.first().created.date()
+            days = (today - first_obj_date).days
+            streak = 0
+            latest_streak = 0
+            previous_date = first_obj_date
+            streak_list = []
+            a = 0
+            for i in range(0, days + 1):
+                if q.filter(created__date=previous_date):
+                    streak += 1
+                else:
+                    streak_list.append(streak)
+                    latest_streak = streak
+                    streak = 0
+                # count -= 1
+                a = a + 1
+                previous_date = first_obj_date + timedelta(days=a)
+            streak_list.append(streak)
+            latest_streak = streak
+            max_streak = max(streak_list)
             s = Streak.objects.filter(user=self.request.user).values("max_streak", "latest_streak")
             m = 0
             l = 0
@@ -85,24 +125,10 @@ class SmileDashboard(ModelViewSet):
                 st = Streak.objects.update(latest_streak=latest_streak)
             try:
                 output = {
-                    'dashboard': day_dashboard_query,
+                    'dashboard': dashboard[0] if dashboard.count() > 0 else dashboard,
                     'best_day': b,
                     'latest_Streak': latest_streak,
                     'max_streak': max_streak if max_streak > m else m,
-                }
-            except:
-                output = {"avg_smile": 0.0, "min_smile": 0.0, "max_smile": 0.0,
-                          'smile_count': day_dashboard_query.count()}
-            return Response(output, status=status.HTTP_200_OK)
-        else:
-            today = date.today()
-            queryset_dashboard = queryset.filter(created__date__lte=today)
-            b = queryset_dashboard.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
-            dashboard = queryset_dashboard.values('user').annotate(total_second=Sum('second')).annotate(total_count=Count('second'))
-            try:
-                output = {
-                    'dashboard': dashboard[0] if dashboard.count() > 0 else dashboard,
-                    'best_day': b,
                 }
             except:
                 output = {"dashboard_smile_count": 0.0, 'dashboard_smile_count_sum': queryset_dashboard.count()}
