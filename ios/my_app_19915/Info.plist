@@ -23,16 +23,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.151121818515-8gker8ol2cbv66m0dclfseflpsrd45jc</string>
+				<string>fb523676995295231</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>523676995295231</string>
+	<key>FacebookDisplayName</key>
+	<string>com.my_app_19915</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -159,18 +161,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-  <key>CFBundleURLSchemes</key>
-  <array>
-    <string>fb523676995295231</string>
-  </array>
-  </dict>
-</array>
-<key>FacebookAppID</key>
-<string>523676995295231</string>
-<key>FacebookDisplayName</key>
-<string>com.my_app_19915</string>
 </dict>
 </plist>

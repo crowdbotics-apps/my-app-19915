@@ -30,6 +30,9 @@ PODS:
     - FirebaseAnalytics (= 6.9.0)
   - Firebase/CoreOnly (6.34.0):
     - FirebaseCore (= 6.10.4)
+  - Firebase/Messaging (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.7.1)
   - Firebase/MLVision (6.34.0):
     - Firebase/CoreOnly
     - FirebaseMLVision (~> 0.21.0)
@@ -59,6 +62,19 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - FirebaseInstanceID (4.8.0):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+  - FirebaseMessaging (4.7.1):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstanceID (~> 4.7)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Reachability (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+    - Protobuf (>= 3.9.2, ~> 3.9)
   - FirebaseMLCommon (0.21.0):
     - FirebaseCore (~> 6.9)
     - FirebaseInstallations (~> 1.5)
@@ -458,6 +474,7 @@ DEPENDENCIES:
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Firebase/Core
+  - Firebase/Messaging
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -514,6 +531,8 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseInstallations
+    - FirebaseInstanceID
+    - FirebaseMessaging
     - FirebaseMLCommon
     - FirebaseMLVision
     - FirebaseMLVisionFaceModel
@@ -633,6 +652,8 @@ SPEC CHECKSUMS:
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseInstanceID: bd3ffc24367f901a43c063b36c640b345a4a5dd1
+  FirebaseMessaging: 5eca4ef173de76253352511aafef774caa1cba2a
   FirebaseMLCommon: f42d067ca7fed962e09f02ba94a24e06ee50d933
   FirebaseMLVision: fd7cdd33d067c976c16fd521e7e92c26c980c947
   FirebaseMLVisionFaceModel: a67b2bf9b8407127a0bdb0ba98eb265637d1dc9d
@@ -687,6 +708,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393
 
-PODFILE CHECKSUM: 559c25dfd9e29ad7674f013ec498305c6263e974
+PODFILE CHECKSUM: 0162621beb1c3eaa82409edf9f4567618c7157e7
 
 COCOAPODS: 1.10.1
