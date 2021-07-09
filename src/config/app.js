@@ -1,6 +1,6 @@
 export const appConfig = {
   // todo add library to handle env variables
-  backendServerURL: 'https://smile-app-19915.botics.co', //"https://smile-app-19915.botics.co",
+  backendServerURL: 'http://192.168.0.111:8001', //"https://smile-app-19915.botics.co",
   emailAuthAPIEndPoint: 'https://smile-app-19915.botics.co',
   defaultTimeout: 5000,
   pubPublishKey: 'pub-c-09038c51-029c-47a7-95f2-b6c7407afb12',

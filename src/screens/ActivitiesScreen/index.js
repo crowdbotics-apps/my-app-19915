@@ -94,51 +94,52 @@ const ActivitiesScreen = (props) => {
           <Text text="Activities" color="river" style={titleSmall} />
         </View>
         <Content contentContainerStyle={mediumHPadding}>
-          <View
-            style={[
-              mediumVMargin,
-              border,
-              row,
-              justifyContentCenter,
-              alignItemsCenter,
-              midWrapper,
-            ]}>
-            <View style={[progressWrapper]}>
-              <View style={[center]}>
-                <ProgressCircle
-                  size={100}
-                  strokeCap="round"
-                  progress={0.6}
-                  thickness={5}
-                  showsText={false}
-                  color={Colors.golden}
-                  unfilledColor={Colors.lightgolden}
-                />
-                <Image
-                  style={[positionA]}
-                  source={Images.progressimagegolden}
-                />
-              </View>
-            </View>
-            <View>
-              <Text
-                color="lightgolden"
-                style={[smallLMargin, smallBMargin, textMedium]}
-                text={'Smile to continue\nyour 24 day streak'}
-              />
-              <Text
-                color="lightgolden"
-                style={[smallLMargin, smallBMargin, textMedium]}
-                text={'Your longest smile\nstreak has been 38 days'}
-              />
-            </View>
-          </View>
           <DataAvailability
             requesting={!activitiesExercises.length > 0}
             hasData={
               activitiesExercises.length && activitiesExercises.length > 0
             }
             style={dataWrapper}>
+            <View
+              style={[
+                mediumVMargin,
+                border,
+                row,
+                justifyContentCenter,
+                alignItemsCenter,
+                midWrapper,
+              ]}>
+              <View style={[progressWrapper]}>
+                <View style={[center]}>
+                  <ProgressCircle
+                    size={100}
+                    strokeCap="round"
+                    progress={0.6}
+                    thickness={5}
+                    showsText={false}
+                    color={Colors.golden}
+                    unfilledColor={Colors.lightgolden}
+                  />
+                  <Image
+                    style={[positionA]}
+                    source={Images.progressimagegolden}
+                  />
+                </View>
+              </View>
+              <View>
+                <Text
+                  color="lightgolden"
+                  style={[smallLMargin, smallBMargin, textMedium]}
+                  text={'Smile to continue\nyour 24 day streak'}
+                />
+                <Text
+                  color="lightgolden"
+                  style={[smallLMargin, smallBMargin, textMedium]}
+                  text={'Your longest smile\nstreak has been 38 days'}
+                />
+              </View>
+            </View>
+
             {activitiesExercises.length &&
               activitiesExercises.map((item, i) => (
                 <TouchableOpacity onPress={() => onSelectActivity(item)}>

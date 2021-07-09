@@ -20,8 +20,9 @@ export const getExercisesFailure = () => ({
   type: GET_EXERCISES_FAILURE,
 });
 
-export const markFavourite = () => ({
+export const markFavourite = (data) => ({
   type: MARK_FAVOURITE,
+  data,
 });
 
 export const markFavouriteSuccess = (data) => ({

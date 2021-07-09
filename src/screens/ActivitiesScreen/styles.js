@@ -25,4 +25,7 @@ export default StyleSheet.create({
     top: -30,
   },
   upgradeNow: {opacity: 0.7},
+  dataWrapper: {
+    paddingVertical: 250,
+  },
 });

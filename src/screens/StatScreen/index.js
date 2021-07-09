@@ -21,14 +21,10 @@ const StatScreen = (props) => {
   const {
     navigation: {navigate},
     profileData,
-    streaks,
-    smileGoals,
-    smileLevel,
+    stats,
   } = props;
 
-  console.log('streaks', streaks);
-  console.log('smileGoals', smileGoals);
-  console.log('smileLevel', smileLevel);
+  console.log('stats', stats);
 
   const [active, setActive] = useState(6);
   const {row, fill, center, wrap, alignItemsCenter} = Layout;
@@ -98,36 +94,44 @@ const StatScreen = (props) => {
           <SmileCountablity
             marginTop
             dateText
-            date="Saturday, 29.01"
+            date={`${
+              stats && stats.best_day ? stats.best_day.created__date : 0
+            }`}
             text="Best smile day"
             description="Day with highest number of smiles"
           />
           <SmileCountablity
-            subText="5 days"
+            subText={`${
+              stats
+                ? stats && stats.latest_Streak <= 1
+                  ? `${stats.latest_Streak}day`
+                  : `${stats.latest_Streak}days`
+                : `0`
+            }`}
             text="Recent smile streak"
             description="Days in a row with at least one smile"
           />
           <SmileCountablity
             lineChart
-            subText="24s"
+            subText={`${stats ? stats.dashboard.total_second : 0}s`}
             text="Length of smile"
             description="Average duration of smiles"
           />
           <SmileCountablity
             lineChart
-            subText="32s"
+            subText={`${stats ? stats.dashboard.max_smile : 0}s`}
             text="Longest smile"
             description="Average duration of smiles"
           />
           <SmileCountablity
             barChart
-            subText="25 days"
-            text="Best smile streak"
-            description="Days in a row with at least one smile"
-          />
-          <SmileCountablity
-            barChart
-            subText="25 days"
+            subText={`${
+              stats
+                ? stats && stats.max_streak <= 1
+                  ? `${stats.max_streak}day`
+                  : `${stats.max_streak}days`
+                : `0`
+            }`}
             text="Best smile streak"
             description="Days in a row with at least one smile"
           />
@@ -139,9 +143,7 @@ const StatScreen = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  streaks: state.Goals.streaks,
-  smileGoals: state.Goals.smileGoals,
-  smileLevel: state.Goals.smileLevel,
+  stats: state.Goals.streaks,
   profileData: state.profileData.profileData,
 });
 

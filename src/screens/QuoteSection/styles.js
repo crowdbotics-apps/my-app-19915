@@ -16,10 +16,12 @@ export default StyleSheet.create({
     marginLeft: 20,
     fontSize: 120,
     lineHeight: 120,
+    width: 60,
+    height: 50,
   },
   centerTextWrapper: {
     justifyContent: 'center',
-    marginTop: 60,
+    marginTop: 55,
     height: 200,
   },
   centerText: {
@@ -63,5 +65,5 @@ export default StyleSheet.create({
     borderColor: Colors.lightgolden,
   },
   progressWrapper: {height: 110},
-  textWrapper:{height:72,alignSelf:'center'}
+  textWrapper: {height: 72, alignSelf: 'center'},
 });
