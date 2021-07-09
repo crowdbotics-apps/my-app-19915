@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Content} from 'native-base';
 import {connect} from 'react-redux';
 import {View, Image, TouchableOpacity, ImageBackground} from 'react-native';
@@ -22,7 +22,6 @@ import {getGoals, getLevels, getStreaks} from './redux/actions';
 
 // styles
 import styles from './styles';
-import {useEffect} from 'react/cjs/react.development';
 
 const GoalScreen = (props) => {
   const {
@@ -46,8 +45,6 @@ const GoalScreen = (props) => {
     }
     return 0;
   };
-
-  const goals = [profileData, smileGoals, smileLevel, streaks];
 
   const [active, setActive] = useState(6);
   const {
@@ -86,9 +83,7 @@ const GoalScreen = (props) => {
 
   const weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const days = ['24', '25', '26', '27', '28', '29', '30'];
-  console.log('smileGoals', smileGoals);
-  console.log('smileLevel', smileLevel);
-  console.log('streaks', streaks);
+
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -105,7 +100,7 @@ const GoalScreen = (props) => {
         <Content contentContainerStyle={mediumBPadding}>
           <DataAvailability
             requesting={requesting}
-            hasData={Boolean(goals)}
+            hasData={Boolean(smileGoals && smileLevel && streaks)}
             style={dataWrapper}>
             <View style={[mediumHMargin, alignItemsCenter]}>
               <View style={row}>
@@ -147,7 +142,7 @@ const GoalScreen = (props) => {
               <View style={[center, smallTMargin]}>
                 <ProgressCircle
                   size={258}
-                  progress={smileGoals ? (1 * getAverage()) / 100 : 0}
+                  progress={smileGoals ? Number(getAverage()) / 100 : 0}
                   showsText={false}
                   color={Colors.riverbed}
                   unfilledColor={Colors.loblolly}
@@ -195,7 +190,9 @@ const GoalScreen = (props) => {
                 <GoalsCard
                   title="Smile count"
                   count={`${smileGoals.smile_count}`}
-                  description={`${smileGoals.remaining_count} more times`}
+                  description={`${
+                    smileGoals.remaining_count || '0'
+                  } more times`}
                   descriptionStyle={{fontWeight: 'bold'}}
                   otherText={`for your smile\ncount goal`}
                 />

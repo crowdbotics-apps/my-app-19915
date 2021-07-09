@@ -142,9 +142,10 @@ const ActivitiesScreen = (props) => {
 
             {activitiesExercises.length &&
               activitiesExercises.map((item, i) => (
-                <TouchableOpacity onPress={() => onSelectActivity(item)}>
+                <TouchableOpacity
+                  onPress={() => onSelectActivity(item)}
+                  key={i}>
                   <ActivityCard
-                    key={i}
                     title={item.exercise_name}
                     text={item.title}
                     item={item}

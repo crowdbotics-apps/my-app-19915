@@ -11,7 +11,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 import com.my_app_19915.generated.BasePackageList;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 //unimodule
 import java.util.Arrays; 
@@ -45,7 +44,6 @@ private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactMod
             new ModuleRegistryAdapter(mModuleRegistryProvider)
           );
           packages.addAll(unimodules);
-          packages.add(new ReactNativePushNotificationPackage()); 
           return packages;
         }
 
