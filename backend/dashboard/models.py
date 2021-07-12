@@ -30,7 +30,7 @@ class SmileExercise(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.exercise_name
 
 
 class Resource(models.Model):
@@ -78,7 +78,8 @@ class FavoriteExercise(models.Model):
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_goal")
     goal_second = models.IntegerField()
-    created = models.DateTimeField(editable=True)
+    count = models.IntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now=True)
     # created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
