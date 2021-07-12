@@ -242,6 +242,10 @@ android {
     }
 }
 dependencies {
-    implementation 'androidx.multidex:multidex:2.0.1'
+implementation platform('com.google.firebase:firebase-bom:28.2.0')
+implementation project(':react-native-push-notification')
+implementation 'com.google.firebase:firebase-messaging'
+implementation 'com.google.firebase:firebase-analytics:17.3.0'
+implementation 'androidx.multidex:multidex:2.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

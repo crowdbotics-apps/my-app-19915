@@ -45,6 +45,6 @@ export default StyleSheet.create({
     fontSize: 30,
   },
   dataWrapper: {
-    paddingVertical: 20,
+    paddingVertical: 240,
   },
 });

@@ -37,9 +37,11 @@ const NotificationScreen = (props) => {
   const {
     selectedResource,
     requesting,
+    profileData,
     route: {
       params: {item},
     },
+    navigation: {navigate},
   } = props;
 
   useEffect(() => {
@@ -51,10 +53,16 @@ const NotificationScreen = (props) => {
   console.log('selectedResource', selectedResource);
   return (
     <>
-      <ImageBackground source={Images.screenbg} style={fill}>
+      <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
         <View style={[center, row, alignItemsCenter, mediumBMargin]}>
           <Text bold text="Notifications" color="river" style={titleRegular} />
@@ -91,8 +99,9 @@ const NotificationScreen = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  selectedResource: state.selectedResource.selectedResource,
   requesting: state.selectedResource.requesting,
+  profileData: state.profileData.profileData,
+  selectedResource: state.selectedResource.selectedResource,
 });
 
 const mapDispatchToProps = (dispatch) => ({

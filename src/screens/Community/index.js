@@ -12,30 +12,34 @@ import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
 //styles
 import styles from './styles';
 import {Gutters, Images, Layout, Fonts} from 'src/theme';
+
 const {
   mediumBPadding,
   mediumVMargin,
   smallBMargin,
+  regularBMargin,
   regularHPadding,
   small2xHPadding,
   smallLMargin,
 } = Gutters;
 
-const {backImage, resource, dataWrapper} = styles;
+const {backImage, community, dataWrapper} = styles;
 
 import {CommunityCard} from '../../components';
 
-const {row, fill, center, alignItemsCenter, justifyContentBetween} = Layout;
+const {row, fill, fill2x, center, alignItemsCenter, justifyContentBetween} =
+  Layout;
 
 const {titleSmall, textMedium} = Fonts;
 
 const Community = (props) => {
   const {
     selectedResource,
-    requesting,
+    profileData,
     route: {
       params: {item},
     },
+    navigation: {navigate},
   } = props;
 
   useEffect(() => {
@@ -46,22 +50,32 @@ const Community = (props) => {
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Header
-          left={<MenuIcon action={() => props.navigation.openDrawer()} />}
-          right={<Avatar size="regular" />}
+          left={<MenuIcon grey action={() => props.navigation.openDrawer()} />}
+          right={
+            <Avatar
+              size="regular"
+              imageUrl={profileData.image}
+              action={() => navigate('MyAccount')}
+            />
+          }
         />
-        <View style={[row, alignItemsCenter, smallBMargin]}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
-            <Image source={Images.camarrowback} style={backImage} />
-          </TouchableOpacity>
-          <Text
-            bold
-            text="Community"
-            color="river"
-            style={[titleSmall, resource]}
-          />
-        </View>
         <View
-          style={[row, justifyContentBetween, regularHPadding, mediumVMargin]}>
+          style={[
+            row,
+            alignItemsCenter,
+            justifyContentBetween,
+            regularBMargin,
+          ]}>
+          <View style={fill}>
+            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+              <Image source={Images.camarrowback} style={backImage} />
+            </TouchableOpacity>
+          </View>
+          <View style={fill2x}>
+            <Text bold text="Community" color="river" style={titleSmall} />
+          </View>
+        </View>
+        <View style={[row, justifyContentBetween, mediumVMargin, community]}>
           <Text color="river" style={[textMedium]} text="All communities" />
           <TouchableOpacity>
             <View style={[row, center]}>
@@ -73,7 +87,7 @@ const Community = (props) => {
         <View style={[fill, small2xHPadding]}>
           <Content contentContainerStyle={[mediumBPadding]}>
             <DataAvailability
-              requesting={requesting}
+              requesting={!selectedResource.length > 0}
               hasData={selectedResource.length && selectedResource.length > 0}
               style={dataWrapper}>
               {selectedResource.length &&
@@ -97,6 +111,7 @@ const Community = (props) => {
 const mapStateToProps = (state) => ({
   selectedResource: state.selectedResource.selectedResource,
   requesting: state.selectedResource.requesting,
+  profileData: state.profileData.profileData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

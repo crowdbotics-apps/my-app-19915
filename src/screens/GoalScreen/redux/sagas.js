@@ -83,7 +83,7 @@ function* getLevelsData() {
 }
 
 async function getStreaksDataAPI() {
-  const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/?days=0`;
+  const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/`;
   const authToken = await AsyncStorage.getItem('authToken');
   console.log('Token', authToken);
   const options = {

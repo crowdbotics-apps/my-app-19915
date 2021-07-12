@@ -22,6 +22,7 @@ import styles from './styles';
 
 //actions
 import {getDashboard} from './redux/actions';
+import {getProfile} from '../MyAccount/redux/actions';
 
 const Dashboard = (props) => {
   const {
@@ -35,6 +36,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     props.getDashboard();
+    props.getProfile();
   }, []);
   const getTotalSeconds = () => {
     if (
@@ -200,6 +202,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getDashboard: () => dispatch(getDashboard()),
+  getProfile: () => dispatch(getProfile()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

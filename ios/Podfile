@@ -15,6 +15,9 @@ target 'my_app_19915' do
 
   pod 'react-native-camera', path: '../node_modules/react-native-camera', subspecs: ['FaceDetectorMLKit']
 
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+
   target 'my_app_19915Tests' do
     inherit! :complete
   end

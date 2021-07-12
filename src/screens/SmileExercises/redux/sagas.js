@@ -15,7 +15,8 @@ import {GET_EXERCISES, MARK_FAVOURITE} from './types';
 import {
   getExercisesSuccess,
   getExercisesFailure,
-  markFavourite,
+  markFavouriteSuccess,
+  markFavouriteFailure,
 } from './actions';
 
 async function getExercisesAPI() {
@@ -64,10 +65,11 @@ async function markFavouriteAPI(data) {
 
 function* markFavourity({data}) {
   try {
-    const response = yield call(markFavouriteAPI,data);
-    yield put(markFavourite(data));
+    const response = yield call(markFavouriteAPI, data);
+    yield put(markFavouriteSuccess(data));
   } catch (e) {
     console.log(e);
+    yield put(markFavouriteFailure());
     showMessage({
       message: 'Unable to load data, something went wrong.',
       type: 'danger',

@@ -3,6 +3,8 @@ import {
   GET_EXERCISES_SUCCESS,
   GET_EXERCISES_FAILURE,
   MARK_FAVOURITE,
+  MARK_FAVOURITE_SUCCESS,
+  MARK_FAVOURITE_FAILURE,
 } from './types';
 
 const initialState = {
@@ -28,8 +30,16 @@ export default (state = initialState, action) => {
     case MARK_FAVOURITE:
       return {
         ...state,
+        requesting: true,
+      };
+
+    case MARK_FAVOURITE_SUCCESS:
+      return {...state, requesting: false, favourite: action.data};
+
+    case MARK_FAVOURITE_FAILURE:
+      return {
+        ...state,
         requesting: false,
-        favourite: action.data,
       };
 
     default:

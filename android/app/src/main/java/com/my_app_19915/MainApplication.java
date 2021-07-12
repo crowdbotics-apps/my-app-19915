@@ -1,9 +1,5 @@
 package com.my_app_19915;
-
-//unimodule
 // com.myapp should be your package name
-import com.my_app_19915.generated.BasePackageList;
-
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -12,8 +8,9 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import com.my_app_19915.generated.BasePackageList;
 
 //unimodule
 import java.util.Arrays; 
@@ -47,8 +44,6 @@ private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactMod
             new ModuleRegistryAdapter(mModuleRegistryProvider)
           );
           packages.addAll(unimodules);
-
-          
           return packages;
         }
 
