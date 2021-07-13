@@ -19,12 +19,12 @@ import {
 } from './actions';
 
 // state
-const getDashboard = state => state.dashboard.data;
+const getDashboard = (state) => state.dashboard.data;
 
 async function getDashboardDataAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_dashboard/`;
   const authToken = await AsyncStorage.getItem('authToken');
-  console.log('Token',authToken);
+  console.log('Token', authToken);
   const options = {
     headers: {
       Authorization: 'Token ' + authToken,
@@ -67,9 +67,9 @@ async function updateSmileDataAPI(data) {
   return XHR(URL, options);
 }
 
- function* updateSmileData({data, navigation}) {
+function* updateSmileData({data, navigation}) {
   try {
-    const { second,count } = data;
+    const {second, count} = data;
     if (second && count > 0) {
       yield call(updateSmileDataAPI, data);
 
@@ -77,16 +77,16 @@ async function updateSmileDataAPI(data) {
 
       let clonedData = {
         ...dashboardData,
-        best_day: { ...dashboardData.best_day },
+        best_day: {...dashboardData.best_day},
         dashboard: {
           ...dashboardData.dashboard,
           total_second: dashboardData.dashboard.total_second + second,
-          total_count: dashboardData.dashboard.total_count + count
-        }
+          total_count: dashboardData.dashboard.total_count + count,
+        },
       };
 
       yield put(getDashBoardDataSuccess(clonedData));
-      navigation.goBack()
+      navigation.goBack();
     }
     yield put(resetSmileData());
   } catch (e) {

@@ -1,9 +1,9 @@
 import combinedReducers from './mainReducer';
-import { createStore, applyMiddleware, compose } from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { persistCombineReducers } from 'redux-persist';
+import {persistCombineReducers} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
-import { mainSaga } from './mainSaga';
+import {mainSaga} from './mainSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 /**
@@ -31,4 +31,4 @@ const store = createStore(
 
 sagaMiddleware.run(mainSaga);
 
-export { store };
+export {store};

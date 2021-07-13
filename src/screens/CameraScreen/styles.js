@@ -27,11 +27,6 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#495A66',
   },
-  camButtonsWrapper: {
-    width: 400,
-    height: 100,
-    backgroundColor: Colors.riverbed,
-  },
   touch: {
     justifyContent: 'center',
     alignItems: 'center',

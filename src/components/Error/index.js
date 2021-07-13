@@ -13,7 +13,7 @@ export default function Error({errorText}) {
           lineHeight: 17,
           alignSelf: 'center',
           paddingVertical: 8,
-          textAlign:'center'
+          textAlign: 'center',
         }}
         text={errorText}
         color="red"

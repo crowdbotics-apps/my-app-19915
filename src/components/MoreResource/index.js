@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {View, Image} from 'react-native';
-import {Content} from 'native-base';
 // components
 import {Text} from 'src/components';
 import {Gutters, Images, Layout, Fonts, Global} from 'src/theme';

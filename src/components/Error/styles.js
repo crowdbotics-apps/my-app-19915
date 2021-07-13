@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from 'src/theme';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingVertical:8,
-    marginTop:-18
+    paddingVertical: 8,
+    marginTop: -18,
   },
 });
 

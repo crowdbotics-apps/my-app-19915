@@ -1,12 +1,11 @@
-import React from 'react'
-import { ProgressCircle } from 'react-native-svg-charts'
-import { Colors } from 'src/theme'
+import React from 'react';
+import {ProgressCircle} from 'react-native-svg-charts';
+import {Colors} from 'src/theme';
 
-const Progress = ({ }) => {
-
+const Progress = ({}) => {
   return (
     <ProgressCircle
-      style={{ height: 264 }}
+      style={{height: 264}}
       progress={0.6}
       progressColor={Colors.primary}
       strokeWidth={5}
@@ -14,8 +13,7 @@ const Progress = ({ }) => {
       startAngle={0}
       endAngle={50}
     />
+  );
+};
 
-  )
-}
-
-export default Progress
+export default Progress;

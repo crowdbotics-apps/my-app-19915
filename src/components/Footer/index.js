@@ -1,57 +1,58 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, Image } from 'react-native';
-import { Footer as NBFooter, FooterTab } from 'native-base';
-
-// services
-import { navigate } from 'src/navigator/NavigationService';
+import React from 'react';
+import {TouchableOpacity, Image} from 'react-native';
+import {Footer as NBFooter, FooterTab} from 'native-base';
 
 // components
-import { Text } from 'src/components';
-import { Global, Gutters, Images } from 'src/theme';
+import {Text} from 'src/components';
+import {Global, Gutters, Images} from 'src/theme';
 
 // styles
 import styles from './styles';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, light }) => {
-  const { touch, footer } = styles;
-  const { transparentBg } = Global
-  const { smallVPadding } = Gutters
+const Footer = ({
+  activeRoute,
+  navigation: {navigate, replace},
+  exerciseProp,
+  light,
+}) => {
+  const {touch, footer} = styles;
+  const {transparentBg} = Global;
+  const {smallVPadding} = Gutters;
 
   const routes = [
     {
       image: 'home',
       text: 'Home',
-      route: 'Dashboard'
+      route: 'Dashboard',
     },
     {
       image: 'goals',
       text: 'Goals',
-      route: 'GoalScreen'
+      route: 'GoalScreen',
     },
     {
       image: 'stats',
       text: 'Stats',
-      route: 'StatScreen'
+      route: 'StatScreen',
     },
     {
       image: 'activities',
       text: 'Activity',
-      route: 'ActivitiesScreen'
+      route: 'ActivitiesScreen',
     },
     {
       image: exerciseProp ? 'exercises' : 'more',
       text: exerciseProp ? 'Exercises' : 'More',
-      route: exerciseProp ? 'SmileExercises' : 'MoreScreen'
-    }
+      route: exerciseProp ? 'SmileExercises' : 'MoreScreen',
+    },
   ];
   const onPress = (route) => {
     if (activeRoute === 'Home') {
-        navigate(route);
+      navigate(route);
     } else {
-        replace(route);
+      replace(route);
     }
-}
+  };
 
   return (
     <NBFooter style={[transparentBg, footer]}>
@@ -60,20 +61,31 @@ const Footer = ({ activeRoute, navigation: { navigate, replace }, exerciseProp, 
           <TouchableOpacity
             key={i}
             style={touch}
-            onPress={()=> onPress(screen.route)}
-          >{light ? <Image
-            source={Images[
-              `${screen.image}${activeRoute === screen.text ? 'dark' : 'light'}`
-            ]}
-          /> :
-            <Image
-              source={Images[
-                `${screen.image}${activeRoute === screen.text ? 'dark' : 'light'}`
-              ]}
-            />}
+            onPress={() => onPress(screen.route)}>
+            {light ? (
+              <Image
+                source={
+                  Images[
+                    `${screen.image}${
+                      activeRoute === screen.text ? 'dark' : 'light'
+                    }`
+                  ]
+                }
+              />
+            ) : (
+              <Image
+                source={
+                  Images[
+                    `${screen.image}${
+                      activeRoute === screen.text ? 'dark' : 'light'
+                    }`
+                  ]
+                }
+              />
+            )}
             <Text
               text={screen.text}
-              color={activeRoute === screen.text ? "golden" : "riverbed"}
+              color={activeRoute === screen.text ? 'golden' : 'riverbed'}
               medium
               style={smallVPadding}
             />

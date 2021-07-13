@@ -184,7 +184,7 @@ const GoalScreen = (props) => {
                   title="Smile seconds"
                   count={`${smileGoals.smile_second}s`}
                   description="Congratulations"
-                  otherText={`You completed\nthis goal`}
+                  otherText={'You completed\nthis goal'}
                   isCompleted={smileGoals.goal_second_complete ? true : false}
                 />
                 <GoalsCard
@@ -194,7 +194,7 @@ const GoalScreen = (props) => {
                     smileGoals.remaining_count || '0'
                   } more times`}
                   descriptionStyle={{fontWeight: 'bold'}}
-                  otherText={`for your smile\ncount goal`}
+                  otherText={'for your smile\ncount goal'}
                 />
               </View>
             </View>

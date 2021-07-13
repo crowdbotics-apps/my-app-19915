@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
-import {Content, Item} from 'native-base';
+import {View, ImageBackground} from 'react-native';
+import {Content} from 'native-base';
 
 //actions
 import {getMoreResources} from './redux/actions';

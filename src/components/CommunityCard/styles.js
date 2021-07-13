@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   textWrapper: {
@@ -13,7 +12,6 @@ export default StyleSheet.create({
     width: 374,
     height: 374,
     resizeMode: 'contain',
-    //borderRadius: 12,
   },
   icon: {
     width: 40,

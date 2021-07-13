@@ -10,7 +10,7 @@ import {
 const initialState = {
   requesting: false,
   activitiesExercises: false,
-  selectActivity:false
+  selectActivity: false,
 };
 
 export default (state = initialState, action) => {
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         requesting: false,
       };
 
-      case SELECT_ACTIVITIES:
+    case SELECT_ACTIVITIES:
       return {...state, requesting: true};
 
     case SELECT_ACTIVITIES_SUCCESS:

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Content } from 'native-base';
-import { ScrollView, ImageBackground } from 'react-native';
+import {Content} from 'native-base';
+import {ScrollView, ImageBackground} from 'react-native';
 
 // components
 import {
@@ -12,15 +12,15 @@ import {
   Card,
   GameCard,
 } from 'src/components';
-import { Layout, Images, Gutters, Global } from 'src/theme';
+import {Layout, Images, Gutters, Global} from 'src/theme';
 
 // styles
 import styles from './styles';
 
 const GameScreen = (props) => {
-  const { row, fill } = Layout;
-  const { regularHMargin, mediumHMargin, mediumBPadding } = Gutters;
-  const { fetureText } = styles;
+  const {row, fill} = Layout;
+  const {regularHMargin, mediumHMargin, mediumBPadding} = Gutters;
+  const {fetureText} = styles;
 
   return (
     <>
@@ -28,7 +28,7 @@ const GameScreen = (props) => {
         <Content contentContainerStyle={mediumBPadding}>
           <Header
             left={<MenuIcon action={() => props.navigation.openDrawer()} />}
-            right={<Avatar size='regular' />}
+            right={<Avatar size="regular" />}
           />
           {/* <SmileCountablity
             cameraText
@@ -41,34 +41,30 @@ const GameScreen = (props) => {
             coloredDesc=" Buy more"
           /> */}
           <Text
-            text='Featured games'
-            color='secondary'
+            text="Featured games"
+            color="secondary"
             style={[mediumHMargin, fetureText]}
           />
           <ScrollView
-            contentContainerStyle={[
-              row,
-              regularHMargin,
-            ]}
+            contentContainerStyle={[row, regularHMargin]}
             horizontal
-            showsHorizontalScrollIndicator={false}
-          >
+            showsHorizontalScrollIndicator={false}>
             <Card nonary card1 />
             <Card denary card2 />
             <Card denary card2 />
           </ScrollView>
           <Text
-            text='All Games'
-            color='secondary'
+            text="All Games"
+            color="secondary"
             style={[mediumHMargin, fetureText]}
           />
           <GameCard rarely card1 />
           <GameCard tuscany card2 />
         </Content>
-        <Footer activeRoute='Games' navigation={props.navigation} />
+        <Footer activeRoute="Games" navigation={props.navigation} />
       </ImageBackground>
     </>
   );
 };
 
-export default GameScreen
+export default GameScreen;

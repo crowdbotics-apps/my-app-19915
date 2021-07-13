@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// (...)
 
 export default function Tab() {
   return (
     <>
       <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
             if (route.name === 'Home') {
@@ -26,8 +25,7 @@ export default function Tab() {
         tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
-        }}
-      >
+        }}>
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>

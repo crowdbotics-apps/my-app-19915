@@ -32,7 +32,6 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: '#fff',
     borderRadius: 10,
     backgroundColor: '#EF9919',
     opacity: 0.5,

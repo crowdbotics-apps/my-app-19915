@@ -10,8 +10,7 @@ import {Fonts, Layout, Gutters, Images} from 'src/theme';
 import styles from './styles';
 
 const {smallVMargin} = Gutters;
-const {fill, positionA, positionR, justifyContentEnd, justifyContentCenter} =
-  Layout;
+const {fill, positionA, positionR, justifyContentEnd, justifyContentCenter} = Layout;
 const {textMedium, titleRegular} = Fonts;
 const {textWrapper, image, cardWrapper, icon} = styles;
 

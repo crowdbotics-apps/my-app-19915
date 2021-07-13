@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {View, ImageBackground, Image} from 'react-native';
 import {Content} from 'native-base';

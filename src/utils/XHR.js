@@ -1,6 +1,6 @@
 import axios from 'axios';
 // config
-import { appConfig } from '../config/app';
+import {appConfig} from '../config/app';
 
 // axios.defaults.headers.common['apiKey'] = appConfig.apiKey;
 
@@ -23,6 +23,4 @@ function checkStatus(response) {
 }
 
 export default (url, options) =>
-  axios(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
+  axios(url, options).then(checkStatus).then(parseJSON);

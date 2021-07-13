@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   notificationWrapper: {
@@ -7,6 +6,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
-    marginBottom:10
+    marginBottom: 10,
   },
 });

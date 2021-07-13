@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
         requesting: false,
       };
 
-      case UPDATE_SMILE_DATA:
+    case UPDATE_SMILE_DATA:
       return {...state, requesting: true};
 
     case RESET_SMILE_DATA:

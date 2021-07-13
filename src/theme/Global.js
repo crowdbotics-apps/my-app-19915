@@ -3,81 +3,67 @@
  *
  * Use it to define generic component styles (e.g. the default text styles, default button styles...).
  */
-import { Colors } from './Variables';
-import { StyleSheet } from 'react-native';
+import {Colors} from './Variables';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   primary: {
-    color: Colors.white
+    color: Colors.white,
   },
   primaryBg: {
-    backgroundColor: Colors.primary
+    backgroundColor: Colors.primary,
   },
   secondaryBg: {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
   tertiary: {
-    color: Colors.cinnamon
+    color: Colors.cinnamon,
   },
   tertiaryBg: {
-    backgroundColor: Colors.goldenrod
+    backgroundColor: Colors.goldenrod,
   },
   nonary: {
-    color: Colors.cornflower
+    color: Colors.cornflower,
   },
   nonaryBg: {
-    backgroundColor: Colors.cornflower
+    backgroundColor: Colors.cornflower,
   },
   denary: {
-    color: Colors.chenin
+    color: Colors.chenin,
   },
   denaryBg: {
-    backgroundColor: Colors.chenin
+    backgroundColor: Colors.chenin,
   },
   rarely: {
-    color: Colors.orangetext
+    color: Colors.orangetext,
   },
   rarelyBg: {
-    backgroundColor: Colors.orangetext
+    backgroundColor: Colors.orangetext,
   },
   tuscanyBg: {
-    backgroundColor: Colors.tuscany
+    backgroundColor: Colors.tuscany,
   },
   border: {
     borderWidth: 1,
   },
   borderColor: {
-    borderColor: Colors.white
+    borderColor: Colors.white,
   },
   borderB: {
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   borderT: {
-    borderTopWidth: 1
+    borderTopWidth: 1,
   },
   transparentBg: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
-  primaryCardBg: {backgroundColor: Colors.pattensblue
-  },
-  secondaryCardBg: {backgroundColor: Colors.skeptic
-  },
-  tertiaryCardBg: {backgroundColor: Colors.feta
-  },
-  quaternaryCardBg: {backgroundColor: Colors.wheat
-  },
-  primaryText: {color:Colors.danube
-  },
-  secondaryText: {color:Colors.breakerbay
-  },
-  tertiaryText: {color:Colors.greensmoke
-  },
-  quaternaryText: {color:Colors.texasrose
-  },
-
-
-
-
-
-  
+  primaryCardBg: {backgroundColor: Colors.pattensblue},
+  secondaryCardBg: {backgroundColor: Colors.skeptic},
+  tertiaryCardBg: {backgroundColor: Colors.feta},
+  quaternaryCardBg: {backgroundColor: Colors.wheat},
+  primaryText: {color: Colors.danube},
+  secondaryText: {color: Colors.breakerbay},
+  tertiaryText: {color: Colors.greensmoke},
+  quaternaryText: {color: Colors.texasrose},
 });

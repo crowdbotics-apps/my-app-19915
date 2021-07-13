@@ -1,4 +1,4 @@
-import {all, call, put, takeLatest, select} from 'redux-saga/effects';
+import {all, call, put, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import {showMessage} from 'react-native-flash-message';
 

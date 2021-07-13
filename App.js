@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import * as eva from '@eva-design/eva';
 import {
   ApplicationProvider,
-  Layout,
-  Text,
   IconRegistry,
 } from 'react-native-ui-kitten';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';

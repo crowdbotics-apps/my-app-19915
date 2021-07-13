@@ -1,16 +1,16 @@
-import RNSecureKeyStore, { ACCESSIBLE } from 'react-native-secure-key-store';
+import RNSecureKeyStore, {ACCESSIBLE} from 'react-native-secure-key-store';
 
 const TOKEN_KEY = 'token';
 
-const saveToken = token => {
+const saveToken = (token) => {
   return new Promise(function (resolve, reject) {
     RNSecureKeyStore.set(TOKEN_KEY, token, {
       accessible: ACCESSIBLE.ALWAYS_THIS_DEVICE_ONLY,
     }).then(
-      res => {
+      (res) => {
         resolve(res);
       },
-      err => {
+      (err) => {
         reject(err);
       },
     );
@@ -18,9 +18,9 @@ const saveToken = token => {
 };
 
 const getToken = async () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     RNSecureKeyStore.get(TOKEN_KEY).then(
-      token => {
+      (token) => {
         resolve(token);
       },
       () => {
@@ -31,13 +31,11 @@ const getToken = async () => {
 };
 
 const removeToken = async () => {
-  return new Promise(resolve => {
-    RNSecureKeyStore.remove(TOKEN_KEY).then(
-      () => {
-        resolve(null);
-      },
-    );
+  return new Promise((resolve) => {
+    RNSecureKeyStore.remove(TOKEN_KEY).then(() => {
+      resolve(null);
+    });
   });
 };
 
-export { getToken, saveToken, removeToken };
+export {getToken, saveToken, removeToken};

@@ -12,10 +12,15 @@ import {appConfig} from 'src/config/app';
 import XHR from 'src/utils/XHR';
 
 // types
-import {GET_EXERCISES_ACTIVITIES,SELECT_ACTIVITIES} from './types';
+import {GET_EXERCISES_ACTIVITIES, SELECT_ACTIVITIES} from './types';
 
 // actions
-import {getExercisesActivitiesSuccess, getExercisesActivitiesFailure,selectActivitiesSuccess,selectActivitiesFailure} from './actions';
+import {
+  getExercisesActivitiesSuccess,
+  getExercisesActivitiesFailure,
+  selectActivitiesSuccess,
+  selectActivitiesFailure,
+} from './actions';
 
 async function getExercisesActivitiesAPI() {
   const URL = `${appConfig.backendServerURL}/api/v1/smile_exercise/`;
@@ -62,10 +67,10 @@ async function selectActivitiesAPI(id) {
 
 function* selectActivities({item}) {
   try {
-    const response = yield call(selectActivitiesAPI,item.id);
+    const response = yield call(selectActivitiesAPI, item.id);
     const {data} = response;
     yield put(selectActivitiesSuccess(data));
-    navigate('SmileExercises', { selectedActivity: item })
+    navigate('SmileExercises', {selectedActivity: item});
   } catch (e) {
     console.log(e);
     yield put(selectActivitiesFailure());
@@ -79,5 +84,5 @@ function* selectActivities({item}) {
 
 export default all([
   takeLatest(GET_EXERCISES_ACTIVITIES, getActivities),
-  takeLatest(SELECT_ACTIVITIES, selectActivities)
+  takeLatest(SELECT_ACTIVITIES, selectActivities),
 ]);

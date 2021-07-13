@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   /* Column Layouts */
@@ -47,7 +47,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   selfCenter: {
-    alignSelf: "center"
+    alignSelf: 'center',
   },
   alignItemsCenter: {
     alignItems: 'center',
@@ -76,8 +76,8 @@ export default StyleSheet.create({
   justifyContentBetween: {
     justifyContent: 'space-between',
   },
-  justifyContentEvenly:{
-    justifyContent: "space-evenly"
+  justifyContentEvenly: {
+    justifyContent: 'space-evenly',
   },
   scrollSpaceAround: {
     flexGrow: 1,
@@ -114,31 +114,31 @@ export default StyleSheet.create({
     width: '50%',
   },
   quarter: {
-    width: '33.33%'
+    width: '33.33%',
   },
   fullHeight: {
     height: '100%',
   },
   /* Operation Layout */
   mirror: {
-    transform: [{ scaleX: -1 }],
+    transform: [{scaleX: -1}],
   },
   rotate90: {
-    transform: [{ rotate: '90deg' }],
+    transform: [{rotate: '90deg'}],
   },
   rotate45: {
-    transform: [{ rotate: '45deg' }],
+    transform: [{rotate: '45deg'}],
   },
   rotate90Inverse: {
-    transform: [{ rotate: '-90deg' }],
+    transform: [{rotate: '-90deg'}],
   },
   rotate180Inverse: {
-    transform: [{ rotate: '-180deg' }],
+    transform: [{rotate: '-180deg'}],
   },
   positionR: {
-    position: 'relative'
+    position: 'relative',
   },
   positionA: {
-    position: 'absolute'
-  }
+    position: 'absolute',
+  },
 });

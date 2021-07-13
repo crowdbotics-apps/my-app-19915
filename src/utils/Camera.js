@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   DeviceEventEmitter, // android
   NativeAppEventEmitter, // ios
   NativeModules,
-  Platform,
   StyleSheet,
   requireNativeComponent,
   View,
@@ -14,7 +13,7 @@ const CameraManager = NativeModules.CameraManager || NativeModules.CameraModule;
 const CAMERA_REF = 'camera';
 
 function convertNativeProps(props) {
-  const newProps = { ...props };
+  const newProps = {...props};
   if (typeof props.cameraMode === 'string') {
     newProps.cameraMode = Camera.constants.CameraMode[props.cameraMode];
   }
@@ -27,32 +26,28 @@ function convertNativeProps(props) {
 }
 
 export default class Camera extends Component {
-
   static constants = {
     CameraMode: CameraManager.CameraMode,
-    CameraFilter: CameraManager.CameraFilter
+    CameraFilter: CameraManager.CameraFilter,
   };
 
   static propTypes = {
     ...View.propTypes,
-    cameraMode: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    cameraFilter: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
+    cameraMode: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    cameraFilter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   static defaultProps = {
     cameraMode: CameraManager.CameraMode.picture,
-    cameraFilter: CameraManager.CameraFilter.auto
+    cameraFilter: CameraManager.CameraFilter.auto,
   };
 
-  static checkDeviceAuthorizationStatus = CameraManager.checkDeviceAuthorizationStatus;
-  static checkVideoAuthorizationStatus = CameraManager.checkVideoAuthorizationStatus;
-  static checkAudioAuthorizationStatus = CameraManager.checkAudioAuthorizationStatus;
+  static checkDeviceAuthorizationStatus =
+    CameraManager.checkDeviceAuthorizationStatus;
+  static checkVideoAuthorizationStatus =
+    CameraManager.checkVideoAuthorizationStatus;
+  static checkAudioAuthorizationStatus =
+    CameraManager.checkAudioAuthorizationStatus;
 
   setNativeProps(props) {
     this.refs[CAMERA_REF].setNativeProps(props);
@@ -62,16 +57,18 @@ export default class Camera extends Component {
     super();
     this.state = {
       isAuthorized: false,
-      isRecording: false
+      isRecording: false,
     };
   }
 
   async componentWillMount() {
-    let check = Camera.checkDeviceAuthorizationStatus && Camera.checkVideoAuthorizationStatus;
+    let check =
+      Camera.checkDeviceAuthorizationStatus &&
+      Camera.checkVideoAuthorizationStatus;
 
     if (check) {
       const isAuthorized = await check();
-      this.setState({ isAuthorized });
+      this.setState({isAuthorized});
     }
   }
 
@@ -87,13 +84,13 @@ export default class Camera extends Component {
   }
 
   setFilter(options) {
-	return CameraManager.changeCameraFilter(options);
+    return CameraManager.changeCameraFilter(options);
   }
-  
+
   record() {
     return CameraManager.record();
   }
-  
+
   stopRecord() {
     return CameraManager.stopRecord();
   }

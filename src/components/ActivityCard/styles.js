@@ -13,13 +13,13 @@ export default StyleSheet.create({
     backgroundColor: Colors.secondary,
     justifyContent: 'center',
     padding: 20,
-    marginBottom:10
+    marginBottom: 10,
   },
   textWrapper: {height: 46, justifyContent: 'space-evenly'},
   iconStyle: {
     width: 48,
     height: 48,
-    resizeMode:'contain'
+    resizeMode: 'contain',
   },
   favouriteicon: {
     width: 16,

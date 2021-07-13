@@ -10,7 +10,7 @@ export const getDashboard = () => ({
   type: GET_DASHBOARD_DATA,
 });
 
-export const getDashBoardDataSuccess = data => ({
+export const getDashBoardDataSuccess = (data) => ({
   type: GET_DASHBOARD_DATA_SUCCESS,
   data,
 });
@@ -22,7 +22,7 @@ export const getDashBoardDataFailure = () => ({
 export const updateSmileData = (data, navigation) => ({
   type: UPDATE_SMILE_DATA,
   data,
-  navigation
+  navigation,
 });
 
 export const resetSmileData = () => ({

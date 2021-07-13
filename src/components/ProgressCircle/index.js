@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import * as Progress from 'react-native-progress';
-import { Colors } from 'src/theme'
 
 const ProgressCircle = ({
   progress,
@@ -10,9 +9,8 @@ const ProgressCircle = ({
   color,
   style,
   thickness,
-  unfilledColor
+  unfilledColor,
 }) => {
-
   return (
     <Progress.Circle
       size={size}
@@ -25,7 +23,7 @@ const ProgressCircle = ({
       unfilledColor={unfilledColor}
       style={style}
     />
-  )
-}
+  );
+};
 
-export default ProgressCircle
+export default ProgressCircle;

@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react';
-import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {View, ImageBackground, Image} from 'react-native';
 import {connect} from 'react-redux';
 
 // components
-import {Text,DataAvailability} from 'src/components';
+import {Text, DataAvailability} from 'src/components';
 
 //styles
 import styles from './styles';
-import {Layout, Images, Gutters, Fonts} from 'src/theme';
+import {Layout, Images, Gutters} from 'src/theme';
 
 //actions
 import {getQuote} from './redux/actions';
 
-const DailyQuote = props => {
+const DailyQuote = (props) => {
   const {data, requesting} = props;
   useEffect(() => {
     props.getQuote();
   }, []);
-  
+
   const {rotate180Inverse, fill, center, alignItemsEnd} = Layout;
   const {largeXTMargin} = Gutters;
   const {
@@ -67,16 +67,13 @@ const DailyQuote = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.quote.data,
   requesting: state.quote.requesting,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getQuote: () => dispatch(getQuote()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DailyQuote);
+export default connect(mapStateToProps, mapDispatchToProps)(DailyQuote);

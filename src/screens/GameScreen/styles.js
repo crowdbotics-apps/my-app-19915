@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from 'src/theme';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   fetureText: {
     marginVertical: 30,
     fontSize: 28,
-    lineHeight: 28
-  }
+    lineHeight: 28,
+  },
 });

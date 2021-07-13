@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   card: {
-    height: 374
+    height: 374,
   },
   mainWrapper: {
     paddingHorizontal: 16,
@@ -11,19 +11,19 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    right: 0
+    right: 0,
   },
   imageStyle: {
     resizeMode: 'cover',
     borderRadius: 30,
-    width: '100%'
+    width: '100%',
   },
   parentImage: {
     borderRadius: 30,
   },
   textWrapper: {
     fontSize: 30,
-    lineHeight: 30
+    lineHeight: 30,
   },
   lastAvatar: {
     left: -30,
@@ -31,5 +31,5 @@ export default StyleSheet.create({
     borderRadius: 30,
     width: 35,
     height: 35,
-  }
+  },
 });

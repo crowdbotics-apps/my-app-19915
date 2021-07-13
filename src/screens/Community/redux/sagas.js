@@ -31,7 +31,7 @@ async function getCommunityAPI() {
 function* getCommunity() {
   try {
     const response = yield call(getCommunityAPI);
-    const { data } = response;
+    const {data} = response;
     yield put(getCommunitySuccess(data));
   } catch (e) {
     yield put(getCommunityFailure());

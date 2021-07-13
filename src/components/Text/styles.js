@@ -23,7 +23,6 @@ export default StyleSheet.create({
   pelorous: {color: Colors.pelorous},
   eden: {color: Colors.eden},
   atlantis: {color: Colors.atlantis},
-  golden: {color: Colors.golden},
   lightgolden: {color: Colors.lightgolden},
   malibu: {color: Colors.malibu},
   red: {color: 'red'},

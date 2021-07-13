@@ -11,7 +11,7 @@ export const getExercisesActivities = () => ({
   type: GET_EXERCISES_ACTIVITIES,
 });
 
-export const getExercisesActivitiesSuccess = data => ({
+export const getExercisesActivitiesSuccess = (data) => ({
   type: GET_EXERCISES_ACTIVITIES_SUCCESS,
   data,
 });
@@ -22,10 +22,10 @@ export const getExercisesActivitiesFailure = () => ({
 
 export const selectActivities = (item) => ({
   type: SELECT_ACTIVITIES,
-  item
+  item,
 });
 
-export const selectActivitiesSuccess = data => ({
+export const selectActivitiesSuccess = (data) => ({
   type: SELECT_ACTIVITIES_SUCCESS,
   data,
 });

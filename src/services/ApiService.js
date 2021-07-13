@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { getToken } from './StorageService';
-import { backendServerURL } from 'src/config/app';
+import {getToken} from './StorageService';
+import {backendServerURL} from 'src/config/app';
 
 const http = axios.create();
 const setupHttp = async () => {
@@ -14,7 +14,7 @@ const setupHttp = async () => {
   }
 };
 
-const login = ({ email, password }) => {
+const login = ({email, password}) => {
   console.log('==login===', email, password);
   const config = {
     method: 'post',
@@ -27,9 +27,9 @@ const login = ({ email, password }) => {
   return http(config);
 };
 
-const loginSocial = ({ key, provider }) => {
+const loginSocial = ({key, provider}) => {
   console.log('key ', key);
-  console.log('provider: ', provider)
+  console.log('provider: ', provider);
   const config = {
     method: 'post',
     url: `/token/social/${provider}/?user_role=client`,
@@ -40,7 +40,7 @@ const loginSocial = ({ key, provider }) => {
   return http(config);
 };
 
-const resetPassword = ({ email }) => {
+const resetPassword = ({email}) => {
   const config = {
     method: 'post',
     url: '/rest-auth/password/reset',
@@ -51,7 +51,7 @@ const resetPassword = ({ email }) => {
   return http(config);
 };
 
-const register = data => {
+const register = (data) => {
   const config = {
     method: 'post',
     url: '/rest-auth/registration/',
@@ -60,4 +60,4 @@ const register = data => {
   return http(config);
 };
 
-export { login, loginSocial, register, resetPassword, setupHttp };
+export {login, loginSocial, register, resetPassword, setupHttp};

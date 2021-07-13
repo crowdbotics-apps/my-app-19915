@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Image, ImageStore} from 'react-native';
+import {View, Image} from 'react-native';
 import {Text} from 'src/components';
-import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
+import {Images} from 'src/theme';
 import style from './style';
 const {CompletedStyle, unCompletedStyle} = style;
 

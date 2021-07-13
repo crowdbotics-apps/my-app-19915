@@ -1,14 +1,10 @@
-import {
-  GET_QUOTE,
-  GET_QUOTE_SUCCESS,
-  GET_QUOTE_FAILURE,
-} from './types';
+import {GET_QUOTE, GET_QUOTE_SUCCESS, GET_QUOTE_FAILURE} from './types';
 
 export const getQuote = () => ({
   type: GET_QUOTE,
 });
 
-export const getQuoteSuccess = data => ({
+export const getQuoteSuccess = (data) => ({
   type: GET_QUOTE_SUCCESS,
   data,
 });

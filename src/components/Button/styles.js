@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 // styles
-import { Colors } from 'src/theme';
+import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   primary: {
@@ -17,10 +17,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
   },
   tertiary: {
-    color: Colors.cinnamon
+    color: Colors.cinnamon,
   },
   tertiaryBg: {
-    backgroundColor: Colors.goldenrod
+    backgroundColor: Colors.goldenrod,
   },
   button: {
     height: 50,
@@ -36,6 +36,6 @@ export default StyleSheet.create({
   borderStyle: {
     borderColor: Colors.deepsapphire,
     borderWidth: 1,
-    shadowColor: 'transparent'
+    shadowColor: 'transparent',
   },
 });

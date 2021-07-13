@@ -10,7 +10,7 @@ export default StyleSheet.create({
     lineHeight: 50,
     marginTop: 20,
     textAlign: 'center',
-    color:'#495A66'
+    color: '#495A66',
   },
 
   logo: {
@@ -26,7 +26,7 @@ export default StyleSheet.create({
   fieldWrapper: {
     height: 55,
     fontSize: 14,
-    marginBottom:20,
+    marginBottom: 20,
     borderRadius: 30,
     color: Colors.nileblue,
     backgroundColor: Colors.white,
@@ -43,8 +43,8 @@ export default StyleSheet.create({
   },
   social: {width: 40, height: 40, resizeMode: 'contain'},
   checkBoxWrapper: {
-    height:22,
-    width:22,
+    height: 22,
+    width: 22,
     borderRadius: 5,
     marginRight: 25,
     backgroundColor: Colors.white,
@@ -62,10 +62,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   bgColor: {
-    backgroundColor: Colors.nileblue
+    backgroundColor: Colors.nileblue,
   },
 
-  errorBoxStyle: {marginTop:-10, paddingLeft: 25,marginBottom:10},
-  errorStyle:{borderColor:'red',borderWidth:1}
-  
+  errorBoxStyle: {marginTop: -10, paddingLeft: 25, marginBottom: 10},
+  errorStyle: {borderColor: 'red', borderWidth: 1},
 });

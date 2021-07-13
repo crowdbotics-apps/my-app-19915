@@ -13,13 +13,13 @@ import DrawerSideMenu from '../screens/SideMenu';
 const authStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const RootNavigationStack = props => {
+const RootNavigationStack = (props) => {
   return (
     <NavigationContainer ref={navigationRef}>
       {props.isAuth ? (
         <Drawer.Navigator
-        drawerStyle={{ width: '90%' }}
-          drawerContent={propsInit => <DrawerSideMenu {...propsInit} />}>
+          drawerStyle={{width: '90%'}}
+          drawerContent={(propsInit) => <DrawerSideMenu {...propsInit} />}>
           <Drawer.Screen name="AuthHome" component={MainStackScreen} />
         </Drawer.Navigator>
       ) : (
@@ -31,11 +31,8 @@ const RootNavigationStack = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuth: state.app.authToken,
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(RootNavigationStack);
+export default connect(mapStateToProps, null)(RootNavigationStack);

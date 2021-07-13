@@ -21,7 +21,7 @@ import {facebookLogin as facebookLoginAction} from 'src/screens/App/redux/action
 // styles
 import styles from './styles';
 
-const Login = props => {
+const Login = (props) => {
   const {
     navigation: {navigate},
     requesting,
@@ -86,7 +86,7 @@ const Login = props => {
       if (result.isCancelled) {
         alert('Login was cancelled');
       } else {
-        AccessToken.getCurrentAccessToken().then(data => {
+        AccessToken.getCurrentAccessToken().then((data) => {
           props.facebookLogin(data.accessToken.toString());
         });
       }
@@ -153,12 +153,14 @@ const Login = props => {
               <Input
                 placeholderTextColor={serverErrors ? 'red' : '#495A66'}
                 placeholder="EMAIL"
-                onChangeText={value => assignValues('email', 'email', value)}
+                onChangeText={(value) => assignValues('email', 'email', value)}
               />
             </View>
-           {state.email.error ? <View style={errorBoxStyle}>
-              <ErrorBox errorText={state.email.error} />
-            </View>:null}
+            {state.email.error ? (
+              <View style={errorBoxStyle}>
+                <ErrorBox errorText={state.email.error} />
+              </View>
+            ) : null}
             <View
               style={[
                 row,
@@ -175,14 +177,16 @@ const Login = props => {
                 secureTextEntry
                 placeholderTextColor={serverErrors ? 'red' : '#495A66'}
                 placeholder="PASSWORD"
-                onChangeText={value =>
+                onChangeText={(value) =>
                   assignValues('password', 'password', value)
                 }
               />
             </View>
-            {state.password.error ? <View style={errorBoxStyle}>
-              <ErrorBox errorText={state.password.error} />
-            </View>:null}
+            {state.password.error ? (
+              <View style={errorBoxStyle}>
+                <ErrorBox errorText={state.password.error} />
+              </View>
+            ) : null}
           </View>
           <View style={[mediumXHMargin, alignItemsCenter, row]}>
             <CheckBox
@@ -227,7 +231,7 @@ const Login = props => {
             <TouchableOpacity>
               <Image style={[regularHMargin, social]} source={Images.google} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>facebookLogin()}>
+            <TouchableOpacity onPress={() => facebookLogin()}>
               <Image
                 style={[regularHMargin, social]}
                 source={Images.facebook}
@@ -266,7 +270,7 @@ const Login = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   requesting: state.app.requesting,
   user: state.app.user,
   token: state.app.authToken,
@@ -274,13 +278,10 @@ const mapStateToProps = state => ({
   serverErrors: state.app.serverErrors,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(login(data)),
-  facebookLogin: accessToken => dispatch(facebookLoginAction(accessToken)),
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (data) => dispatch(login(data)),
+  facebookLogin: (accessToken) => dispatch(facebookLoginAction(accessToken)),
   resetServerError: () => dispatch(resetServerError()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

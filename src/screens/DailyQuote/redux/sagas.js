@@ -31,7 +31,7 @@ async function getQuoteAPI() {
 function* getQuote() {
   try {
     const response = yield call(getQuoteAPI);
-    const { data } = response;
+    const {data} = response;
     yield put(getQuoteSuccess(data));
   } catch (e) {
     yield put(getQuoteFailure());

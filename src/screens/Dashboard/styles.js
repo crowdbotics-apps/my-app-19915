@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   bottomButtonWrapper: {
     height: 56,
-    marginTop:20,
+    marginTop: 20,
     borderRadius: 80,
   },
 });
