@@ -1,12 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content} from 'native-base';
 import {connect} from 'react-redux';
 

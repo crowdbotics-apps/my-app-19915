@@ -2,9 +2,6 @@ import {all, call, put, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import {showMessage} from 'react-native-flash-message';
 
-// services
-import {navigate} from 'src/navigator/NavigationService';
-
 // config
 import {appConfig} from 'src/config/app';
 

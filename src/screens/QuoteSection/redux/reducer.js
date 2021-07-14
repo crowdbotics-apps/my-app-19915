@@ -1,8 +1,4 @@
-import {
-  GET_QUOTE,
-  GET_QUOTE_SUCCESS,
-  GET_QUOTE_FAILURE,
-} from './types';
+import {GET_QUOTE, GET_QUOTE_SUCCESS, GET_QUOTE_FAILURE} from './types';
 
 const initialState = {
   requesting: false,

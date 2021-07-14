@@ -12,7 +12,7 @@ import {
   MenuIcon,
   SmileCountablity,
 } from 'src/components';
-import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
+import {Layout, Images, Gutters} from 'src/theme';
 
 // styles
 import styles from './styles';
@@ -106,7 +106,7 @@ const StatScreen = (props) => {
                 ? stats && stats.latest_Streak <= 1
                   ? `${stats.latest_Streak}day`
                   : `${stats.latest_Streak}days`
-                : `0`
+                : '0'
             }`}
             text="Recent smile streak"
             description="Days in a row with at least one smile"
@@ -130,7 +130,7 @@ const StatScreen = (props) => {
                 ? stats && stats.max_streak <= 1
                   ? `${stats.max_streak}day`
                   : `${stats.max_streak}days`
-                : `0`
+                : '0'
             }`}
             text="Best smile streak"
             description="Days in a row with at least one smile"

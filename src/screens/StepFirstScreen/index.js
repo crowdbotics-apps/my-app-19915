@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import DatePicker from 'react-native-date-picker';
-import {Content, Icon, Input} from 'native-base';
+import {Content, Icon} from 'native-base';
 import {
   View,
   ImageBackground,
   TouchableOpacity,
-  Modal,
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 // components
-import {Text, Button, Test} from 'src/components';
+import {Text} from 'src/components';
 import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 
 //actions
@@ -240,10 +238,9 @@ const StepFirstScreen = (props) => {
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
             {checked === 2 &&
-              Children.map((text,i) => (
+              Children.map((text, i) => (
                 <View style={[primaryBg, regularHPadding, categoryWrapper]}>
-                  <TouchableOpacity
-                    onPress={() => onSelectChildren(i)}>
+                  <TouchableOpacity onPress={() => onSelectChildren(i)}>
                     <Text
                       text={Children[i]}
                       color="secondary"

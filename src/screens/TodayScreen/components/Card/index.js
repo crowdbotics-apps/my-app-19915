@@ -1,6 +1,6 @@
 import React from 'react';
-import { Icon } from 'native-base';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {Icon} from 'native-base';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 const Card = ({
   color = 'primary',
@@ -21,14 +21,14 @@ const Card = ({
   middleTextProps,
   subMiddleText,
   iconType = 'FontAwesome5',
-  icon
+  icon,
 }) => {
   return (
     <>
-      <View style={[styles.wrapper, shadow && styles.shadowStyle, styles[color]]}>
-
+      <View
+        style={[styles.wrapper, shadow && styles.shadowStyle, styles[color]]}>
         <View style={styles.textWrapper}>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection: 'row'}}>
             <Text style={[styles.textStyle, styles[`${textColor}Color`]]}>
               {heading}
             </Text>
@@ -37,18 +37,18 @@ const Card = ({
             </Text>
           </View>
 
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{flexDirection: 'row'}}>
             <Text style={[styles.middleTextStyle, styles[`${textColor}Color`]]}>
               {middleText}
             </Text>
-            <Text style={[styles.middleSubTextStyle, styles[`${textColor}Color`]]}>
+            <Text
+              style={[styles.middleSubTextStyle, styles[`${textColor}Color`]]}>
               {subTextMiddle}
             </Text>
           </View>
           <Text style={[styles.textStyle, styles[`${textColor}Color`]]}>
             {description}
           </Text>
-
         </View>
         <View style={[styles.iconMainStyle, styles[`${color}Icon`]]}>
           <Icon
@@ -63,16 +63,16 @@ const Card = ({
 };
 
 const styles = StyleSheet.create({
-  primary: { backgroundColor: '#5daffe' },
-  secondary: { backgroundColor: '#ff634e' },
-  tertiary: { backgroundColor: '#57f548' },
-  quaternary: { backgroundColor: '#ffffff' },
+  primary: {backgroundColor: '#5daffe'},
+  secondary: {backgroundColor: '#ff634e'},
+  tertiary: {backgroundColor: '#57f548'},
+  quaternary: {backgroundColor: '#ffffff'},
 
-  primaryIcon: { backgroundColor: '#55c1ff' },
-  secondaryIcon: { backgroundColor: '#ff968d' },
+  primaryIcon: {backgroundColor: '#55c1ff'},
+  secondaryIcon: {backgroundColor: '#ff968d'},
 
-  primaryColor: { color: '#ffffff' },
-  secondaryColor: { color: '#000000' },
+  primaryColor: {color: '#ffffff'},
+  secondaryColor: {color: '#000000'},
 
   wrapper: {
     flex: 1,
@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   shadowStyle: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 12,
     },
     shadowOpacity: 0.58,
-    shadowRadius: 16.00,
+    shadowRadius: 16.0,
 
     elevation: 6,
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   middleSubTextStyle: {
-    lineHeight: 30
+    lineHeight: 30,
   },
 
   // old
@@ -114,20 +114,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     top: 0,
-    right: 0
+    right: 0,
   },
   iconInnerStyle: {
     color: 'white',
-    fontSize: 20
+    fontSize: 20,
   },
   textStyle: {
     fontWeight: 'bold',
-    fontSize: 15
+    fontSize: 15,
   },
   subTextStyle: {
     fontSize: 13,
     fontWeight: 'bold',
-  }
-})
+  },
+});
 
-export default Card
+export default Card;

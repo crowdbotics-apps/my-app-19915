@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {View, ImageBackground, Image, Switch} from 'react-native';
+import {View, ImageBackground, Switch} from 'react-native';
 import {Content} from 'native-base';
 
 //actions

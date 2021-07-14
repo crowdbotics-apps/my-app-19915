@@ -1,22 +1,15 @@
 import React, {useState} from 'react';
-import DatePicker from 'react-native-date-picker';
-import {Content, Icon, Input} from 'native-base';
+import {Content} from 'native-base';
 import {connect} from 'react-redux';
-import {
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  Modal,
-  Image,
-} from 'react-native';
+import {View, ImageBackground, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 
 // components
-import {Text, Button, Test} from 'src/components';
+import {Text} from 'src/components';
 
 //theme
-import {Global, Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
+import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 
 //actions
 import {postStepThree} from './redux/actions';

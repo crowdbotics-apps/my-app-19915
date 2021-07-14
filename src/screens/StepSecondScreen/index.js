@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
-import {Content, Icon, Input} from 'native-base';
+import {Content, Icon} from 'native-base';
 import {
   View,
   ImageBackground,
@@ -102,7 +102,7 @@ const StepSecondScreen = (props) => {
   } = styles;
 
   const {titleSmall} = Fonts;
-  console.log('stepTwoData',stepTwoData);
+  console.log('stepTwoData', stepTwoData);
 
   return (
     <>
@@ -152,9 +152,7 @@ const StepSecondScreen = (props) => {
               style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.relation} style={regularHMargin} />
               <Text
-                text={
-                  relationshipStatus[selectedRelation]
-                }
+                text={relationshipStatus[selectedRelation]}
                 category="p1"
                 style={[fill, borderColor]}
               />
@@ -185,19 +183,16 @@ const StepSecondScreen = (props) => {
               ]}>
               <Image source={Images.profession} style={regularHMargin} />
               <Text
-                text={
-                  professionalStatus[selectedProfession]
-                }
+                text={professionalStatus[selectedProfession]}
                 category="p1"
                 style={[fill, borderColor]}
               />
               <Icon type="MaterialIcons" name="arrow-drop-down" />
             </TouchableOpacity>
             {checked === 4 &&
-              professionalStatus.map((text,i) => (
+              professionalStatus.map((text, i) => (
                 <View style={[primaryBg, regularHPadding]}>
-                  <TouchableOpacity
-                    onPress={() => onSelectProfession(i)}>
+                  <TouchableOpacity onPress={() => onSelectProfession(i)}>
                     <Text
                       text={professionalStatus[i]}
                       color="secondary"
@@ -250,7 +245,7 @@ const StepSecondScreen = (props) => {
 const mapStateToProps = (state) => ({
   requesting: state.stepTwoData.requesting,
   stepOneData: state.stepOneData.stepOneData,
-  stepTwoData: state.stepTwoData.stepTwoData
+  stepTwoData: state.stepTwoData.stepTwoData,
 });
 
 const mapDispatchToProps = (dispatch) => ({

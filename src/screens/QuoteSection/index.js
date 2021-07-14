@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 // components

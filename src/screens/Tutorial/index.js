@@ -1,25 +1,9 @@
 import React, {useState} from 'react';
 import {Content} from 'native-base';
-import {
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import {View, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // components
-import {
-  Text,
-  Header,
-  Footer,
-  Avatar,
-  MenuIcon,
-  Progress,
-  CardHeader,
-  ProgressCircle,
-  SmileCountablity,
-} from 'src/components';
+import {Text, ProgressCircle} from 'src/components';
 import {Layout, Images, Gutters, Fonts, Colors} from 'src/theme';
 
 // styles
@@ -38,7 +22,7 @@ const Goals = () => {
     alignItemsCenter,
   } = Layout;
 
-  const {textCenter,titleRegular, titleSmall} = Fonts;
+  const {textCenter, titleRegular, titleSmall} = Fonts;
 
   const {
     smallHPadding,
@@ -56,9 +40,16 @@ const Goals = () => {
     mediumXTMargin,
     largeXTMargin,
     largeXHMargin,
-    smallVMargin
+    smallVMargin,
   } = Gutters;
-  const {progressBarWrapper,buttonWrapper,buttonTMargin, textWrapper, text2Wrapper,bottomText} = styles;
+  const {
+    progressBarWrapper,
+    buttonWrapper,
+    buttonTMargin,
+    textWrapper,
+    text2Wrapper,
+    bottomText,
+  } = styles;
 
   return (
     <>
@@ -73,11 +64,7 @@ const Goals = () => {
                 color={Colors.secondary}
                 unfilledColor={Colors.viking}
               />
-              <View
-                style={[
-                  center,
-                  positionA,
-                ]}>
+              <View style={[center, positionA]}>
                 <Text color="river" bold text="62%" style={textWrapper} />
                 <Text color="river" text="smile stones" style={text2Wrapper} />
                 <Text
@@ -88,29 +75,40 @@ const Goals = () => {
                 <Image source={Images.progresicon} />
               </View>
             </View>
-            <View style={[mediumLMargin,mediumTMargin]}>
-              <Text bold color="secondary" style={[smallVMargin,titleRegular]} text="Lorem ipsum dolor" />
-              <Text color="secondary" style={[mediumTMargin,titleSmall,bottomText]} text={"Lorem ipsum dolor sit amet, \nconsectetur adipiscing elit. Fusce consectetur ipsum lacus. Vivamus lacinia laoreet augue, a commodo \nlibero scelerisque non"} />
+            <View style={[mediumLMargin, mediumTMargin]}>
+              <Text
+                bold
+                color="secondary"
+                style={[smallVMargin, titleRegular]}
+                text="Lorem ipsum dolor"
+              />
+              <Text
+                color="secondary"
+                style={[mediumTMargin, titleSmall, bottomText]}
+                text={
+                  'Lorem ipsum dolor sit amet, \nconsectetur adipiscing elit. Fusce consectetur ipsum lacus. Vivamus lacinia laoreet augue, a commodo \nlibero scelerisque non'
+                }
+              />
             </View>
           </View>
           <TouchableOpacity
-              onPress={() => navigate('Step2')}
-              style={[buttonTMargin,mediumHPadding]}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={['#56D3FB','#53F4EB']}
-                style={[
-                  fill,
-                  row,
-                  center,
-                  buttonWrapper,
-                  largeXTMargin,
-                  largXBMargin,
-                ]}>
-                <Text style={titleSmall} text="Next" color="river" />
-              </LinearGradient>
-            </TouchableOpacity>
+            onPress={() => navigate('Step2')}
+            style={[buttonTMargin, mediumHPadding]}>
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              colors={['#56D3FB', '#53F4EB']}
+              style={[
+                fill,
+                row,
+                center,
+                buttonWrapper,
+                largeXTMargin,
+                largXBMargin,
+              ]}>
+              <Text style={titleSmall} text="Next" color="river" />
+            </LinearGradient>
+          </TouchableOpacity>
         </Content>
       </ImageBackground>
     </>

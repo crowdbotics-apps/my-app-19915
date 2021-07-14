@@ -1,8 +1,4 @@
-import {
-  GET_SCIENCE,
-  GET_SCIENCE_SUCCESS,
-  GET_SCIENCE_FAILURE,
-} from './types';
+import {GET_SCIENCE, GET_SCIENCE_SUCCESS, GET_SCIENCE_FAILURE} from './types';
 
 const initialState = {
   requesting: false,

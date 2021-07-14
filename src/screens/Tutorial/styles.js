@@ -1,12 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from 'src/theme';
 
 export default StyleSheet.create({
   progressBarWrapper: {
     marginTop: 200,
   },
-  bottomText:{
-      lineHeight:24
+  bottomText: {
+    lineHeight: 24,
   },
   buttonWrapper: {
     height: 60,
@@ -17,5 +16,5 @@ export default StyleSheet.create({
   },
 
   textWrapper: {fontSize: 50, lineHeight: 60},
-  text2Wrapper: {fontSize: 16, lineHeight: 30}
+  text2Wrapper: {fontSize: 16, lineHeight: 30},
 });

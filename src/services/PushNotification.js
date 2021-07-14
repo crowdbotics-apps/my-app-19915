@@ -32,14 +32,14 @@ const RemotePushController = () => {
     senderID: '848401145267',
   });
 
-  localNotification = () => {
+  const localNotification = () => {
     PushNotification.localNotification({
       title: 'My Notification Title', // (optional)
       message: 'My Notification Message', // (required)
     });
   };
 
-  scheduleNotification = () => {
+  const scheduleNotification = () => {
     PushNotification.localNotificationSchedule({
       message: 'My Notification Message', // (required)
       date: new Date(Date.now() + 60 * 1000), // in 60 secs

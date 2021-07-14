@@ -9,11 +9,11 @@ export default StyleSheet.create({
     fontSize: 60,
     lineHeight: 60,
   },
-  headingWrapper: {
-    width: 240,
-    height: 169,
-    marginTop: 100,
-  },
+  // headingWrapper: {
+  //   width: 240,
+  //   height: 169,
+  //   marginTop: 100,
+  // },
   topWrapper: {
     width: 240,
     height: 169,
