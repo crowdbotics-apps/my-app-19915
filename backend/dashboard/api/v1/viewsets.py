@@ -29,8 +29,8 @@ class QuoteViewSet(ModelViewSet):
 
 
 class Round(Func):
-  function = 'ROUND'
-  arity = 2
+    function = 'ROUND'
+    arity = 2
 
 
 class SmileDashboard(ModelViewSet):
@@ -50,8 +50,10 @@ class SmileDashboard(ModelViewSet):
             # queryset = queryset.filter(created__gte=previous_day, created__year=year)
             queryset = queryset.filter(created__gte=previous_day)
             b = queryset.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
-            day_dashboard_query = queryset.values('user').annotate(total_second=Sum('second')).annotate(total_count=Count('second'))\
-                .annotate(avg_smile=Round(Avg('second'), 2)).annotate(max_smile=Max('second')).annotate(min_smile=Min('second'))
+            day_dashboard_query = queryset.values('user').annotate(total_second=Sum('second')).annotate(
+                total_count=Count('second')) \
+                .annotate(avg_smile=Avg('second')).annotate(max_smile=Max('second')).annotate(
+                min_smile=Min('second'))
             q = queryset
             count = int(days)
             streak = 0
@@ -88,7 +90,7 @@ class SmileDashboard(ModelViewSet):
             b = queryset_dashboard.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
             dashboard = queryset_dashboard.values('user').annotate(total_second=Sum('second')).annotate(
                 total_count=Count('second')) \
-                .annotate(avg_smile=Round(Avg('second'), 2)).annotate(max_smile=Max('second')).annotate(
+                .annotate(avg_smile=Avg('second')).annotate(max_smile=Max('second')).annotate(
                 min_smile=Min('second'))
             q = queryset
             smile_list = []
@@ -136,7 +138,7 @@ class SmileDashboard(ModelViewSet):
                 'latest_Streak': latest_streak,
                 'max_streak': max_streak,
                 "smile_list": smile_list
-                }
+            }
 
             return Response(output, status=status.HTTP_200_OK)
 
@@ -198,7 +200,7 @@ class SmileLevelViewSet(ModelViewSet):
     def list(self, request):
         queryset = self.get_queryset()
         today = date.today()
-        queryset_dashboard = queryset.filter(created__date__lte=today, user=self.request.user).values('user')\
+        queryset_dashboard = queryset.filter(created__date__lte=today, user=self.request.user).values('user') \
             .annotate(total_second=Sum('second'))
         total_second = 0
         if queryset_dashboard:
@@ -247,7 +249,7 @@ class GoalViewSet(ModelViewSet):
     def list(self, request):
         queryset = self.get_queryset()
         queryset = queryset.filter(created__gte=date.today()).values("goal_second", "count")
-        b = Smile.objects.filter(user=self.request.user, created__gte=date.today())\
+        b = Smile.objects.filter(user=self.request.user, created__gte=date.today()) \
             .values('created__date').annotate(total=Sum('second')).annotate(total_count=Count('second'))
         total = 0
         smile_count = 0
