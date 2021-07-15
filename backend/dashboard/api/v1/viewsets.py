@@ -85,13 +85,17 @@ class SmileDashboard(ModelViewSet):
         else:
             today = date.today()
             queryset_dashboard = queryset.filter(created__date__lte=today)
-            b = queryset.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
+            b = queryset_dashboard.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
+            # b = queryset.values('created__date').annotate(total=Sum('second')).order_by('-total').first()
             dashboard = queryset_dashboard.values('user').annotate(total_second=Sum('second')).annotate(
                 total_count=Count('second')) \
                 .annotate(avg_smile=Round(Avg('second'), 2)).annotate(max_smile=Max('second')).annotate(
                 min_smile=Min('second'))
             q = queryset
-            # first_obj_date = 0
+            smile_list = []
+            s = queryset_dashboard.values('created__date').annotate(total=Sum('second')).order_by('-total')
+            for i in s:
+                smile_list.append(i["total"])
             latest_streak = 0
             max_streak = 0
             m = 0
@@ -133,6 +137,7 @@ class SmileDashboard(ModelViewSet):
                     'best_day': b,
                     'latest_Streak': latest_streak,
                     'max_streak': max_streak if max_streak > m else m,
+                    "smile_list": smile_list
                 }
             except:
                 output = {"dashboard_smile_count": 0.0, 'dashboard_smile_count_sum': queryset_dashboard.count()}
