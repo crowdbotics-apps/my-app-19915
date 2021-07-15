@@ -125,21 +125,19 @@ class SmileDashboard(ModelViewSet):
                     m = s[0]["max_streak"]
                     l = s[0]["latest_streak"]
                 else:
-                    st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
+                    Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
                 if max_streak > m:
-                    st = Streak.objects.update(max_streak=max_streak)
+                    Streak.objects.update(max_streak=max_streak)
                 if latest_streak > l:
-                    st = Streak.objects.update(latest_streak=latest_streak)
-            try:
-                output = {
-                    'dashboard': dashboard[0] if dashboard.count() > 0 else dashboard,
-                    'best_day': b,
-                    'latest_Streak': latest_streak,
-                    'max_streak': max_streak,
-                    "smile_list": smile_list
+                    Streak.objects.update(latest_streak=latest_streak)
+            output = {
+                'dashboard': dashboard[0] if dashboard.count() > 0 else dashboard,
+                'best_day': b if b else {},
+                'latest_Streak': latest_streak,
+                'max_streak': max_streak,
+                "smile_list": smile_list
                 }
-            except:
-                output = {"dashboard_smile_count": 0.0, 'dashboard_smile_count_sum': queryset_dashboard.count()}
+
             return Response(output, status=status.HTTP_200_OK)
 
 
