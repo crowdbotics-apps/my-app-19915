@@ -91,38 +91,42 @@ class SmileDashboard(ModelViewSet):
                 .annotate(avg_smile=Round(Avg('second'), 2)).annotate(max_smile=Max('second')).annotate(
                 min_smile=Min('second'))
             q = queryset
-            first_obj_date = queryset_dashboard.first().created.date()
-            days = (today - first_obj_date).days
-            streak = 0
+            # first_obj_date = 0
             latest_streak = 0
-            previous_date = first_obj_date
-            streak_list = []
-            a = 0
-            for i in range(0, days + 1):
-                if q.filter(created__date=previous_date):
-                    streak += 1
-                else:
-                    streak_list.append(streak)
-                    latest_streak = streak
-                    streak = 0
-                # count -= 1
-                a = a + 1
-                previous_date = first_obj_date + timedelta(days=a)
-            streak_list.append(streak)
-            latest_streak = streak
-            max_streak = max(streak_list)
-            s = Streak.objects.filter(user=self.request.user).values("max_streak", "latest_streak")
+            max_streak = 0
             m = 0
-            l = 0
-            if s:
-                m = s[0]["max_streak"]
-                l = s[0]["latest_streak"]
-            else:
-                st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
-            if max_streak > m:
-                st = Streak.objects.update(max_streak=max_streak)
-            if latest_streak > l:
-                st = Streak.objects.update(latest_streak=latest_streak)
+            if queryset_dashboard:
+                first_obj_date = queryset_dashboard.first().created.date()
+                days = (today - first_obj_date).days
+                streak = 0
+                # latest_streak = 0
+                previous_date = first_obj_date
+                streak_list = []
+                a = 0
+                for i in range(0, days + 1):
+                    if q.filter(created__date=previous_date):
+                        streak += 1
+                    else:
+                        streak_list.append(streak)
+                        latest_streak = streak
+                        streak = 0
+                    # count -= 1
+                    a = a + 1
+                    previous_date = first_obj_date + timedelta(days=a)
+                streak_list.append(streak)
+                latest_streak = streak
+                max_streak = max(streak_list)
+                s = Streak.objects.filter(user=self.request.user).values("max_streak", "latest_streak")
+                l = 0
+                if s:
+                    m = s[0]["max_streak"]
+                    l = s[0]["latest_streak"]
+                else:
+                    st = Streak.objects.create(user=self.request.user, max_streak=max_streak, latest_streak=latest_streak)
+                if max_streak > m:
+                    st = Streak.objects.update(max_streak=max_streak)
+                if latest_streak > l:
+                    st = Streak.objects.update(latest_streak=latest_streak)
             try:
                 output = {
                     'dashboard': dashboard[0] if dashboard.count() > 0 else dashboard,
