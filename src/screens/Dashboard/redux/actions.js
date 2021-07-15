@@ -19,10 +19,9 @@ export const getDashBoardDataFailure = () => ({
   type: GET_DASHBOARD_DATA_FAILURE,
 });
 
-export const updateSmileData = (data, navigation) => ({
+export const updateSmileData = (data) => ({
   type: UPDATE_SMILE_DATA,
   data,
-  navigation,
 });
 
 export const resetSmileData = () => ({

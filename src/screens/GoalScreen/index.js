@@ -100,7 +100,7 @@ const GoalScreen = (props) => {
         <Content contentContainerStyle={mediumBPadding}>
           <DataAvailability
             requesting={requesting}
-            hasData={Boolean(smileGoals && smileLevel && streaks)}
+            hasData={Boolean(`${smileGoals && smileLevel && streaks}`)}
             style={dataWrapper}>
             <View style={[mediumHMargin, alignItemsCenter]}>
               <View style={row}>

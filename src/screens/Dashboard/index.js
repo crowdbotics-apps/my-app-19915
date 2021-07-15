@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-
+import {useFocusEffect} from '@react-navigation/native';
 import {Content} from 'native-base';
 import {
   View,
@@ -26,18 +26,32 @@ import {getProfile} from '../MyAccount/redux/actions';
 
 const Dashboard = (props) => {
   const {
-    user,
     data,
-    stepThreeData,
     profileData,
     requesting,
     navigation: {navigate},
   } = props;
 
+  const updateData = () => {
+    props.getDashboard();
+    props.getProfile();
+  };
+
   useEffect(() => {
     props.getDashboard();
     props.getProfile();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      //On Enter
+      updateData();
+      console.log('Enter');
+      //On Exit
+      return () => console.log('Exit');
+    }, []),
+  );
+
   const getTotalSeconds = () => {
     if (
       data &&
@@ -75,7 +89,7 @@ const Dashboard = (props) => {
     smallCircleWrapper,
     bottomButtonWrapper,
   } = styles;
-  console.log('stepThreeData', stepThreeData);
+
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>

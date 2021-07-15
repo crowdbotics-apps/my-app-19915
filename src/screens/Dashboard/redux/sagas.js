@@ -39,9 +39,10 @@ function* getDashboardData() {
   try {
     const response = yield call(getDashboardDataAPI);
     const {data} = response;
-
+    console.log('Dashboard data', data);
     yield put(getDashBoardDataSuccess(data));
   } catch (e) {
+    console.log('Error from Dashboard', e);
     yield put(getDashBoardDataFailure());
 
     showMessage({
@@ -67,9 +68,10 @@ async function updateSmileDataAPI(data) {
   return XHR(URL, options);
 }
 
-function* updateSmileData({data, navigation}) {
+function* updateSmileData({data}) {
   try {
     const {second, count} = data;
+    console.log('updated smile data', data);
     if (second && count > 0) {
       yield call(updateSmileDataAPI, data);
 
@@ -86,10 +88,10 @@ function* updateSmileData({data, navigation}) {
       };
 
       yield put(getDashBoardDataSuccess(clonedData));
-      navigation.goBack();
     }
     yield put(resetSmileData());
   } catch (e) {
+    console.log('Error on Update Smile', e);
     yield put(resetSmileData());
 
     showMessage({

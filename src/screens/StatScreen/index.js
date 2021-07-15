@@ -20,11 +20,10 @@ import styles from './styles';
 const StatScreen = (props) => {
   const {
     navigation: {navigate},
-    profileData,
+    data,
     stats,
+    profileData,
   } = props;
-
-  console.log('stats', stats);
 
   const [active, setActive] = useState(6);
   const {row, fill, center, wrap, alignItemsCenter} = Layout;
@@ -33,7 +32,8 @@ const StatScreen = (props) => {
 
   const weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const days = ['24', '25', '26', '27', '28', '29', '30'];
-
+  console.log('stats', stats);
+  console.log('data', data.smile_list);
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
@@ -113,7 +113,11 @@ const StatScreen = (props) => {
           />
           <SmileCountablity
             lineChart
-            subText={`${stats ? stats.dashboard.total_second : 0}s`}
+            subText={`${
+              stats && stats.dashboard.total_second
+                ? stats.dashboard.total_second
+                : 0
+            }s`}
             text="Length of smile"
             description="Average duration of smiles"
           />
@@ -143,10 +147,11 @@ const StatScreen = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  data: state.dashboard.data,
   stats: state.Goals.streaks,
   profileData: state.profileData.profileData,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+//const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, null)(StatScreen);

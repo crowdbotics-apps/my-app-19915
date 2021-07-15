@@ -36,4 +36,9 @@ export default StyleSheet.create({
     width: 320,
     flexDirection: 'row',
   },
+  backImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
 });

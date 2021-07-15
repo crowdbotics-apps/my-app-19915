@@ -27,6 +27,7 @@ const ChartBar = ({bar}) => {
       radiusY={100}
       data={bar ? barChart : barData}
       spacingInner={0.5}
+      // eslint-disable-next-line react-native/no-inline-styles
       style={{height: 100}}
       svg={{fill: Colors.zumthor}}
       yAccessor={({item}) => item.value}

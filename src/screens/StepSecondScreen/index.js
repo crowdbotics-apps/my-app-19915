@@ -23,7 +23,6 @@ import styles from './styles';
 
 const StepSecondScreen = (props) => {
   const {
-    requesting,
     stepOneData,
     stepTwoData,
     postStepTwo,
@@ -87,7 +86,6 @@ const StepSecondScreen = (props) => {
     mediumBMargin,
     regularTMargin,
     largeXTMargin,
-    regularVPadding,
     smallVPadding,
   } = Gutters;
 
@@ -124,7 +122,7 @@ const StepSecondScreen = (props) => {
               />
             </View>
 
-            <View style={{flex: 1}}>
+            <View style={fill}>
               <ProgressSteps
                 marginBottom={30}
                 activeStep={1}
@@ -136,13 +134,13 @@ const StepSecondScreen = (props) => {
                 completedProgressBarColor="#FFFFFF"
                 progressBarColor="#FFFFFF">
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{alignItems: 'center'}} />
+                  <View style={alignItemsCenter} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{alignItems: 'center'}} />
+                  <View style={alignItemsCenter} />
                 </ProgressStep>
                 <ProgressStep removeBtnRow={true}>
-                  <View style={{alignItems: 'center'}} />
+                  <View style={alignItemsCenter} />
                 </ProgressStep>
               </ProgressSteps>
             </View>

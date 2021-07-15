@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Content, Icon} from 'native-base';
-import {
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, ImageBackground, TouchableOpacity, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 // components

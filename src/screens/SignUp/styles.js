@@ -15,13 +15,14 @@ export default StyleSheet.create({
   backImage: {
     width: 40,
     height: 40,
-    right: 70,
   },
 
   logo: {
     width: 180,
     height: 180,
-    right: 15,
+    right: 10,
+    top: 20,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 18,
@@ -56,12 +57,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 4,
   },
-  topWrapper: {
-    marginTop: 20,
-    width: 320,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
+  topWrapper: {position: 'absolute', top: 30, left: 30, zIndex: 2},
 
   errorBoxStyle: {marginTop: -10, paddingLeft: 25, marginBottom: 8},
   errorStyle: {borderColor: 'red', borderWidth: 1},

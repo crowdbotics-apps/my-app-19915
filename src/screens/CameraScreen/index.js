@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {connect} from 'react-redux';
 //components
@@ -25,10 +25,12 @@ const CameraScreen = (props) => {
   const [totalCounts, setTotalCounts] = useState(0);
 
   const onUpdateSeconds = () => {
-    props.updateSmileData(
-      {second: totalSeconds, user: user.id, count: totalCounts},
-      props.navigation,
-    );
+    props.updateSmileData({
+      second: totalSeconds,
+      user: user.id,
+      count: totalCounts,
+    });
+    props.navigation.goBack();
   };
 
   const onSelectStyle = (value) => {
@@ -85,10 +87,11 @@ const CameraScreen = (props) => {
     row,
     fill,
     center,
-    justifyContentAround,
-    justifyContentBetween,
-    justifyContentEvenly,
+    alignItemsEnd,
     justifyContentEnd,
+    justifyContentAround,
+    justifyContentEvenly,
+    justifyContentBetween,
   } = Layout;
   const {small2xTMargin, smallHPadding, smallBMargin} = Gutters;
   const {
@@ -101,11 +104,6 @@ const CameraScreen = (props) => {
   } = styles;
 
   const filterImages = ['filterimg1', 'filterimg2', 'filterimg3', 'filterimg4'];
-
-  const takePicture = async function (camera) {
-    const options = {quality: 0.5, base64: true};
-    const data = await camera.takePictureAsync(options);
-  };
 
   const onFacesDetected = async (data) => {
     const {faces} = data;
@@ -163,8 +161,8 @@ const CameraScreen = (props) => {
               </TouchableOpacity>
             )}
           </View>
-          <View style={[fill, {alignItems: 'flex-end'}]}>
-            {isSmiling && <Text text="Smiling" />}
+          <View style={[fill, alignItemsEnd]}>
+            <SafeAreaView>{isSmiling && <Text text="Smiling" />}</SafeAreaView>
           </View>
         </View>
         <View style={[fill, justifyContentEnd]}>
@@ -234,8 +232,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateSmileData: (data, navigation) =>
-    dispatch(updateSmileData(data, navigation)),
+  updateSmileData: (data) => dispatch(updateSmileData(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);

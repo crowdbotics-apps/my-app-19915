@@ -4,13 +4,10 @@ import {View, ImageBackground, TouchableOpacity, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // components
 import {Text} from 'src/components';
-import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
+import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 // hooks
 import useForm from 'src/hooks/useForm';
-
-// utils
-import validator from 'src/utils/validation';
 
 // styles
 import styles from './styles';
@@ -32,11 +29,9 @@ const ResetPassword = (props) => {
   const validationStateSchema = {
     email: {
       required: true,
-      validator: validator.email,
     },
     password: {
       required: true,
-      validator: validator.password,
     },
   };
 
@@ -46,18 +41,13 @@ const ResetPassword = (props) => {
 
   const submitForm = () => {
     const data = {
-      password: state.password.value,
       username: state.email.value,
     };
     // onSubmit(data);
   };
 
-  const {state, handleOnChange, disable} = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
+  const {state, handleOnChange} = useForm(stateSchema, validationStateSchema);
   const {row, fill, center} = Layout;
-  const {borderColor} = Global;
 
   const {titleSmall} = Fonts;
 
@@ -66,27 +56,25 @@ const ResetPassword = (props) => {
     mediumXHMargin,
     mediumXTMargin,
     regularHPadding,
-    mediumBMargin,
     smallHMargin,
     largeXTMargin,
     regularVPadding,
     regularBPadding,
   } = Gutters;
-  const {
-    topWrapper,
-    title,
-    heading,
-    fieldWrapper,
-    buttonWrapper,
-    backArrowWrapper,
-  } = styles;
+  const {topWrapper, backImage, title, heading, fieldWrapper, buttonWrapper} =
+    styles;
   return (
     <>
       <ImageBackground source={Images.loginbg} style={fill}>
         <Content showsVerticalScrollIndicator={false}>
           <View style={[center, smallHMargin]}>
             <View style={topWrapper}>
-              <Image source={require('src/assets/images/arrow-back.png')} />
+              <TouchableOpacity onPress={() => props.navigation.goBack()}>
+                <Image
+                  source={require('src/assets/images/arrow-back.png')}
+                  style={backImage}
+                />
+              </TouchableOpacity>
               <Image source={require('src/assets/images/logos.png')} />
             </View>
           </View>

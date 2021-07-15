@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content} from 'native-base';
+import {useFocusEffect} from '@react-navigation/native';
 
 //styles
 import styles from './styles';
@@ -12,7 +13,7 @@ import {getExercisesActivities} from '../ActivitiesScreen/redux/actions';
 
 // components
 import {Text, Header, MenuIcon, Avatar, DataAvailability} from 'src/components';
-import {Gutters, Images, Layout, Global, Fonts} from 'src/theme';
+import {Gutters, Images, Layout, Fonts} from 'src/theme';
 const {
   mediumBPadding,
   mediumVMargin,
@@ -21,26 +22,18 @@ const {
   mediumHMargin,
 } = Gutters;
 
-const {backImage, star, text, image, dataWrapper, title} = styles;
+const {backImage, star, text, image, dataWrapper} = styles;
 
-const {
-  row,
-  fill,
-  fill2x,
-  alignItemsCenter,
-  justifyContentCenter,
-  justifyContentStart,
-} = Layout;
+const {row, fill, fill2x, alignItemsCenter, justifyContentCenter} = Layout;
 
 const {titleSmall, titleRegular, textMedium} = Fonts;
-const {border} = Global;
 
 const SmileExercises = (props) => {
   const {
     route: {
       params: {selectedActivity},
     },
-    navigation: {openDrawer},
+    navigation: {navigate, openDrawer},
     user,
     profileData,
     requesting,
@@ -51,10 +44,16 @@ const SmileExercises = (props) => {
     props.getExercisesActivities();
   }, []);
 
-  const onPressBack = () => {
-    props.getExercisesActivities();
-    props.navigation.goBack();
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      //On Enter
+      props.getExercises();
+      props.getExercisesActivities();
+      console.log('Enter');
+      //On Exit
+      return () => console.log('Exit');
+    }, []),
+  );
 
   const onFavourite = () => {
     const data = {
@@ -85,7 +84,7 @@ const SmileExercises = (props) => {
           style={dataWrapper}>
           <View style={[row, alignItemsCenter, smallBMargin]}>
             <View style={fill}>
-              <TouchableOpacity onPress={() => onPressBack()}>
+              <TouchableOpacity onPress={() => props.navigation.goBack()}>
                 <Image source={Images.camarrowback} style={backImage} />
               </TouchableOpacity>
             </View>
@@ -108,6 +107,7 @@ const SmileExercises = (props) => {
                         ? Images.bigstar
                         : Images.star
                     }
+                    // eslint-disable-next-line react-native/no-inline-styles
                     style={{width: 50, height: 50}}
                   />
                 </TouchableOpacity>

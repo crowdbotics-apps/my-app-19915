@@ -7,10 +7,10 @@ import {ActivityIndicator} from 'react-native';
 import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import {
   View,
-  ImageBackground,
-  TouchableOpacity,
   Modal,
   Image,
+  ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 
 // components
@@ -21,7 +21,7 @@ import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 import useForm from 'src/hooks/useForm';
 
 // utils
-import validator from 'src/utils/validation';
+// import validator from 'src/utils/validation';
 
 //action
 import {resetServerError} from 'src/screens/SignUp/redux/actions';
@@ -31,18 +31,17 @@ import {signUp} from './redux/actions';
 // styles
 import styles from './styles';
 
-const SignUp = props => {
+const SignUp = (props) => {
   const {
     navigation: {navigate},
     requesting,
     serverErrors,
   } = props;
-  const [checked, setChecked] = useState('');
   const [dob, setDOB] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dateText, setDateText] = useState('');
 
-  const onDateChange = date => {
+  const onDateChange = (date) => {
     setDOB(date);
     setDateText(date);
   };
@@ -59,11 +58,11 @@ const SignUp = props => {
   const validationStateSchema = {
     email: {
       required: true,
-      validator: validator.email,
+      //validator: validator.email,
     },
     password: {
       required: true,
-      validator: validator.password,
+      //validator: validator.password,
     },
   };
 
@@ -82,13 +81,9 @@ const SignUp = props => {
   const submitForm = () => {
     const data = {
       email: state.email.value,
-      password: state.password.value
+      password: state.password.value,
     };
     props.onSubmit(data);
-  };
-
-  const onPress = val => {
-    val === checked ? setChecked(0) : setChecked(val);
   };
 
   const facebookLogin = async () => {
@@ -100,7 +95,7 @@ const SignUp = props => {
       if (result.isCancelled) {
         alert('Login was cancelled');
       } else {
-        AccessToken.getCurrentAccessToken().then(data => {
+        AccessToken.getCurrentAccessToken().then((data) => {
           props.facebookLogin(data.accessToken.toString());
         });
       }
@@ -109,10 +104,7 @@ const SignUp = props => {
     }
   };
 
-  const {state, handleOnChange, disable} = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
+  const {state, handleOnChange} = useForm(stateSchema, validationStateSchema);
 
   const {titleSmall} = Fonts;
   const {row, fill, center, alignItemsCenter, fullSize} = Layout;
@@ -123,8 +115,7 @@ const SignUp = props => {
     regularHMargin,
     mediumXHMargin,
     regularHPadding,
-    mediumTMargin,
-    largeTMargin,
+    regularTMargin,
     smallVPadding,
     regularVPadding,
     smallBPadding,
@@ -137,7 +128,6 @@ const SignUp = props => {
     backImage,
     heading,
     errorBoxStyle,
-    errorStyle,
     fieldWrapper,
     buttonWrapper,
     modalWrapper,
@@ -147,17 +137,17 @@ const SignUp = props => {
   return (
     <>
       <ImageBackground source={Images.signupbg} style={fill}>
+        <TouchableOpacity
+          onPress={() => props.navigation.goBack()}
+          style={[topWrapper, center, fill]}>
+          <Image style={backImage} source={Images.arrowback} />
+        </TouchableOpacity>
         <Content showsVerticalScrollIndicator={false}>
           <View style={[center, smallHMargin]}>
-            <View style={topWrapper}>
-              <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                <Image style={backImage} source={Images.arrowback} />
-              </TouchableOpacity>
-              <Image
-                style={logo}
-                source={require('src/assets/images/logos.png')}
-              />
-            </View>
+            <Image
+              style={logo}
+              source={require('src/assets/images/logos.png')}
+            />
           </View>
           <View style={mediumXHMargin}>
             <View style={[fill, center]}>
@@ -171,26 +161,30 @@ const SignUp = props => {
               <Image source={Images.email} style={regularHMargin} />
               <Input
                 placeholder="ENTER EMAIL"
-                onChangeText={value => assignValues('email', 'email', value)}
+                onChangeText={(value) => assignValues('email', 'email', value)}
               />
             </View>
-           {state.email.error? <View style={errorBoxStyle}>
-              <ErrorBox errorText={state.email.error} />
-            </View>:null}
+            {state.email.error ? (
+              <View style={errorBoxStyle}>
+                <ErrorBox errorText={state.email.error} />
+              </View>
+            ) : null}
 
             <View style={[row, center, fieldWrapper, regularHPadding]}>
               <Image source={Images.pass} style={regularHMargin} />
               <Input
                 secureTextEntry
                 placeholder="ENTER PASSWORD"
-                onChangeText={value =>
+                onChangeText={(value) =>
                   assignValues('password', 'password', value)
                 }
               />
             </View>
-           {state.password.error? <View style={errorBoxStyle}>
-              <ErrorBox errorText={state.password.error} />
-            </View>:null}
+            {state.password.error ? (
+              <View style={errorBoxStyle}>
+                <ErrorBox errorText={state.password.error} />
+              </View>
+            ) : null}
             <TouchableOpacity onPress={() => submitForm()}>
               {requesting ? (
                 <View style={[center, activityIndicatorWrapper]}>
@@ -217,7 +211,7 @@ const SignUp = props => {
                   style={[regularHMargin, social]}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>facebookLogin()}>
+              <TouchableOpacity onPress={() => facebookLogin()}>
                 <Image
                   source={Images.facebook}
                   style={[regularHMargin, social]}
@@ -259,7 +253,7 @@ const SignUp = props => {
                 date={dob}
                 mode="date"
                 style={secondaryBg}
-                onDateChange={date => onDateChange(date)}
+                onDateChange={(date) => onDateChange(date)}
               />
 
               <Button
@@ -277,19 +271,16 @@ const SignUp = props => {
     </>
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   requesting: state.signUp.requesting,
   serverErrors: state.signUp.serverErrors,
   requestingFacebook: state.app.requestingFacebook,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(signUp(data)),
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (data) => dispatch(signUp(data)),
   resetServerError: () => dispatch(resetServerError()),
-  facebookLogin: accessToken => dispatch(facebookLoginAction(accessToken)),
+  facebookLogin: (accessToken) => dispatch(facebookLoginAction(accessToken)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -13,7 +13,7 @@ import {Layout, Images, Gutters, Fonts} from 'src/theme';
 import useForm from 'src/hooks/useForm';
 
 // utils
-import validator from 'src/utils/validation';
+//import validator from 'src/utils/validation';
 
 // actions
 import {login, resetServerError} from '../App/redux/actions';
@@ -26,7 +26,6 @@ const Login = (props) => {
     navigation: {navigate},
     requesting,
     serverErrors,
-    requestingFacebook,
   } = props;
 
   const [checked, setChecked] = useState(false);
@@ -44,11 +43,11 @@ const Login = (props) => {
   const validationStateSchema = {
     email: {
       required: true,
-      validator: validator.email,
+      //validator: validator.email,
     },
     password: {
       required: true,
-      validator: validator.password,
+      //validator: validator.password,
     },
   };
 
@@ -72,10 +71,7 @@ const Login = (props) => {
     props.onSubmit(data);
   };
 
-  const {state, handleOnChange, disable} = useForm(
-    stateSchema,
-    validationStateSchema,
-  );
+  const {state, handleOnChange} = useForm(stateSchema, validationStateSchema);
 
   const facebookLogin = async () => {
     try {

@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import * as eva from '@eva-design/eva';
-import {
-  ApplicationProvider,
-  IconRegistry,
-} from 'react-native-ui-kitten';
+import {ApplicationProvider, IconRegistry} from 'react-native-ui-kitten';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {Provider as ReduxProvider} from 'react-redux';
 import {persistStore} from 'redux-persist';
