@@ -28,11 +28,6 @@ class QuoteViewSet(ModelViewSet):
     http_method_names = ["get", "post"]
 
 
-class Round(Func):
-    function = 'ROUND'
-    arity = 2
-
-
 class SmileDashboard(ModelViewSet):
     serializer_class = SmileSerializer
 
@@ -40,6 +35,18 @@ class SmileDashboard(ModelViewSet):
         user = self.request.user
         queryset = Smile.objects.filter(user=user)
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        data_list = []
+        for i in request.data['second']:
+            data = {'user': request.user.id, 'second': i}
+            data_list.append(data)
+
+        serialized = SmileSerializer(data=data_list, many=True)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=status.HTTP_201_CREATED)
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
         queryset = self.get_queryset()
