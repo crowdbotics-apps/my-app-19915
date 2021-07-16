@@ -21,14 +21,14 @@ const CameraScreen = (props) => {
   const [selectedStyles, setSelectedStyles] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
   const [isSmiling, setIsSmiling] = useState(false);
-  const [totalSeconds, setTotalSeconds] = useState(0);
-  const [totalCounts, setTotalCounts] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState([]);
 
   const onUpdateSeconds = () => {
+    console.log('X', totalSeconds);
     props.updateSmileData({
-      second: totalSeconds,
       user: user.id,
-      count: totalCounts,
+      second: totalSeconds,
+      count: totalSeconds.length,
     });
     props.navigation.goBack();
   };
@@ -119,15 +119,16 @@ const CameraScreen = (props) => {
           const start = timeArray[0];
           const end = timeArray.pop();
           const seconds = getTimeDifference(start, end);
-          setTotalSeconds(totalSeconds + seconds);
-          setTotalCounts(totalCounts + 1);
+          const seconsdArray = [...totalSeconds];
+          seconsdArray.push(seconds);
+          setTotalSeconds(seconsdArray);
           setTimeArray([]);
           setIsSmiling(false);
         }
       }
     });
   };
-
+  console.log('totalSeconds', totalSeconds);
   return (
     <View style={styles.container}>
       <RNCamera

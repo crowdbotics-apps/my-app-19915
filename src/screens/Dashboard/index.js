@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {useFocusEffect} from '@react-navigation/native';
+// import {useFocusEffect} from '@react-navigation/native';
 import {Content} from 'native-base';
 import {
   View,
@@ -32,45 +32,25 @@ const Dashboard = (props) => {
     navigation: {navigate},
   } = props;
 
-  const updateData = () => {
-    props.getDashboard();
-    props.getProfile();
-  };
+  // const callback = (data) => {
+  //   props.getDashboard();
+  //   props.getProfile();
+  // };
 
   useEffect(() => {
     props.getDashboard();
     props.getProfile();
   }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      //On Enter
-      updateData();
-      console.log('Enter');
-      //On Exit
-      return () => console.log('Exit');
-    }, []),
-  );
-
   const getTotalSeconds = () => {
-    if (
-      data &&
-      data.dashboard &&
-      data.dashboard &&
-      data.dashboard.total_second
-    ) {
+    if (data && data.dashboard && data.dashboard.total_second) {
       return data.dashboard.total_second;
     }
     return 0;
   };
 
   const getTotalCount = () => {
-    if (
-      data &&
-      data.dashboard &&
-      data.dashboard &&
-      data.dashboard.total_count
-    ) {
+    if (data && data.dashboard && data.dashboard.total_count) {
       return data.dashboard.total_count;
     }
     return 0;

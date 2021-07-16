@@ -3,10 +3,9 @@ import React, {useEffect} from 'react';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content} from 'native-base';
 import {connect} from 'react-redux';
-
+import {useFocusEffect} from '@react-navigation/native';
 //actions
 import {getExercisesActivities, selectActivities} from './redux/actions';
-
 //styles
 import styles from './styles';
 
@@ -71,6 +70,17 @@ const ActivitiesScreen = (props) => {
     props.getExercisesActivities();
   }, []);
   console.log('activitiesExercises', activitiesExercises);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      //On Enter
+      // props.getExercises();
+      props.getExercisesActivities();
+      console.log('Enter');
+      //On Exit
+      return () => console.log('Exit');
+    }, []),
+  );
 
   const onSelectActivity = (item) => {
     props.selectActivities(item);

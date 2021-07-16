@@ -65,7 +65,7 @@ async function markFavouriteAPI(data) {
 
 function* markFavourity({data}) {
   try {
-    const response = yield call(markFavouriteAPI, data);
+    yield call(markFavouriteAPI, data);
     yield put(markFavouriteSuccess(data));
   } catch (e) {
     console.log(e);

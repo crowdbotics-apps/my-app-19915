@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {View, TouchableOpacity, ImageBackground, Image} from 'react-native';
 import {Content} from 'native-base';
 import {useFocusEffect} from '@react-navigation/native';
-
 //styles
 import styles from './styles';
 
@@ -40,14 +39,14 @@ const SmileExercises = (props) => {
   } = props;
 
   useEffect(() => {
-    props.getExercises();
+    //props.getExercises();
     props.getExercisesActivities();
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
       //On Enter
-      props.getExercises();
+      // props.getExercises();
       props.getExercisesActivities();
       console.log('Enter');
       //On Exit
@@ -60,7 +59,6 @@ const SmileExercises = (props) => {
       user: user.id,
       favorite_exercise: selectedActivity.id,
     };
-    console.log('data', data);
     props.markFavourite(data);
   };
 
@@ -130,7 +128,6 @@ const SmileExercises = (props) => {
               />
             </View>
           </Content>
-          {/* <Footer /> */}
         </DataAvailability>
       </ImageBackground>
     </>
@@ -144,7 +141,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getExercises: () => dispatch(getExercises()),
+  // getExercises: () => dispatch(getExercises()),
   getExercisesActivities: () => dispatch(getExercisesActivities()),
   markFavourite: (data) => dispatch(markFavourite(data)),
 });

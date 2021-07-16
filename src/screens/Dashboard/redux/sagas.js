@@ -76,13 +76,14 @@ function* updateSmileData({data}) {
       yield call(updateSmileDataAPI, data);
 
       const dashboardData = yield select(getDashboard);
+      var sumSeconds = second.reduce((a, b) => a + b, 0);
 
       let clonedData = {
         ...dashboardData,
         best_day: {...dashboardData.best_day},
         dashboard: {
           ...dashboardData.dashboard,
-          total_second: dashboardData.dashboard.total_second + second,
+          total_second: dashboardData.dashboard.total_second + sumSeconds,
           total_count: dashboardData.dashboard.total_count + count,
         },
       };

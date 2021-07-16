@@ -26,7 +26,6 @@ const StepThirdScreen = (props) => {
     navigation: {navigate},
   } = props;
 
-  const [dob, setDOB] = useState(new Date());
   const [dateText, setDateText] = useState('');
   const [selectedstyles, setSelectedstyles] = useState([]);
   const onSelectStyle = (i) => {
@@ -46,11 +45,6 @@ const StepThirdScreen = (props) => {
     }
     setSelectedstyles(array);
     //}
-  };
-
-  const onDateChange = (date) => {
-    setDOB(date);
-    setDateText(date);
   };
 
   const submitForm = () => {
