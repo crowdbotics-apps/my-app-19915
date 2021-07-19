@@ -21,7 +21,7 @@ import {Global, Layout, Images, Gutters, Fonts} from 'src/theme';
 import useForm from 'src/hooks/useForm';
 
 // utils
-// import validator from 'src/utils/validation';
+import validator from 'src/utils/validation';
 
 //action
 import {resetServerError} from 'src/screens/SignUp/redux/actions';
@@ -58,11 +58,11 @@ const SignUp = (props) => {
   const validationStateSchema = {
     email: {
       required: true,
-      //validator: validator.email,
+      validator: validator.email,
     },
     password: {
       required: true,
-      //validator: validator.password,
+      validator: validator.password,
     },
   };
 
@@ -73,7 +73,7 @@ const SignUp = (props) => {
     };
   }, []);
 
-  const assignValues = (fieldName, backendName, value) => {
+  const assignValues = (fieldName, value) => {
     serverErrors && props.resetServerError();
     handleOnChange(fieldName, value);
   };

@@ -24,7 +24,6 @@ const CameraScreen = (props) => {
   const [totalSeconds, setTotalSeconds] = useState([]);
 
   const onUpdateSeconds = () => {
-    console.log('X', totalSeconds);
     props.updateSmileData({
       user: user.id,
       second: totalSeconds,
