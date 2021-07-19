@@ -240,6 +240,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateSmileData: (data) => dispatch(updateSmileData(data)),
+  getDashboard: () => dispatch(getDashboard()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraScreen);
