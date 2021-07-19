@@ -128,13 +128,10 @@ const MyAccount = (props) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         setProfileImage(response.assets[0]);
-
-        // console.log('response', response.assets[0]);
       }
     });
   };
   console.log('profileData', profileData);
-  // console.log('Base64 Image', `data:${profileImage.type};base64,${profileImage.base64}`)
   return (
     <>
       <Header

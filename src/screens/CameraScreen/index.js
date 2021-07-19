@@ -93,14 +93,14 @@ const CameraScreen = (props) => {
     justifyContentEvenly,
     justifyContentBetween,
   } = Layout;
-  const {small2xTMargin, smallHPadding, smallBMargin} = Gutters;
+  const {mediumTMargin, smallHPadding, smallBMargin} = Gutters;
   const {
-    textWrapper,
-    camButtonsWrapper,
     touch,
     mediaImage,
+    textWrapper,
     filtersWrapper,
     subTextWrapper,
+    camButtonsWrapper,
   } = styles;
 
   const filterImages = ['filterimg1', 'filterimg2', 'filterimg3', 'filterimg4'];
@@ -111,7 +111,7 @@ const CameraScreen = (props) => {
       return;
     }
     await faces.map((face) => {
-      if (face.smilingProbability > 0.299) {
+      if (face.smilingProbability > 0.289) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {
@@ -130,100 +130,105 @@ const CameraScreen = (props) => {
   };
   console.log('totalSeconds', totalSeconds);
   return (
-    <View style={styles.container}>
-      <RNCamera
-        style={styles.preview}
-        type={RNCamera.Constants.Type.front}
-        flashMode={RNCamera.Constants.FlashMode.off}
-        androidCameraPermissionOptions={{
-          title: 'Permission to use camera',
-          message: 'We need your permission to use your camera',
-          buttonPositive: 'Ok',
-          buttonNegative: 'Cancel',
-        }}
-        androidRecordAudioPermissionOptions={{
-          title: 'Permission to use audio recording',
-          message: 'We need your permission to use your audio',
-          buttonPositive: 'Ok',
-          buttonNegative: 'Cancel',
-        }}
-        faceDetectionClassifications={
-          RNCamera.Constants.FaceDetection.Classifications.all
-        }
-        faceDetectionLandmarks={RNCamera.Constants.FaceDetection.Landmarks.all}
-        faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
-        onFacesDetected={onFacesDetected}>
-        <View
-          style={[row, small2xTMargin, smallHPadding, justifyContentBetween]}>
-          <View style={fill}>
-            {!isSmiling && (
-              <TouchableOpacity onPress={onUpdateSeconds}>
-                <Image source={Images.camarrowback} />
-              </TouchableOpacity>
-            )}
-          </View>
-          <View style={[fill, alignItemsEnd]}>
-            <SafeAreaView>{isSmiling && <Text text="Smiling" />}</SafeAreaView>
-          </View>
-        </View>
-        <View style={[fill, justifyContentEnd]}>
-          {active === 0 && (
-            <View style={[center, justifyContentAround, row, filtersWrapper]}>
-              {filterImages.map((image, i) => (
-                <TouchableOpacity key={i}>
-                  <Image source={Images[image]} />
+    <SafeAreaView style={fill}>
+      <View style={styles.container}>
+        <RNCamera
+          style={styles.preview}
+          type={RNCamera.Constants.Type.front}
+          flashMode={RNCamera.Constants.FlashMode.off}
+          androidCameraPermissionOptions={{
+            title: 'Permission to use camera',
+            message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          androidRecordAudioPermissionOptions={{
+            title: 'Permission to use audio recording',
+            message: 'We need your permission to use your audio',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          faceDetectionClassifications={
+            RNCamera.Constants.FaceDetection.Classifications.all
+          }
+          faceDetectionLandmarks={
+            RNCamera.Constants.FaceDetection.Landmarks.all
+          }
+          faceDetectionMode={RNCamera.Constants.FaceDetection.Mode.fast}
+          onFacesDetected={onFacesDetected}>
+          <View
+            style={[row, mediumTMargin, smallHPadding, justifyContentBetween]}>
+            <View style={fill}>
+              {!isSmiling && (
+                <TouchableOpacity onPress={onUpdateSeconds}>
+                  <Image source={Images.camarrowback} />
                 </TouchableOpacity>
-              ))}
+              )}
             </View>
-          )}
+            <View style={[fill, alignItemsEnd]}>
+              {isSmiling && <Text text="Smiling" />}
+            </View>
+          </View>
+          <View style={[fill, justifyContentEnd]}>
+            {active === 0 && (
+              <View style={[center, justifyContentAround, row, filtersWrapper]}>
+                {filterImages.map((image, i) => (
+                  <TouchableOpacity key={i}>
+                    <Image source={Images[image]} />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
 
-          {active === 1 && (
-            <View style={[center, justifyContentAround, row, subTextWrapper]}>
-              {category.map((screen, i) => (
+            {active === 1 && (
+              <View style={[center, justifyContentAround, row, subTextWrapper]}>
+                {category.map((screen, i) => (
+                  <TouchableOpacity
+                    key={i}
+                    style={touch}
+                    onPress={() => onSelectStyle(i)}>
+                    <Image
+                      style={[smallBMargin, mediaImage]}
+                      source={
+                        Images[
+                          selectedStyles.includes(i)
+                            ? screen.imagedark
+                            : screen.imagelight
+                        ]
+                      }
+                    />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+
+            <View style={[textWrapper, center, justifyContentAround, row]}>
+              {filter.map((screen, i) => (
                 <TouchableOpacity
                   key={i}
                   style={touch}
-                  onPress={() => onSelectStyle(i)}>
-                  <Image
-                    style={[smallBMargin, mediaImage]}
-                    source={
-                      Images[
-                        selectedStyles.includes(i)
-                          ? screen.imagedark
-                          : screen.imagelight
-                      ]
-                    }
+                  onPress={() => setActive(i)}>
+                  <Text
+                    text={screen.text}
+                    color={active === i ? 'malibu' : 'secondary'}
+                    medium
+                    style={textMedium}
                   />
                 </TouchableOpacity>
               ))}
             </View>
-          )}
-
-          <View style={[textWrapper, center, justifyContentAround, row]}>
-            {filter.map((screen, i) => (
-              <TouchableOpacity
-                key={i}
-                style={touch}
-                onPress={() => setActive(i)}>
-                <Text
-                  text={screen.text}
-                  color={active === i ? 'malibu' : 'secondary'}
-                  medium
-                  style={textMedium}
-                />
-              </TouchableOpacity>
-            ))}
+            <View
+              style={[row, center, justifyContentEvenly, camButtonsWrapper]}>
+              {bottomButton.map((screen, i) => (
+                <TouchableOpacity key={i}>
+                  <Image source={Images[screen.image]} />
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
-          <View style={[row, center, justifyContentEvenly, camButtonsWrapper]}>
-            {bottomButton.map((screen, i) => (
-              <TouchableOpacity key={i}>
-                <Image source={Images[screen.image]} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-      </RNCamera>
-    </View>
+        </RNCamera>
+      </View>
+    </SafeAreaView>
   );
 };
 
