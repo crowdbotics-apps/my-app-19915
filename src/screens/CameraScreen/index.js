@@ -23,14 +23,14 @@ const CameraScreen = (props) => {
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState([]);
 
-  const onUpdateSeconds = async () => {
+  const onUpdateSeconds = () => {
     console.log('X', totalSeconds);
     props.updateSmileData({
       user: user.id,
       second: totalSeconds,
       count: totalSeconds.length,
     });
-    await props.getDashboard();
+    props.getDashboard();
     props.navigation.goBack();
   };
 
