@@ -73,11 +73,6 @@ const SignUp = (props) => {
     };
   }, []);
 
-  const assignValues = (fieldName, value) => {
-    serverErrors && props.resetServerError();
-    handleOnChange(fieldName, value);
-  };
-
   const submitForm = () => {
     const data = {
       email: state.email.value,
@@ -105,6 +100,11 @@ const SignUp = (props) => {
   };
 
   const {state, handleOnChange} = useForm(stateSchema, validationStateSchema);
+
+  const assignValues = (fieldName, value) => {
+    serverErrors && props.resetServerError();
+    handleOnChange(fieldName, value);
+  };
 
   const {titleSmall} = Fonts;
   const {row, fill, center, alignItemsCenter, fullSize} = Layout;
@@ -161,7 +161,7 @@ const SignUp = (props) => {
               <Image source={Images.email} style={regularHMargin} />
               <Input
                 placeholder="ENTER EMAIL"
-                onChangeText={(value) => assignValues('email', 'email', value)}
+                onChangeText={(value) => assignValues('email', value)}
               />
             </View>
             {state.email.error ? (
@@ -175,9 +175,7 @@ const SignUp = (props) => {
               <Input
                 secureTextEntry
                 placeholder="ENTER PASSWORD"
-                onChangeText={(value) =>
-                  assignValues('password', 'password', value)
-                }
+                onChangeText={(value) => assignValues('password', value)}
               />
             </View>
             {state.password.error ? (
