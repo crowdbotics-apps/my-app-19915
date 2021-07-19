@@ -21,17 +21,9 @@ import {
   DataAvailability,
 } from 'src/components';
 import {Gutters, Images, Layout, Fonts, Colors} from 'src/theme';
-const {
-  mediumVMargin,
-  smallBMargin,
-  smallLMargin,
-  mediumHPadding,
-  largeHMargin,
-  largeXTMargin,
-} = Gutters;
+const {mediumVMargin, smallBMargin, smallLMargin, mediumHPadding} = Gutters;
 
-const {backImage, midWrapper, progressWrapper, dataWrapper, upgradeNow} =
-  styles;
+const {midWrapper, progressWrapper, dataWrapper} = styles;
 
 const {
   row,
@@ -43,48 +35,30 @@ const {
   positionA,
 } = Layout;
 
-const {titleSmall, textLarge, textMedium} = Fonts;
+const {titleSmall, textMedium} = Fonts;
 
 const ActivitiesScreen = (props) => {
   const {
     profileData,
-    requesting,
     activitiesExercises,
     navigation: {navigate},
   } = props;
-  const Activities = [
-    {title: 'Smile Activity 1', text: 'Recommened for you', favourity: true},
-    {title: 'Smile Activity 2', text: 'Recommened for you'},
-    {title: 'Smile Activity 3', text: 'Recommened for you'},
-    {title: 'Smile Activity 4', text: 'Recommened for you', favourity: true},
-  ];
-
-  const Activity = [
-    {title: 'Smile Activity 1', text: 'Recommened for you'},
-    {title: 'Smile Activity 2', text: 'Recommened for you'},
-    {title: 'Smile Activity 3', text: 'Recommened for you'},
-    {title: 'Smile Activity 4', text: 'Recommened for you'},
-  ];
 
   useEffect(() => {
     props.getExercisesActivities();
   }, []);
-  console.log('activitiesExercises', activitiesExercises);
 
   useFocusEffect(
     React.useCallback(() => {
       //On Enter
-      // props.getExercises();
       props.getExercisesActivities();
-      console.log('Enter');
       //On Exit
-      return () => console.log('Exit');
+      return () => null;
     }, []),
   );
 
   const onSelectActivity = (item) => {
     props.selectActivities(item);
-    console.log('selectedItem', item);
   };
   return (
     <>

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-// import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import {Content} from 'native-base';
 import {
   View,
@@ -32,10 +32,12 @@ const Dashboard = (props) => {
     navigation: {navigate},
   } = props;
 
-  // const callback = (data) => {
-  //   props.getDashboard();
-  //   props.getProfile();
-  // };
+  useFocusEffect(
+    React.useCallback(() => {
+      props.getDashboard();
+      return () => null;
+    }, []),
+  );
 
   useEffect(() => {
     props.getDashboard();

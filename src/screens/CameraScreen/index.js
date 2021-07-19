@@ -13,7 +13,7 @@ import styles from './styles';
 import {Layout, Images, Gutters, Fonts} from 'src/theme';
 
 //actions
-import {updateSmileData} from '../Dashboard/redux/actions';
+import {updateSmileData, getDashboard} from '../Dashboard/redux/actions';
 
 const CameraScreen = (props) => {
   const {user} = props;
@@ -23,13 +23,14 @@ const CameraScreen = (props) => {
   const [isSmiling, setIsSmiling] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState([]);
 
-  const onUpdateSeconds = () => {
+  const onUpdateSeconds = async () => {
     console.log('X', totalSeconds);
     props.updateSmileData({
       user: user.id,
       second: totalSeconds,
       count: totalSeconds.length,
     });
+    await props.getDashboard();
     props.navigation.goBack();
   };
 
@@ -111,7 +112,7 @@ const CameraScreen = (props) => {
       return;
     }
     await faces.map((face) => {
-      if (face.smilingProbability > 0.289) {
+      if (face.smilingProbability > 0.2999) {
         !isSmiling && setIsSmiling(true);
         setTimeArray([...timeArray, new Date()]);
       } else {
