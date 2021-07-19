@@ -12,17 +12,17 @@ import java.util.List;
 import java.lang.reflect.InvocationTargetException;
 import com.my_app_19915.generated.BasePackageList;
 
-//unimodule
-import java.util.Arrays; 
-import org.unimodules.adapters.react.ModuleRegistryAdapter;
-import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-import org.unimodules.core.interfaces.SingletonModule;
+// //unimodule
+// import java.util.Arrays; 
+// import org.unimodules.adapters.react.ModuleRegistryAdapter;
+// import org.unimodules.adapters.react.ReactModuleRegistryProvider;
+// import org.unimodules.core.interfaces.SingletonModule;
 
 
 public class MainApplication extends androidx.multidex.MultiDexApplication implements ReactApplication {
 
 //unimodule
-private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
+// private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
 
   private final ReactNativeHost mReactNativeHost =
@@ -39,11 +39,12 @@ private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactMod
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
 
-          // Add unimodules
-          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
-            new ModuleRegistryAdapter(mModuleRegistryProvider)
-          );
-          packages.addAll(unimodules);
+          // // Add unimodules
+          // List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+          //   new ModuleRegistryAdapter(mModuleRegistryProvider)
+          // );
+          // packages.addAll(unimodules);
+
           return packages;
         }
 
